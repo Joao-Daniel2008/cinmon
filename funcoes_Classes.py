@@ -3,7 +3,7 @@ import imagens
 import variaveis
 import objetos
 import copy
-
+#joalucaasmacio
 import time
 import random
 #betas
