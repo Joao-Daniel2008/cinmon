@@ -101,6 +101,12 @@ y = pygame.transform.scale(y, (largural, altural))
 z = pygame.image.load(caminho_z)
 z = pygame.transform.scale(z, (largural, altural))
 
+caminho_tela_carregamento = BASE_DIR / "assets" / "tela_carregamento.png"
+tela_carregamento = pygame.image.load(caminho_tela_carregamento)
+tela_carregamento = pygame.transform.scale(tela_carregamento, (largura, altura))
+
+
+
 caminho_fundo = BASE_DIR / "assets" / "batalha" /"fundo.png"
 fundo = pygame.image.load(caminho_fundo)
 fundo = pygame.transform.scale(fundo, (largura, altura))
