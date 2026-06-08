@@ -1,12 +1,24 @@
 {
-    "posicaox": 576,
+    "posicaox": 704,
     "posicaoy": 192,
     "posicao": [
-        576,
+        704,
         192
     ],
-    "equipe": [],
-    "mochila": "",
+    "equipe": [
+        [
+            "goku",
+            0,
+            12
+        ]
+    ],
+    "mochila": [
+        [
+            "crachabola",
+            2
+        ],
+        0
+    ],
     "treinadores_derrotados": [],
     "posobj": [
         [
@@ -24,15 +36,11 @@
         [
             715,
             20
-        ],
-        [
-            843,
-            20
         ]
     ],
-    "escolhaioda": false,
+    "escolhaioda": true,
     "gramas": 0,
     "gramasx": [],
     "gramasy": [],
-    "gramas4": []
+    "gramas4": 0
 }
