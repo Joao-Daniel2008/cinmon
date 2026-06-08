@@ -6,7 +6,7 @@ import copy
 
 import time
 import random
-
+#betas
 pygame.mixer.init()
 som_atk = pygame.mixer.Sound(imagens.caminho_atk)
 som_atk.set_volume(0.8)
