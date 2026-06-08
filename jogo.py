@@ -204,22 +204,11 @@ balao2 = False
 escolhaioda = False#
 falaioda = False#
 falaioda_2 = False
-'''
-escolha = cimons.rayquaza.clonar()
-escolha.xp = 1000
-bl, bla, escolha = escolha.subir_nivel()
 
-equipe = funcoes_Classes.equipe(1, 1, 0, [escolha])
-equipe.curar()
-equipe.adicionar(cimons.mewtwo)
 
-#equipe.lista[1].xp = 30
-#equipe.lista[1].subir_nivel()
 
-mochila = funcoes_Classes.mochila([imagens.crachabola], [0], 30)
-estado['mochila'] = [['crachabola', 0], 30]
-#equipe.curar()
-'''
+
+
 
 while rodando:
     for evento in pygame.event.get():
@@ -229,56 +218,62 @@ while rodando:
             if evento.key == pygame.K_s:
                 salvarJogo(estado)
             if evento.key == pygame.K_c:
-                estado = carregar_jogo()
-                estado['equipe'] = tuple(estado['equipe'])
-                for n in estado['equipe']:
-                    n = tuple(n)
-                if len(estado['equipe']) > 0:
-                    equipe = funcoes_Classes.equipe(0, 0, 0, [])
-                    for n in range(len(estado['equipe'])):
-                        for k in cimons.cimons:
-                            if estado['equipe'][n][0] == k.nome:
-                                equipe.adicionar(k)
-                                equipe.lista[n].xp = estado['equipe'][n][1]
-                                equipe.lista[n].subir_nivel()
-                                equipe.lista[n].hp = estado['equipe'][n][2]
-                                if equipe.lista[n].hp <= 0:
-                                    equipe.derrotados += 1
-
-                if estado['mochila'] != '':
-                    mochila = funcoes_Classes.mochila([imagens.crachabola], [0], 0)
-                    mochila.dinheiro = estado['mochila'][1]
-                    for n in range(int(len(estado['mochila']) - 1)):
-                        mochila.listaDeQtd[n] = estado['mochila'][n][1]
+                try:
+                    save = estado
+                    estado = carregar_jogo()
+                    if estado == None:
+                        estado = save
                     
-                escolhaioda = estado['escolhaioda']
-                for n in range(len(estado['posobj'])):
-                    estado['posobj'][n] = tuple(estado['posobj'][n])
-                
-                variaveis.gramasatual = tuple(imagens.grama for _ in range(estado['gramas']))
-                variaveis.gramasxatual = tuple(estado['gramasx'])
-                variaveis.gramasyatual = tuple(estado['gramasy'])
-                variaveis.gramas4_atual = []
-                for n in range(len(variaveis.gramasxatual)):
-                    variaveis.gramas4_atual.append(variaveis.gramasatual[n].get_rect())
-                    variaveis.gramas4_atual[n].x = variaveis.gramasxatual[n]
-                    variaveis.gramas4_atual[n].y = variaveis.gramasyatual[n]
+                    estado['equipe'] = tuple(estado['equipe'])
+                    for n in estado['equipe']:
+                        n = tuple(n)
+                    if len(estado['equipe']) > 0:
+                        equipe = funcoes_Classes.equipe(0, 0, 0, [])
+                        for n in range(len(estado['equipe'])):
+                            for k in cimons.cimons:
+                                if estado['equipe'][n][0] == k.nome:
+                                    equipe.adicionar(k)
+                                    equipe.lista[n].xp = estado['equipe'][n][1]
+                                    equipe.lista[n].subir_nivel()
+                                    equipe.lista[n].hp = estado['equipe'][n][2]
+                                    if equipe.lista[n].hp <= 0:
+                                        equipe.derrotados += 1
 
-                variaveis.posobjatual = tuple(estado['posobj'])
-                variaveis.posx = estado['posicaox']
-                variaveis.posy = estado['posicaoy']
-                player.rect.x = estado['posicaox']
-                player.rect.y = estado['posicaoy']
-                player.rect.x = estado['posicaox']
-                player.rect.y = estado['posicaoy']
+                    if estado['mochila'] != '':
+                        mochila = funcoes_Classes.mochila([imagens.crachabola], [0], 0)
+                        mochila.dinheiro = estado['mochila'][1]
+                        for n in range(int(len(estado['mochila']) - 1)):
+                            mochila.listaDeQtd[n] = estado['mochila'][n][1]
+                        
+                    escolhaioda = estado['escolhaioda']
+                    for n in range(len(estado['posobj'])):
+                        estado['posobj'][n] = tuple(estado['posobj'][n])
+                    
+                    variaveis.gramasatual = tuple(imagens.grama for _ in range(estado['gramas']))
+                    variaveis.gramasxatual = tuple(estado['gramasx'])
+                    variaveis.gramasyatual = tuple(estado['gramasy'])
+                    variaveis.gramas4_atual = []
+                    for n in range(len(variaveis.gramasxatual)):
+                        variaveis.gramas4_atual.append(variaveis.gramasatual[n].get_rect())
+                        variaveis.gramas4_atual[n].x = variaveis.gramasxatual[n]
+                        variaveis.gramas4_atual[n].y = variaveis.gramasyatual[n]
 
-                equipe1.curar()
-                equipe2.curar()
-                equipe3.curar()
-                equipe4.curar()
-                
-                cenario1, cenario2, cenario3, cenario4, cenario5, cenario6, centrocin, loja, cenario9 = cenario(variaveis.posobjatual)
+                    variaveis.posobjatual = tuple(estado['posobj'])
+                    variaveis.posx = estado['posicaox']
+                    variaveis.posy = estado['posicaoy']
+                    player.rect.x = estado['posicaox']
+                    player.rect.y = estado['posicaoy']
+                    player.rect.x = estado['posicaox']
+                    player.rect.y = estado['posicaoy']
 
+                    equipe1.curar()
+                    equipe2.curar()
+                    equipe3.curar()
+                    equipe4.curar()
+                    
+                    cenario1, cenario2, cenario3, cenario4, cenario5, cenario6, centrocin, loja, cenario9 = cenario(variaveis.posobjatual)
+                except:
+                    print('ERRO ERRO')
 
         
     tecla = pygame.key.get_pressed()

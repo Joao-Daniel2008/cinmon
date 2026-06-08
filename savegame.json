@@ -1,62 +1,38 @@
 {
-    "posicaox": 384,
-    "posicaoy": 128,
+    "posicaox": 576,
+    "posicaoy": 192,
     "posicao": [
-        384,
-        128
+        576,
+        192
     ],
-    "equipe": [
-        [
-            "goku",
-            20,
-            2
-        ]
-    ],
-    "mochila": [
-        [
-            "crachabola",
-            2
-        ],
-        0
-    ],
+    "equipe": [],
+    "mochila": "",
     "treinadores_derrotados": [],
     "posobj": [
         [
-            576,
-            192
+            448,
+            0
         ],
         [
-            640,
+            576,
             0
+        ],
+        [
+            587,
+            20
+        ],
+        [
+            715,
+            20
+        ],
+        [
+            843,
+            20
         ]
     ],
-    "escolhaioda": true,
-    "gramas": 11,
-    "gramasx": [
-        64,
-        128,
-        192,
-        320,
-        384,
-        448,
-        512,
-        320,
-        384,
-        448,
-        512
-    ],
-    "gramasy": [
-        64,
-        64,
-        64,
-        256,
-        256,
-        256,
-        256,
-        192,
-        192,
-        192,
-        192
-    ],
-    "gramas4": 11
+    "escolhaioda": false,
+    "gramas": 0,
+    "gramasx": [],
+    "gramasy": [],
+    "gramas4": []
 }
