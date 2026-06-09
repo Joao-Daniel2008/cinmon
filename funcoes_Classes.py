@@ -924,6 +924,7 @@ def selvagens_do_cenario(cenario):
                 selvagens.append(cimons.goku)
                 selvagens.append(cimons.lupi)
             selvagens.append(cimons.mclovin)
+            selvagens.append(cimons.naruto)
         selvagens.append(cimons.mewtwo)
     elif cenario == imagens.cenario9:
         for n in range(4):

@@ -110,6 +110,7 @@ def cenario(posobj):
         variaveis.listatual = variaveis.lista9
         variaveis.listaobjatual = variaveis.listaobj9
     return cenario1, cenario2, cenario3, cenario4, cenario5, cenario6, centrocin, loja, cenario9
+
 pygame.init()
 pygame.mixer.init()
 
@@ -209,7 +210,12 @@ balao2 = False
 escolhaioda = False#
 falaioda = False#
 falaioda_2 = False
-
+'''
+equipe = funcoes_Classes.equipe(1, 1, 0, [cimons.naruto.clonar()])
+mochila = funcoes_Classes.mochila([imagens.crachabola], [0], 0)
+equipe.lista[0].xp = 209
+bla, bla2, equipe.lista[0] =equipe.lista[0].subir_nivel()
+'''
 
 
 
