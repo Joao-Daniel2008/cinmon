@@ -360,7 +360,7 @@ def troca_dupla(idplayer, conexao):
 
 
 def gerenciar_clientes(conexao, endereco, idplayer):
-    global cimons, escolhas_turno, outra_decisao, cimons1, condicao_turno
+    global cimons, escolhas_turno, outra_decisao, cimons1, condicao_turno, comeco
 
 
     print(f'NOVA CONEXAO: {endereco}')
@@ -381,7 +381,8 @@ def gerenciar_clientes(conexao, endereco, idplayer):
             if decisao['evento'] == 'COMECO' or decisao['evento'] == 'TROCA':
                 if decisao['evento'] == 'TROCA':
                     cimons1['evento'] = 'TROCA'
-                else:
+                elif comeco:
+                    comeco = False
                     cimons1[idplayer]['qtd'] = decisao['qtd']
                 cimons1[idplayer]['nome'] = decisao['nome']
                 cimons1[idplayer]['nivel'] = decisao['nivel']
@@ -422,7 +423,7 @@ def gerenciar_clientes(conexao, endereco, idplayer):
 
 
 
-
+comeco = True
 HOST='localhost'
 PORTA=5555
 

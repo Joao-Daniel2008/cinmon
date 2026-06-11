@@ -1217,7 +1217,7 @@ while rodando:
                         aux1x = int(270 * (escolhido.xp / (escolhido.nivel * 10))//1)
                         auxxp1 = pygame.transform.scale(imagens.auxxp, (aux1x, 10))
                         evento = 'TROCA' if (not morto) else 'COMECO'
-                        meu_pacote = {'evento': evento, 'qtd': sum(1 if equipe.lista[n].hp > 0 else 0 for n in range(len(equipe.lista))), 'nome': escolhido.nome, 'nivel': escolhido.nivel, 'hp': escolhido.hp}
+                        meu_pacote = {'evento': evento, 'nome': escolhido.nome, 'nivel': escolhido.nivel, 'hp': escolhido.hp}
                         servidor.sendall(json.dumps(meu_pacote).encode('utf-8'))
                         funcoes_Classes.terminal(janela, segundo, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
                         funcoes_Classes.rodarpalavra(funcoes_Classes.palavra('aguardando adversario'), True, janela)
