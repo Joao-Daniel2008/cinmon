@@ -1,6 +1,6 @@
 import pygame
 import funcoes_Classes
-from imagens import imagens
+from imagens import imagens_cinmons as imagens
 import pygame
 import funcoes_Classes
 

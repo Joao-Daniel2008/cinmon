@@ -1,14 +1,25 @@
 import pygame
+import sys
+import json
+import os
+
+from time import sleep
+
+
+pygame.init()
+pygame.mixer.init()
+pygame.display.set_caption('CinMón')
+janela = pygame.display.set_mode((1024, 512))
+
+
 import imagens
+imagens.carregar()
+
+
 import variaveis
 import objetos
 import funcoes_Classes
 import cimons
-import json
-import os
-import sys
-
-from time import sleep
 
 # 1. Caminho para o SAVE (Pasta real onde o .exe ou .py está)
 if getattr(sys, 'frozen', False):
@@ -37,10 +48,8 @@ estado = {
     'gramas4': []
 }
 
-janela = pygame.display.set_mode((variaveis.largura, variaveis.altura))
-
 def salvarJogo(estado):
-#Transforma o dicionário em texto e salva em um arquivo.
+    #Transforma o dicionário em texto e salva em um arquivo.
     # O 'w' significa 'write' (escrever/sobrescrever)
     with open(ARQUIVO_SAVE, 'w') as arquivo:
         json.dump(estado, arquivo, indent=4) # indent=4 deixa o arquivo formatado e fácil de ler
@@ -49,10 +58,55 @@ def salvarJogo(estado):
     funcoes_Classes.rodarpalavra(funcoes_Classes.palavra('jogo salvo com sucesso'), False, janela)
     sleep(1)
 
+def menu_principal(janela, fundo_menu, imagem_botoes):
+    x = (1500 - imagem_botoes.get_width()) // 2
+    y = 260
+
+    rect_carregar = pygame.Rect(x + 20, y,      imagem_botoes.get_width() - 40, 45)
+    rect_novo     = pygame.Rect(x + 20, y + 45, imagem_botoes.get_width() - 40, 50)
+
+
+    
+
+
+    no_menu = True
+    escolha = None
+
+    while no_menu:
+        for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+            if evento.type == pygame.MOUSEBUTTONDOWN:
+                mouse = pygame.mouse.get_pos()
+                print(f"Clicou em: {mouse}")
+                print(f"rect_carregar: {rect_carregar}")
+                print(f"rect_novo: {rect_novo}")
+
+                if rect_carregar.collidepoint(mouse):
+                    print(f"Procurando save em: {ARQUIVO_SAVE}")
+                    print(f"Existe: {os.path.exists(ARQUIVO_SAVE)}")
+                    if os.path.exists(ARQUIVO_SAVE):
+                        escolha = 'carregar'
+                        no_menu = False
+                    else:
+                        print("Nenhum save encontrado!")
+
+                elif rect_novo.collidepoint(mouse):
+                    escolha = 'novo'
+                    no_menu = False
+        janela.blit(fundo_menu, (0, 0))
+        janela.blit(imagem_botoes, (x, y))
+        pygame.display.update()
+
+    return escolha
+
+
+
 
 def carregar_jogo():
-    """Lê o arquivo de texto e transforma de volta em um dicionário."""
-    # Primeiro checamos se o arquivo existe para o jogo não dar erro
+
     if os.path.exists(ARQUIVO_SAVE):
         # O 'r' significa 'read' (ler)
         with open(ARQUIVO_SAVE, 'r') as arquivo:
@@ -61,7 +115,7 @@ def carregar_jogo():
         return estado_recuperado
     else:
         print("Nenhum save encontrado. Iniciando um jogo novo.")
-        return None # Retorna None se não existir save
+        return None 
     
 def cenario(posobj):
     cenario1 = False
@@ -111,10 +165,8 @@ def cenario(posobj):
         variaveis.listaobjatual = variaveis.listaobj9
     return cenario1, cenario2, cenario3, cenario4, cenario5, cenario6, centrocin, loja, cenario9
 
-pygame.init()
-pygame.mixer.init()
 
-pygame.display.set_caption('CinMón')
+
 
 
 
@@ -149,7 +201,6 @@ for n in range(len(equipe4.lista)):
         equipe4.lista[n].xp += 50 
     equipe4.lista[n].subir_nivel()
 equipe4.curar()
-
 
 #treinador = treinador2
 #equipe_2 = equipe2
@@ -210,6 +261,7 @@ balao2 = False
 escolhaioda = False#
 falaioda = False#
 falaioda_2 = False
+
 '''
 equipe = funcoes_Classes.equipe(1, 1, 0, [cimons.naruto.clonar()])
 mochila = funcoes_Classes.mochila([imagens.crachabola], [0], 0)
@@ -217,8 +269,12 @@ equipe.lista[0].xp = 209
 bla, bla2, equipe.lista[0] =equipe.lista[0].subir_nivel()
 '''
 
+escolha_menu = menu_principal(janela, imagens.fundo_menu, imagens.botoes_menu)
 
-
+if escolha_menu == 'novo':
+    carregar_save = False
+elif escolha_menu == 'carregar':
+    carregar_save = True
 
 
 while rodando:
@@ -638,12 +694,16 @@ while rodando:
                     if batalha:
                         musicaB = True
                         musicaP = False
-            '''
+
+          '''
             for j in variaveis.listaobjatual:
                 pygame.draw.rect(janela, (255, 0, 0), j, 4)
             for j in variaveis.gramas4_atual:
                 pygame.draw.rect(janela, (0, 255, 0), j, 4)
             '''
+
+
+
     elif batalha:
         saveCenario = fundo
         fundo = imagens.fundo
