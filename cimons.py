@@ -54,4 +54,4 @@ narutobeast = funcoes_Classes.Cimons('naruto beast', 'lutador', imagens['naruto 
 naruto = funcoes_Classes.Cimons('naruto', 'lutador', imagens['naruto']['imagemc'], imagens['naruto']['imagemf'], imagens['naruto']['mini'], 12, 12, 12, 1, 0, {'ataque1':investida, 'ataque2':rasengan}, [0, 0, chackra, 0, 0, furia], [narutobeast, 7], 1.15)
 
 
-cimons = [lupi, rayquaza, gokussj, goku, rath, mewtwo, mclovin, homelander, naruto]
+cimons = [lupi, rayquaza, gokussj, goku, rath, mewtwo, mclovin, homelander, narutobeast, naruto]
