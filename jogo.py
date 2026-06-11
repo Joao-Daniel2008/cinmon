@@ -2,6 +2,10 @@ import pygame
 import sys
 import json
 import os
+import socket
+import threading
+import queue
+
 
 from time import sleep
 
@@ -165,6 +169,41 @@ def cenario(posobj):
         variaveis.listaobjatual = variaveis.listaobj9
     return cenario1, cenario2, cenario3, cenario4, cenario5, cenario6, centrocin, loja, cenario9
 
+def gerenciando_servidor(servidor):
+    global fila_receber
+
+    while True:
+        try:
+            dados = servidor.recv(2048).decode('utf-8')
+            if not dados:
+                print('SERVIDOR FECHOU')
+                servidor.close()
+                break
+            pacote = json.loads(dados)
+            fila_receber.put(pacote)
+
+        except:
+            print('ERRO NO SERVIDOR')
+            servidor.close()
+            break
+
+
+
+
+
+def iniciar_servidor(HOST):
+    print('CONECTANDO AO SERVIDOR...')
+    servidor = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    try:
+        servidor.connect((HOST, 5555))
+    except:
+        print('ERRO AO CONECTAR NO SERVIDOR')
+    
+    thread = threading.Thread(target=(gerenciando_servidor), args=(servidor, ), daemon=True)
+    thread.start()
+    return servidor
+
+
 
 
 
@@ -277,6 +316,12 @@ elif escolha_menu == 'carregar':
     carregar_save = True
 
 
+server = False
+server_ativo = False
+
+
+
+
 while rodando:
     for evento in pygame.event.get():
         if evento.type == pygame.QUIT:
@@ -354,7 +399,7 @@ while rodando:
         funcoes_Classes.musicaBatalha()
         musicaB = False
 
-    if (not batalha):
+    if (not batalha) and (not server) and (not server_ativo):
         if cenario1:
             fundo = imagens.cenario1
         elif cenario2:
@@ -397,6 +442,8 @@ while rodando:
                 es = False
                 ci = False
                 ba = True
+            elif tecla[pygame.K_RETURN] and escolhaioda:
+                server = True
 
             if di:
                 if andada == 0:
@@ -737,9 +784,90 @@ while rodando:
             for n in ([equipe1, equipe2, equipe3, equipe4]):
                 if (not n.timevivo()) and treinador not in estado['treinadores_derrotados']:
                     estado['treinadores_derrotados'].append(indice)
+    elif server or server_ativo:
+        if server:
+            rodar = True
+            server = False
+            server_ativo = True
+        funcoes_Classes.limpar(janela, imagens.balaofala)
+        funcoes_Classes.rodarpalavra(funcoes_Classes.palavra('Aguarde'), False, janela)
+        sleep(0.5)
+        lista = []
+        while rodar:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    rodar = False
+                    rodando = False
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RETURN:
+                        rodar = False
+                    elif event.key == pygame.K_BACKSPACE and len(lista) > 0:
+                        lista.pop()
+                    else:
+                        letra = event.unicode
+                        if letra.isprintable():
+                            letra = event.unicode
+                            lista.append(letra)
+
+            
+            janela.blit(imagens.balaofala, (64, 384))
+            frase = funcoes_Classes.palavra(f'HOST {''.join(lista)}')
+            HOST = ''.join(lista)
+            aux = 8
+            for letra in frase:
+                if letra != ' ':
+                    janela.blit(letra, (64 + aux, 400))
+                    aux += imagens.largural + 8
+                else:
+                    aux += imagens.largural + 16
+            pygame.display.update()
+        funcoes_Classes.limpar(janela, imagens.balaofala)
+        funcoes_Classes.rodarpalavra(funcoes_Classes.palavra('conectando ao servidor'), False, janela)
+        sleep(1)
+
+        servidor = iniciar_servidor(HOST)
+
+        funcoes_Classes.limpar(janela, imagens.balaofala)
+        funcoes_Classes.rodarpalavra(funcoes_Classes.palavra('conectado'), False, janela)
+        sleep(1)
+        funcoes_Classes.limpar(janela, imagens.balaofala)
+        funcoes_Classes.rodarpalavra(funcoes_Classes.palavra('procurando adversario'), False, janela)
+
+        aguardando = True
+        cin = equipe.lancar()
+        meu_pacote = {'evento': 'COMECO', 'nome': cin.nome, 'nivel': sum(n * 10 for n in range(1, cin.nivel)), 'hp': cin.hp}
+        fila_receber = queue.Queue()
+
+        try:
+            servidor.sendall(json.dumps(meu_pacote).encode('utf-8'))
+            while fila_receber.empty():
+                if aguardando:
+                    aguardando = False
+            pacote = fila_receber.get()
+            for cimon in cimons.cimons:
+                if cimon.nome == pacote['nome']:
+                    cin2 = cimon.clonar()
+                    cin2.xp = sum(n * 10 for n in range(1, pacote['nivel']))
+                    cin2.subir_nivel()
+                    cin2.hp = pacote['hp']
+                    online = True
+                    funcoes_Classes.limpar(janela, imagens.balaofala)
+                    funcoes_Classes.rodarpalavra(funcoes_Classes.palavra('adversario encontrado'), False, janela)
+
+        except:
+            print('ERRO AO ENVIAR DADOS AO SERVIDOR')
+            online = False
+            server = False
+            server_ativo = False
+
+        while online:
+            q = 0
+        
+
+
+    
 
 
 
-    print(variaveis.posx)
     pygame.display.update()
     sleep(0.1)

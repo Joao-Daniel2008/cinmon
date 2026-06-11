@@ -1,9 +1,9 @@
 {
     "posicaox": 576,
-    "posicaoy": 128,
+    "posicaoy": 192,
     "posicao": [
         576,
-        128
+        192
     ],
     "equipe": [
         [
@@ -42,5 +42,5 @@
     "gramas": 0,
     "gramasx": [],
     "gramasy": [],
-    "gramas4": 0
+    "gramas4": []
 }
