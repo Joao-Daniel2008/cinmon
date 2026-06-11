@@ -14,7 +14,6 @@ rasengan = funcoes_Classes.ataques('rasengan', 'normal', 'dano', 4, 4, 10, 10)
 
 #escuridao
 morder = funcoes_Classes.ataques('morder', 'escuridao', 'dano', 3, 3, 15, 15)
-superbad = funcoes_Classes.ataques('superbad', 'escuridao', 'selfatk', 0, 0, 5, 5)
 escuridao = funcoes_Classes.ataques('escuridao', 'escuridao', 'dano', 4, 4, 15, 15)
 
 #lutador
@@ -34,13 +33,17 @@ estrelas = funcoes_Classes.ataques('estrelas', 'psiquico', 'dano', 3, 3, 10, 10)
 #dragao
 furia = funcoes_Classes.ataques('furia', 'dragao', 'dano', 4, 4, 5, 5)
 dracmeteor = funcoes_Classes.ataques('dracmeteor', 'dragao', 'dano', 5, 5, 20, 20)
-enfurecer=funcoes_Classes.ataques('enfurecer', 'dragao', 'selfatk', 0, 0, 15, 15)
+enfurecer = funcoes_Classes.ataques('enfurecer', 'dragao', 'selfatk', 0, 0, 15, 15)
 
+ataques = [bater, kamehameha, explosao, rasengan, morder, escuridao,
+            investida, voadora, ventania, brasas, laser, estrelas, 
+            furia, dracmeteor, enfurecer]
 
 #selfatk
 aura = funcoes_Classes.ataques('aura', 'aura', 'selfatk', 0, 0, 15, 15)
 carregar = funcoes_Classes.ataques('carregar', 'normal', 'selfatk', 0, 0, 10, 10)
 chackra = funcoes_Classes.ataques('chakra', 'lutador', 'selfatk', 0, 0, 15, 15)
+superbad = funcoes_Classes.ataques('superbad', 'escuridao', 'selfatk', 0, 0, 5, 5)
 
 lupi = funcoes_Classes.Cimons('lupi', 'normal', imagens['lupi']['imagemc'], imagens['lupi']['imagemf'], imagens['lupi']['mini'], 11, 11, 11, 1, 0, {'ataque1':bater, 'ataque2': morder}, [voadora, 0, aura], [], 1)
 rayquaza = funcoes_Classes.Cimons('rayquaza', 'voador', imagens['rayquaza']['imagemc'], imagens['rayquaza']['imagemf'], imagens['rayquaza']['mini'], 14, 14, 14, 1, 0, {'ataque1':morder, 'ataque2':ventania}, [furia, 0, enfurecer], [], 1.25)

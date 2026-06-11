@@ -840,7 +840,7 @@ def animacao_ataque(janela, fundo, escolhido, sel, auxhp1, auxhp2, auxxp1, vertu
         janela.blit(imagens.molde3, (0, 384))
         if verturno:
             aux = 0
-            for k in palavra(f'{escolhido.nome} usou {ataque.nome}'):
+            for k in palavra(f'{escolhido.nome} usou {ataque}'):
                 if k != ' ':
                     janela.blit(k, (64 + aux, 400))
                     aux += 28
@@ -851,7 +851,7 @@ def animacao_ataque(janela, fundo, escolhido, sel, auxhp1, auxhp2, auxxp1, vertu
                 janela.blit(sel.imagemf, (variaveis.posx2 - imagens.largural - 32, variaveis.posy2 - imagens.altural - 32))
         else:
             aux = 0
-            for k in palavra(f'{sel.nome} usou {ataque.nome}'):
+            for k in palavra(f'{sel.nome} usou {ataque}'):
                 if k != ' ':
                     janela.blit(k, (64 + aux, 400))
                     aux += 28

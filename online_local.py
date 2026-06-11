@@ -7,35 +7,368 @@ escolhas_turno = {}
 cimons1 = {1: {}, 2: {}}
 jogou = 0
 outra_decisao = {1: '', 2: ''}
+primeira = False
 
-def resolver_turno(idplayer):
-    global cimons1, escolhas_turno
+def resolver_turno(idplayer, conexao):
+    global cimons1, escolhas_turno, primeira, jogou
 
     for cimon in cimons.cimons:
-        if cimons1[idplayer]['nome'] == cimon.nome:
+        if cimons1[1]['nome'] == cimon.nome:
             cimon1 = cimon.clonar()
-            cimon1.xp = sum(n * 10 for n in range(1, cimons1[idplayer]['nivel']))
+            cimon1.xp = sum(n * 10 for n in range(1, cimons1[1]['nivel']))
             cimon1.subir_nivel()
-            cimon1.hp = cimons1[idplayer]['hp']
+            cimon1.hp = cimons1[1]['hp']
     
     for cimon in cimons.cimons:
-        if cimons1[idplayer]['nome'] == cimon.nome:
+        if cimons1[2]['nome'] == cimon.nome:
             cimon2 = cimon.clonar()
-            cimon2.xp = sum(n * 10 for n in range(1, cimons1[idplayer]['nivel']))
+            cimon2.xp = sum(n * 10 for n in range(1, cimons1[2]['nivel']))
             cimon2.subir_nivel()
-            cimon2.hp = cimons1[idplayer]['hp']
+            cimon2.hp = cimons1[2]['hp']
+
+    for ataque in cimons.ataques:
+        if escolhas_turno[1] == ataque.nome:
+            golpe_p1 = ataque
+
+    for ataque in cimons.ataques:
+        if escolhas_turno[2] == ataque.nome:
+            golpe_p2 = ataque
+
+    if (not primeira):
+        primeira = True
+        cimons1[2]['hp'] -= int(((int(golpe_p1.dano * golpe_p1.efetivo(cimon2)//1)) * cimon1.status)//1)
+        if cimons1[2]['hp'] > 0:
+            cimons1[1]['hp'] -= int(((int(golpe_p2.dano * golpe_p2.efetivo(cimon1)//1)) * cimon2.status)//1)
+    else:
+        primeira = False
+
+    if cimons1[1]['hp'] <= 0:
+        cimons1[1]['qtd'] -= 1
+        if cimons1[1]['qtd'] <= 0:
+            status1 = 'perdeu'
+        else:
+            status1 = 'batalha'
+    else:
+        status1 = 'batalha'
+
+    if cimons1[2]['hp'] <= 0:
+        cimons1[2]['qtd'] -= 1
+        if cimons1[2]['qtd'] <= 0:
+            status2 = 'perdeu'
+        else:
+            status2 = 'batalha'
+    else:
+        status2 = 'batalha'
+
+
+
+
+    resultado_p1 = {
+        'evento': "RESULTADO_TURNO",
+        'novo_hp1': cimons1[1]['hp'],
+        'novo_hp2': cimons1[2]['hp'],
+        'golpe_tomado': golpe_p2.nome,
+        'ID': 1,
+        'status': status2
+    }
+
+    resultado_p2 = {
+        'evento': "RESULTADO_TURNO",
+        'novo_hp1': cimons1[2]['hp'],
+        'novo_hp2': cimons1[1]['hp'],
+        'golpe_tomado': golpe_p1.nome,
+        'ID': 2,
+        'status': status1
+    }
+
+
+
+    if golpe_p1.efetivo(cimon2) == 2:
+        resultado_p1['efetivo_dado'] = "super efetivo"
+        resultado_p2['efetivo_tomado'] = "super efetivo"
+    elif golpe_p1.efetivo(cimon2) == 1:
+        resultado_p1['efetivo_dado'] = "normal"
+        resultado_p2['efetivo_tomado'] = "normal"
+    elif golpe_p1.efetivo(cimon2) == 0.5:
+        resultado_p1['efetivo_dado'] = "pouco efetivo"
+        resultado_p2['efetivo_tomado'] = "pouco efetivo"
+
+    if golpe_p2.efetivo(cimon1) == 2:
+        resultado_p1['efetivo_tomado'] = "super efetivo"
+        resultado_p2['efetivo_dado'] = "super efetivo"
+    elif golpe_p2.efetivo(cimon1) == 1:
+        resultado_p1['efetivo_tomado'] = "normal"
+        resultado_p2['efetivo_dado'] = "normal"
+    elif golpe_p2.efetivo(cimon1) == 0.5:
+        resultado_p1['efetivo_tomado'] = "pouco efetivo"
+        resultado_p2['efetivo_dado'] = "pouco efetivo"
+
+    conexao.sendall(json.dumps(resultado_p1).encode('utf-8')) if idplayer == 1 else conexao.sendall(json.dumps(resultado_p2).encode('utf-8'))
+    
+    if (not primeira):
+        escolhas_turno.clear()
 
     
+
+def minha_troca_seu_ataque(idplayer, conexao):
+    global escolhas_turno, cimons1, primeira, jogou
+
+    if idplayer == 1:
+        for ataque in cimons.ataques:
+            if escolhas_turno[2] == ataque.nome:
+                golpe_p2 = ataque
+    elif idplayer == 2:
+        for ataque in cimons.ataques:
+            if escolhas_turno[1] == ataque.nome:
+                golpe_p1 = ataque
+
+    for cimon in cimons.cimons:
+        if cimons1[1]['nome'] == cimon.nome:
+            cimon1 = cimon.clonar()
+            cimon1.xp = sum(n * 10 for n in range(1, cimons1[1]['nivel']))
+            cimon1.subir_nivel()
+            cimon1.hp = cimons1[1]['hp']
+    
+    for cimon in cimons.cimons:
+        if cimons1[2]['nome'] == cimon.nome:
+            cimon2 = cimon.clonar()
+            cimon2.xp = sum(n * 10 for n in range(1, cimons1[2]['nivel']))
+            cimon2.subir_nivel()
+            cimon2.hp = cimons1[2]['hp']
+
+    if idplayer == 1 and (not primeira):
+        primeira = True
+        cimons1[1]['hp'] -= int(((int(golpe_p2.dano * golpe_p2.efetivo(cimon1)//1)) * cimon2.status)//1)
+    elif idplayer == 2 and (not primeira):
+        primeira = True
+        cimons1[2]['hp'] -= int(((int(golpe_p1.dano * golpe_p1.efetivo(cimon2)//1)) * cimon1.status)//1)
+    else:
+        primeira = False
+
+    if cimons1[1]['hp'] <= 0:
+        cimons1[1]['qtd'] -= 1
+        if cimons1[1]['qtd'] <= 0:
+            status1 = 'perdeu'
+        else:
+            status1 = 'batalha'
+    else:
+        status1 = 'batalha'
+
+
+    if cimons1[2]['hp'] <= 0:
+        cimons1[2]['qtd'] -= 1
+        if cimons1[2]['qtd'] <= 0:
+            status2 = 'perdeu'
+        else:
+            status2 = 'batalha'
+    else:
+        status2 = 'batalha'
+    if idplayer == 1:
+        golpe_tomado1 = golpe_p2.nome
+    else:
+        golpe_tomado1 = ''
+
+    if idplayer == 2:
+        golpe_tomado2 = golpe_p1.nome
+    else:
+        golpe_tomado2 = ''
+    
+    resultado_p1 = {
+        'evento': "RESULTADO_TURNO",
+        'novo_hp1': cimons1[1]['hp'],
+        'novo_hp2': cimons1[2]['hp'],
+        'golpe_tomado': golpe_tomado1,
+        'ID': 1,
+        'status': status2
+        }
+    
+    resultado_p2 = {
+            'evento': "RESULTADO_TURNO",
+            'novo_hp1': cimons1[2]['hp'],
+            'novo_hp2': cimons1[1]['hp'],
+            'golpe_tomado': golpe_tomado2,
+            'ID': 2,
+            'status': status1
+        }
+    
+    if idplayer == 1:    
+        if golpe_p2.efetivo(cimon1) == 2:
+            resultado_p1['efetivo_tomado'] = "super efetivo"
+            resultado_p2['efetivo_dado'] = "super efetivo"
+        elif golpe_p2.efetivo(cimon1) == 1:
+            resultado_p1['efetivo_tomado'] = "normal"
+            resultado_p2['efetivo_dado'] = "normal"
+        elif golpe_p2.efetivo(cimon1) == 0.5:
+            resultado_p1['efetivo_tomado'] = "pouco efetivo"
+            resultado_p2['efetivo_dado'] = "pouco efetivo"
+
+    elif idplayer == 2:
+        if golpe_p1.efetivo(cimon2) == 2:
+            resultado_p1['efetivo_dado'] = "super efetivo"
+            resultado_p2['efetivo_tomado'] = "super efetivo"
+        elif golpe_p1.efetivo(cimon2) == 1:
+            resultado_p1['efetivo_dado'] = "normal"
+            resultado_p2['efetivo_tomado'] = "normal"
+        elif golpe_p1.efetivo(cimon2) == 0.5:
+            resultado_p1['efetivo_dado'] = "pouco efetivo"
+            resultado_p2['efetivo_tomado'] = "pouco efetivo"
+    
+
+    conexao.sendall(json.dumps(resultado_p1).encode('utf-8')) if idplayer == 1 else conexao.sendall(json.dumps(resultado_p2).encode('utf-8'))
+
+    if (not primeira):
+        escolhas_turno.clear()
+
+def meu_ataque_sua_troca(idplayer, conexao):
+    global escolhas_turno, cimons1, primeira, jogou
+
+
+    for cimon in cimons.cimons:
+        if cimons1[1]['nome'] == cimon.nome:
+            cimon1 = cimon.clonar()
+            cimon1.xp = sum(n * 10 for n in range(1, cimons1[1]['nivel']))
+            cimon1.subir_nivel()
+            cimon1.hp = cimons1[1]['hp']
+    
+    for cimon in cimons.cimons:
+        if cimons1[2]['nome'] == cimon.nome:
+            cimon2 = cimon.clonar()
+            cimon2.xp = sum(n * 10 for n in range(1, cimons1[2]['nivel']))
+            cimon2.subir_nivel()
+            cimon2.hp = cimons1[2]['hp']
+
+    if idplayer == 1:
+        for ataque in cimons.ataques:
+            if escolhas_turno[1] == ataque.nome:
+                golpe_p1 = ataque
+    elif idplayer == 2:
+        for ataque in cimons.ataques:
+            if escolhas_turno[2] == ataque.nome:
+                golpe_p2 = ataque
+
+    if idplayer == 1 and (not primeira):
+        primeira = True
+        cimons1[2]['hp'] -= int(((int(golpe_p1.dano * golpe_p1.efetivo(cimon2)//1)) * cimon1.status)//1)
+    elif idplayer == 2 and (not primeira):
+        primeira = True
+        cimons1[1]['hp'] -= int(((int(golpe_p2.dano * golpe_p2.efetivo(cimon1)//1)) * cimon2.status)//1)
+    else:
+        primeira = False
+
+    if cimons1[1]['hp'] <= 0:
+        cimons1[1]['qtd'] -= 1
+        if cimons1[1]['qtd'] <= 0:
+            status1 = 'perdeu'
+        else:
+            status1 = 'batalha'
+    else:
+        status1 = 'batalha'
+
+    if cimons1[2]['hp'] <= 0:
+        cimons1[2]['qtd'] -= 1
+        if cimons1[2]['qtd'] <= 0:
+            status2 = 'perdeu'
+        else:
+            status2 = 'batalha'
+    else:
+        status2 = 'batalha'
+
+    if idplayer == 1:
+        golpe_tomado1 = ''
+    else:
+        golpe_tomado1 = golpe_p2.nome
+
+    if idplayer == 2:
+        golpe_tomado2 = ''
+    else:
+        golpe_tomado2 = golpe_p1.nome
+
+    resultado_p1 = {
+        'evento': "TROCA",
+        'novo_hp1': cimons1[1]['hp'],
+        'novo_hp2': cimons1[2]['hp'],
+        'golpe_tomado': golpe_tomado1,
+        'ID': 1,
+        'status': status2,
+        'nome': cimons1[2]['nome'],
+        'nivel': cimons1[2]['nivel'],
+        'hp': cimons1[2]['hp']
+        }
+    
+    resultado_p2 = {
+        'evento': "TROCA",
+        'novo_hp1': cimons1[2]['hp'],
+        'novo_hp2': cimons1[1]['hp'],
+        'golpe_tomado': golpe_tomado2,
+        'ID': 2,
+        'status': status1,
+        'nome': cimons1[1]['nome'],
+        'nivel': cimons1[1]['nivel'],
+        'hp': cimons1[1]['hp']
+    }
+        
+    if idplayer == 1:
+        if golpe_p1.efetivo(cimon2) == 2:
+            resultado_p1['efetivo_dado'] = "super efetivo"
+            resultado_p2['efetivo_tomado'] = "super efetivo"
+        elif golpe_p1.efetivo(cimon2) == 1:
+            resultado_p1['efetivo_dado'] = "normal"
+            resultado_p2['efetivo_tomado'] = "normal"
+        elif golpe_p1.efetivo(cimon2) == 0.5:
+            resultado_p1['efetivo_dado'] = "pouco efetivo"
+            resultado_p2['efetivo_tomado'] = "pouco efetivo"
+
+
+    elif idplayer == 2:
+        if golpe_p2.efetivo(cimon1) == 2:
+            resultado_p1['efetivo_tomado'] = "super efetivo"
+            resultado_p2['efetivo_dado'] = "super efetivo"
+        elif golpe_p2.efetivo(cimon1) == 1:
+            resultado_p1['efetivo_tomado'] = "normal"
+            resultado_p2['efetivo_dado'] = "normal"
+        elif golpe_p2.efetivo(cimon1) == 0.5:
+            resultado_p1['efetivo_tomado'] = "pouco efetivo"
+            resultado_p2['efetivo_dado'] = "pouco efetivo"
+
+    conexao.sendall(json.dumps(resultado_p1).encode('utf-8')) if idplayer == 1 else conexao.sendall(json.dumps(resultado_p2).encode('utf-8'))
+
+    if (not primeira):
+        escolhas_turno.clear()
+
+
+def troca_dupla(idplayer, conexao):
+    global escolhas_turno, cimons1, primeira, jogou
+
+    resultado_p1 = {
+        'evento': 'TROCA_DUPLA',
+        'nome': cimons1[2]['nome'],
+        'nivel': cimons1[2]['nivel'],
+        'hp': cimons1[2]['hp']
+        }
+    
+    resultado_p2 = {
+        'evento': 'TROCA_DUPLA',
+        'nome': cimons1[1]['nome'],
+        'nivel': cimons1[1]['nivel'],
+        'hp': cimons1[1]['hp']
+    }
+
+    conexao.sendall(json.dumps(resultado_p1).encode('utf-8')) if idplayer == 1 else conexao.sendall(json.dumps(resultado_p2).encode('utf-8'))
+
+    escolhas_turno.clear()
+
 
 
 def gerenciar_clientes(conexao, endereco, idplayer):
-    global cimons, escolhas_turno, jogou, outra_decisao
+    global cimons, escolhas_turno, outra_decisao, cimons1, condicao_turno
+
 
     print(f'NOVA CONEXAO: {endereco}')
 
     while True:
         try:
             dados = conexao.recv(2048).decode('utf-8')
+
             if not dados:
                 print(f'CONEXAO PERDIDA COM: {endereco}')
                 conexao.close()
@@ -46,28 +379,38 @@ def gerenciar_clientes(conexao, endereco, idplayer):
             outra_decisao[idplayer] = decisao['evento']
 
             if decisao['evento'] == 'COMECO' or decisao['evento'] == 'TROCA':
+                if decisao['evento'] == 'TROCA':
+                    cimons1['evento'] = 'TROCA'
+                else:
+                    cimons1[idplayer]['qtd'] = decisao['qtd']
                 cimons1[idplayer]['nome'] = decisao['nome']
                 cimons1[idplayer]['nivel'] = decisao['nivel']
                 cimons1[idplayer]['hp'] = decisao['hp']
-                jogou += 1
-                aguardando = True
-                while jogou < 2:
-                    if aguardando:
-                        aguardando = False
-                conexao.sendall(json.dumps(cimons1[2]).encode('utf-8')) if idplayer == 1 else conexao.sendall(json.dumps(cimons1[1]).encode('utf-8'))
+                with condicao_turno:
+                    escolhas_turno[idplayer] = 'TROCA' if decisao['evento'] == 'TROCA' else ''
+                    condicao_turno.wait_for(lambda: len(escolhas_turno) == 2)
+                    condicao_turno.notify_all()
+                decisao2 = outra_decisao[1] if idplayer == 2 else outra_decisao[2]
+                if decisao['evento'] == 'COMECO':
+                    conexao.sendall(json.dumps(cimons1[2]).encode('utf-8')) if idplayer == 1 else conexao.sendall(json.dumps(cimons1[1]).encode('utf-8'))
+                if decisao['evento'] == 'TROCA' and decisao2 == 'ESCOLHA_GOLPE':
+                    minha_troca_seu_ataque(idplayer, conexao)
+                elif decisao['evento'] == 'TROCA' and decisao2 == 'TROCA':
+                    troca_dupla(idplayer, conexao)
+                else:
+                    escolhas_turno.clear()
+
             elif decisao['evento'] == 'ESCOLHA_GOLPE':
-                escolhas_turno[idplayer] = decisao['golpe']
-                aguardando = True
-                while len(escolhas_turno) < 2:
-                    if aguardando:
-                        aguardando = False
-                decisao2 = outra_decisao[1] if idplayer == 2 else decisao2 = outra_decisao[2]
-                if decisao2 == 'ESOLHA_GOLPE':
-                    resolver_turno(idplayer)
+                with condicao_turno:
+                    escolhas_turno[idplayer] = decisao['golpe']
+                    condicao_turno.wait_for(lambda: len(escolhas_turno) == 2)
+                    condicao_turno.notify_all()
+                decisao2 = outra_decisao[1] if idplayer == 2 else outra_decisao[2]
+                if decisao2 == 'ESCOLHA_GOLPE':
+                    resolver_turno(idplayer, conexao)
+                elif decisao2 == 'TROCA':
+                    meu_ataque_sua_troca(idplayer, conexao)
                 
-
-        
-
         except:
             print(f'ERROOOOO')
             conexao.close()
@@ -94,9 +437,10 @@ except:
 
 print('ABRINDO PORTAS...')
 server.listen()
-print('AGURDANDO CLIENTES...')
+print('AGUARDANDO CLIENTES...')
 
 jogadores = 1
+condicao_turno = threading.Condition()
 
 while True:
     conexao, endereco = server.accept()
