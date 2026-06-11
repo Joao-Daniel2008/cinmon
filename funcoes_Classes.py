@@ -2678,6 +2678,8 @@ def verificar3_1(posx, posy, direcao):
         return False
 
 def verificar1_3(posx, posy, direcao):
+    if posy == 256:
+        return False    
     if posx == variaveis.largura - variaveis.largurap and direcao:
         return True
     else:
