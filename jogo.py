@@ -695,12 +695,7 @@ while rodando:
                         musicaB = True
                         musicaP = False
 
-          '''
-            for j in variaveis.listaobjatual:
-                pygame.draw.rect(janela, (255, 0, 0), j, 4)
-            for j in variaveis.gramas4_atual:
-                pygame.draw.rect(janela, (0, 255, 0), j, 4)
-            '''
+          
 
 
 
