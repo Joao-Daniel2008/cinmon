@@ -1,0 +1,46 @@
+{
+    "posicaox": 576,
+    "posicaoy": 128,
+    "posicao": [
+        576,
+        128
+    ],
+    "equipe": [
+        [
+            "lupi",
+            0,
+            11
+        ]
+    ],
+    "mochila": [
+        [
+            "crachabola",
+            2
+        ],
+        0
+    ],
+    "treinadores_derrotados": [],
+    "posobj": [
+        [
+            448,
+            0
+        ],
+        [
+            576,
+            0
+        ],
+        [
+            715,
+            20
+        ],
+        [
+            843,
+            20
+        ]
+    ],
+    "escolhaioda": true,
+    "gramas": 0,
+    "gramasx": [],
+    "gramasy": [],
+    "gramas4": 0
+}
