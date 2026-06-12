@@ -2,15 +2,18 @@ import socket
 import threading
 import cimons
 import json
+from time import sleep
 
-escolhas_turno = {}
-cimons1 = {1: {}, 2: {}}
-jogou = 0
-outra_decisao = {1: '', 2: ''}
-primeira = False
 
 def resolver_turno(idplayer, conexao):
-    global cimons1, escolhas_turno, primeira, jogou, status1, status2
+    global cimons1, escolhas_turno, primeira, jogou, status1, status2, condicao_turno
+
+    if idplayer != 1:
+        with condicao_turno:
+            while (not primeira):
+                print('esperando outro jogador processar os dados do combate...')
+                condicao_turno.wait()
+                print('pronto! irei checar a condicao novamente.')
 
     for cimon in cimons.cimons:
         if cimons1[1]['nome'] == cimon.nome:
@@ -34,12 +37,13 @@ def resolver_turno(idplayer, conexao):
         if escolhas_turno[2] == ataque.nome:
             golpe_p2 = ataque
 
-    if (not primeira):
-        cimons1[2]['hp'] -= int(((int(golpe_p1.dano * golpe_p1.efetivo(cimon2)//1)) * cimon1.status)//1)
-        if cimons1[2]['hp'] > 0:
-            cimons1[1]['hp'] -= int(((int(golpe_p2.dano * golpe_p2.efetivo(cimon1)//1)) * cimon2.status)//1)
 
     if (not primeira):
+        cimons1[2]['hp'] -= int(((int(golpe_p1.dano * golpe_p1.efetivo(cimon2)//1)) * cimon1.status)//1)
+        
+        if cimons1[2]['hp'] > 0:
+            cimons1[1]['hp'] -= int(((int(golpe_p2.dano * golpe_p2.efetivo(cimon1)//1)) * cimon2.status)//1)
+        
         if cimons1[1]['hp'] <= 0:
             cimons1[1]['qtd'] -= 1
             if cimons1[1]['qtd'] <= 0:
@@ -48,9 +52,7 @@ def resolver_turno(idplayer, conexao):
                 status1 = 'batalha'
         else:
             status1 = 'batalha'
-
-
-    if (not primeira):
+        
         if cimons1[2]['hp'] <= 0:
             cimons1[2]['qtd'] -= 1
             if cimons1[2]['qtd'] <= 0:
@@ -105,17 +107,26 @@ def resolver_turno(idplayer, conexao):
 
     conexao.sendall(json.dumps(resultado_p1).encode('utf-8')) if idplayer == 1 else conexao.sendall(json.dumps(resultado_p2).encode('utf-8'))
     
-    if (not primeira):
-        primeira = True
-    else:
-        primeira = False
-    if (not primeira):
-        escolhas_turno.clear()
+    with condicao_turno:
+        if (not primeira):
+            primeira = True
+            condicao_turno.notify()
+
+        elif primeira:
+            primeira = False
+            escolhas_turno.clear()
 
     
 
 def minha_troca_seu_ataque(idplayer, conexao):
-    global escolhas_turno, cimons1, primeira, jogou
+    global escolhas_turno, cimons1, primeira, jogou, status1, status2, condicao_turno
+
+    if idplayer != 1:
+        with condicao_turno:
+            while (not primeira):
+                print('esperando outro jogador processar os dados do combate...')
+                condicao_turno.wait()
+                print('pronto! irei checar a condicao novamente.')
 
     if idplayer == 1:
         for ataque in cimons.ataques:
@@ -139,15 +150,11 @@ def minha_troca_seu_ataque(idplayer, conexao):
             cimon2.xp = sum(n * 10 for n in range(1, cimons1[2]['nivel']))
             cimon2.subir_nivel()
             cimon2.hp = cimons1[2]['hp']
+    
 
     if idplayer == 1 and (not primeira):
-        primeira = True
         cimons1[1]['hp'] -= int(((int(golpe_p2.dano * golpe_p2.efetivo(cimon1)//1)) * cimon2.status)//1)
-    elif idplayer == 2 and (not primeira):
-        primeira = True
-        cimons1[2]['hp'] -= int(((int(golpe_p1.dano * golpe_p1.efetivo(cimon2)//1)) * cimon1.status)//1)
-
-    if (not primeira):
+        
         if cimons1[1]['hp'] <= 0:
             cimons1[1]['qtd'] -= 1
             if cimons1[1]['qtd'] <= 0:
@@ -156,9 +163,26 @@ def minha_troca_seu_ataque(idplayer, conexao):
                 status1 = 'batalha'
         else:
             status1 = 'batalha'
+        if cimons1[2]['hp'] <= 0:
+            cimons1[2]['qtd'] -= 1
+            if cimons1[2]['qtd'] <= 0:
+                status2 = 'perdeu'
+            else:
+                status2 = 'batalha'
+        else:
+            status2 = 'batalha'
 
-
-    if (not primeira):
+    elif idplayer == 2 and (not primeira):
+        cimons1[2]['hp'] -= int(((int(golpe_p1.dano * golpe_p1.efetivo(cimon2)//1)) * cimon1.status)//1)
+        
+        if cimons1[1]['hp'] <= 0:
+            cimons1[1]['qtd'] -= 1
+            if cimons1[1]['qtd'] <= 0:
+                status1 = 'perdeu'
+            else:
+                status1 = 'batalha'
+        else:
+            status1 = 'batalha'
         if cimons1[2]['hp'] <= 0:
             cimons1[2]['qtd'] -= 1
             if cimons1[2]['qtd'] <= 0:
@@ -220,16 +244,25 @@ def minha_troca_seu_ataque(idplayer, conexao):
     
 
     conexao.sendall(json.dumps(resultado_p1).encode('utf-8')) if idplayer == 1 else conexao.sendall(json.dumps(resultado_p2).encode('utf-8'))
-    if (not primeira):
-        primeira = True
-    else:
-        primeira = False
+    
+    with condicao_turno:
+        if (not primeira):
+            primeira = True
+            condicao_turno.notify()
 
-    if (not primeira):
-        escolhas_turno.clear()
+        elif primeira:
+            primeira = False
+            escolhas_turno.clear()
 
 def meu_ataque_sua_troca(idplayer, conexao):
-    global escolhas_turno, cimons1, primeira, jogou
+    global escolhas_turno, cimons1, primeira, jogou, status1, status2, condicao_turno
+
+    if idplayer != 1:
+        with condicao_turno:
+            while (not primeira):
+                print('esperando outro jogador processar os dados do combate...')
+                condicao_turno.wait()
+                print('pronto! irei checar a condicao novamente.')
 
 
     for cimon in cimons.cimons:
@@ -254,16 +287,11 @@ def meu_ataque_sua_troca(idplayer, conexao):
         for ataque in cimons.ataques:
             if escolhas_turno[2] == ataque.nome:
                 golpe_p2 = ataque
+    
 
     if idplayer == 1 and (not primeira):
-        primeira = True
         cimons1[2]['hp'] -= int(((int(golpe_p1.dano * golpe_p1.efetivo(cimon2)//1)) * cimon1.status)//1)
-    elif idplayer == 2 and (not primeira):
-        primeira = True
-        cimons1[1]['hp'] -= int(((int(golpe_p2.dano * golpe_p2.efetivo(cimon1)//1)) * cimon2.status)//1)
-
-
-    if (not primeira):
+    
         if cimons1[1]['hp'] <= 0:
             cimons1[1]['qtd'] -= 1
             if cimons1[1]['qtd'] <= 0:
@@ -273,8 +301,6 @@ def meu_ataque_sua_troca(idplayer, conexao):
         else:
             status1 = 'batalha'
 
-
-    if (not primeira):
         if cimons1[2]['hp'] <= 0:
             cimons1[2]['qtd'] -= 1
             if cimons1[2]['qtd'] <= 0:
@@ -283,6 +309,28 @@ def meu_ataque_sua_troca(idplayer, conexao):
                 status2 = 'batalha'
         else:
             status2 = 'batalha'
+
+    elif idplayer == 2 and (not primeira):
+        cimons1[1]['hp'] -= int(((int(golpe_p2.dano * golpe_p2.efetivo(cimon1)//1)) * cimon2.status)//1)
+        
+        if cimons1[1]['hp'] <= 0:
+            cimons1[1]['qtd'] -= 1
+            if cimons1[1]['qtd'] <= 0:
+                status1 = 'perdeu'
+            else:
+                status1 = 'batalha'
+        else:
+            status1 = 'batalha'
+
+        if cimons1[2]['hp'] <= 0:
+            cimons1[2]['qtd'] -= 1
+            if cimons1[2]['qtd'] <= 0:
+                status2 = 'perdeu'
+            else:
+                status2 = 'batalha'
+        else:
+            status2 = 'batalha'
+
 
     if idplayer == 1:
         golpe_tomado1 = ''
@@ -343,12 +391,14 @@ def meu_ataque_sua_troca(idplayer, conexao):
 
     conexao.sendall(json.dumps(resultado_p1).encode('utf-8')) if idplayer == 1 else conexao.sendall(json.dumps(resultado_p2).encode('utf-8'))
 
-    if (not primeira):
-        primeira = True
-    else:
-        primeira = False
-    if (not primeira):
-        escolhas_turno.clear()
+    with condicao_turno:
+        if (not primeira):
+            primeira = True
+            condicao_turno.notify()
+
+        elif primeira:
+            primeira = False
+            escolhas_turno.clear()
 
 
 def troca_dupla(idplayer, conexao):
@@ -369,16 +419,15 @@ def troca_dupla(idplayer, conexao):
     }
 
     conexao.sendall(json.dumps(resultado_p1).encode('utf-8')) if idplayer == 1 else conexao.sendall(json.dumps(resultado_p2).encode('utf-8'))
-    if (not primeira):
-        primeira = True
-    else:
+    
+    if primeira:
         primeira = False
     escolhas_turno.clear()
 
 
 
 def gerenciar_clientes(conexao, endereco, idplayer):
-    global cimons, escolhas_turno, outra_decisao, cimons1, condicao_turno, comeco1, comeco2
+    global cimons, escolhas_turno, outra_decisao, cimons1, condicao_turno, comeco1, comeco2, vivo, status1, status2, jogadores, primeira
 
 
     print(f'NOVA CONEXAO: {endereco}')
@@ -396,7 +445,15 @@ def gerenciar_clientes(conexao, endereco, idplayer):
 
             outra_decisao[idplayer] = decisao['evento']
 
-            if decisao['evento'] == 'COMECO' or decisao['evento'] == 'TROCA':
+            if 'COMECO' in decisao['evento'] or decisao['evento'] == 'TROCA':
+                cimons1[idplayer]['nome'] = decisao['nome']
+                cimons1[idplayer]['nivel'] = decisao['nivel']
+                cimons1[idplayer]['hp'] = decisao['hp']
+                if decisao['evento'] == 'TROCA' or comeco1 or comeco2:
+                    with condicao_turno:
+                        escolhas_turno[idplayer] = 'TROCA' if decisao['evento'] == 'TROCA' else ''
+                        condicao_turno.wait_for(lambda: len(escolhas_turno) == 2)
+                        condicao_turno.notify_all()
                 if decisao['evento'] == 'TROCA':
                     cimons1['evento'] = 'TROCA'
                 elif comeco1 or comeco2:
@@ -405,13 +462,10 @@ def gerenciar_clientes(conexao, endereco, idplayer):
                     elif idplayer == 2:
                         comeco2 = False
                     cimons1[idplayer]['qtd'] = decisao['qtd']
-                cimons1[idplayer]['nome'] = decisao['nome']
-                cimons1[idplayer]['nivel'] = decisao['nivel']
-                cimons1[idplayer]['hp'] = decisao['hp']
-                with condicao_turno:
-                    escolhas_turno[idplayer] = 'TROCA' if decisao['evento'] == 'TROCA' else ''
-                    condicao_turno.wait_for(lambda: len(escolhas_turno) == 2)
-                    condicao_turno.notify_all()
+                if decisao['evento'] == 'COMECO2':
+                    with condicao_turno:
+                        vivo = True
+                        condicao_turno.notify()
                 decisao2 = outra_decisao[1] if idplayer == 2 else outra_decisao[2]
                 if decisao['evento'] == 'COMECO':
                     conexao.sendall(json.dumps(cimons1[2]).encode('utf-8')) if idplayer == 1 else conexao.sendall(json.dumps(cimons1[1]).encode('utf-8'))
@@ -421,6 +475,15 @@ def gerenciar_clientes(conexao, endereco, idplayer):
                     troca_dupla(idplayer, conexao)
                 else:
                     escolhas_turno.clear()
+
+            elif decisao['evento'] == 'AGUARDANDO_REPOSICAO':
+                with condicao_turno:
+                    while (not vivo):
+                        print('aguardando reposição...')
+                        condicao_turno.wait()
+                        print('pronto, verificando condição novamente...')
+                vivo = False
+                conexao.sendall(json.dumps(cimons1[2]).encode('utf-8')) if idplayer == 1 else conexao.sendall(json.dumps(cimons1[1]).encode('utf-8'))
 
             elif decisao['evento'] == 'ESCOLHA_GOLPE':
                 with condicao_turno:
@@ -436,6 +499,15 @@ def gerenciar_clientes(conexao, endereco, idplayer):
         except:
             print(f'ERROOOOO')
             conexao.close()
+            vivo = False
+            escolhas_turno = {}
+            cimons1 = {1: {}, 2: {}}
+            jogou = 0
+            outra_decisao = {1: '', 2: ''}
+            primeira = False
+            status1 = ''
+            status2 = ''
+            jogadores = 1
             break
 
 
@@ -465,9 +537,17 @@ status1 = ''
 status2 = ''
 jogadores = 1
 condicao_turno = threading.Condition()
+vivo = False
+escolhas_turno = {}
+cimons1 = {1: {}, 2: {}}
+jogou = 0
+outra_decisao = {1: '', 2: ''}
+primeira = False
 
 while True:
     conexao, endereco = server.accept()
     thread = threading.Thread(target=(gerenciar_clientes), args=(conexao, endereco, jogadores), daemon=True)
     thread.start()
     jogadores += 1
+    if jogadores == 3:
+        jogadores = 1

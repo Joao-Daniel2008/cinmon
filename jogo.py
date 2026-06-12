@@ -198,6 +198,7 @@ def iniciar_servidor(HOST):
         servidor.connect((HOST, 5555))
     except:
         print('ERRO AO CONECTAR NO SERVIDOR')
+        return False
     
     thread = threading.Thread(target=(gerenciando_servidor), args=(servidor, ), daemon=True)
     thread.start()
@@ -824,19 +825,22 @@ while rodando:
         funcoes_Classes.limpar(janela, imagens.balaofala)
         funcoes_Classes.rodarpalavra(funcoes_Classes.palavra('conectando ao servidor'), False, janela)
         sleep(1)
+        try:
+            servidor = iniciar_servidor(HOST)
+            if servidor != False:
+                funcoes_Classes.limpar(janela, imagens.balaofala)
+                funcoes_Classes.rodarpalavra(funcoes_Classes.palavra('conectado'), False, janela)
+                sleep(1)
+                funcoes_Classes.limpar(janela, imagens.balaofala)
+                funcoes_Classes.rodarpalavra(funcoes_Classes.palavra('procurando adversario'), False, janela)
 
-        servidor = iniciar_servidor(HOST)
-
-        funcoes_Classes.limpar(janela, imagens.balaofala)
-        funcoes_Classes.rodarpalavra(funcoes_Classes.palavra('conectado'), False, janela)
-        sleep(1)
-        funcoes_Classes.limpar(janela, imagens.balaofala)
-        funcoes_Classes.rodarpalavra(funcoes_Classes.palavra('procurando adversario'), False, janela)
-
-        aguardando = True
-        cin = equipe.lancar()
-        meu_pacote = {'evento': 'COMECO', 'qtd': len(equipe.lista), 'nome': cin.nome, 'nivel': cin.nivel, 'hp': cin.hp}
-        fila_receber = queue.Queue()
+                aguardando = True
+                cin = equipe.lancar()
+                equipe.curar()
+                meu_pacote = {'evento': 'COMECO', 'qtd': len(equipe.lista), 'nome': cin.nome, 'nivel': cin.nivel, 'hp': cin.hp}
+                fila_receber = queue.Queue()
+        except:
+            print('erro')
 
         try:
             servidor.sendall(json.dumps(meu_pacote).encode('utf-8'))
@@ -860,12 +864,15 @@ while rodando:
             online = False
             server = False
             server_ativo = False
+            funcoes_Classes.limpar(janela, imagens.balaofala)
+            funcoes_Classes.rodarpalavra(funcoes_Classes.palavra('nao foi possivel se conectar'), False, janela)
+
         aviso = False
         aviso2 = False
+        aviso_de_troca = False
         trocado = False
         minha_vez = False
         ataques = False
-        equipe.curar()
         mov1 = 1
         mov2 = 1
         fundo = imagens.fundo
@@ -892,8 +899,10 @@ while rodando:
                 sel = ''
                 aux1 = int(150 * (escolhido.hp / escolhido.hp_max)//1)
                 auxhp1 = pygame.transform.scale(imagens.auxhp, (aux1, 10))
-                aux2 = int(150 * (escolhido2.hp / escolhido2.hp_max)//1)
-                auxhp2 = pygame.transform.scale(imagens.auxhp, (aux2, 10))
+                if (not aviso_de_troca):
+                    aux2 = int(150 * (escolhido2.hp / escolhido2.hp_max)//1)
+                    auxhp2 = pygame.transform.scale(imagens.auxhp, (aux2, 10))
+                aviso_de_troca = False
                 aux1x = int(270 * (escolhido.xp / (escolhido.nivel * 10))//1)
                 auxxp1 = pygame.transform.scale(imagens.auxxp, (aux1x, 10))
                 janela.blit(fundo, (0, 0))
@@ -929,6 +938,7 @@ while rodando:
                             sleep(1)
                         elif (not ataques) and mov1 == 1 and mov2 == 2:
                             escolhendo = True
+                            mov1 = mov2 = 1
                         elif (not ataques) and mov1 == 2 and mov2 == 1:
                             funcoes_Classes.terminal(janela, escolhido, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
                             funcoes_Classes.rodarpalavra(funcoes_Classes.palavra('Voce nao pode abrir a bolsa'), True, janela)
@@ -1054,9 +1064,12 @@ while rodando:
                         else:
                             funcoes_Classes.terminal(janela, escolhido, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
                             funcoes_Classes.rodarpalavra(funcoes_Classes.palavra(f'aguardando adversario'), True, janela)
+                            meu_pacote = {'evento': 'AGUARDANDO_REPOSICAO'}
+                            servidor.sendall(json.dumps(meu_pacote).encode('utf-8'))
                             while fila_receber.empty():
                                 sleep(0.5)
                             pacote = fila_receber.get()
+                            pacote['evento'] = 'MENU_BATALHA'
                             for cimon in cimons.cimons:
                                 if cimon.nome == pacote['nome']:
                                     cin2 = cimon.clonar()
@@ -1114,7 +1127,7 @@ while rodando:
                     auxhp2 = pygame.transform.scale(imagens.auxhp, (aux2, 10))
                     janela.blit(auxhp2, (variaveis.posx1 + 84, variaveis.posy2 - 11))
                     janela.blit(auxxp1, (variaveis.posx2 + 30, variaveis.posy1 + 116))
-                    sleep(1)
+                    sleep(0.5)
                     if escolhido.hp <= 0:
                         funcoes_Classes.terminal(janela, escolhido, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
                         funcoes_Classes.rodarpalavra(funcoes_Classes.palavra(f'{escolhido.nome} desmaiou'), True, janela)
@@ -1139,6 +1152,7 @@ while rodando:
                             servidor.close()
                             funcoes_Classes.musicaPrincipal()
                         else:
+                            mov1 = mov2 = 1
                             morto = True
                             escolhendo = True
                 elif pacote['evento'] == "TROCA" or pacote['evento'] == 'TROCA_DUPLA':
@@ -1150,6 +1164,7 @@ while rodando:
                             cin2.hp = pacote['hp']
                     escolhido2 = cin2
                     aviso2 = True
+                    aviso_de_troca = True
                     if pacote['evento'] == 'TROCA':
                         pacote['evento'] = 'RESULTADO_TURNO'
                         if (not trocado):
@@ -1167,14 +1182,16 @@ while rodando:
                     if mov1 > 1:
                         mov1 -= 1
                 elif tecla[pygame.K_RIGHT] or tecla[pygame.K_d]:# or ass == 'd':
-                    if mov1 < len([n for n in equipe.lista if n != '']):
+                    if mov1 < len([n for n in equipe.lista if n.hp > 0 and n != '']):
                         mov1 += 1
                 janela.blit(fundo, (0, 0))
                 janela.blit(imagens.molde3, (0, 384))
                 if temporizador < 1:
                     funcoes_Classes.seta(mov1, mov2, janela, imagens.setinha, ataques, escolhendo, bolsa, False)
-                    for n in range(len(equipe.lista)):
-                        janela.blit(equipe.lista[n].mini, (64 + n * 128 * 1.5, 400))
+                    aux = 0
+                    for n in [cin for cin in equipe.lista if cin.hp > 0 and cin != '']:
+                        janela.blit(n.mini, (64 + aux * 128 * 1.5, 400))
+                        aux += 1
                 if (not morto):
                     janela.blit(escolhido.imagemc, (variaveis.posx1 - 80, variaveis.posy1 - 80))
                 janela.blit(escolhido2.imagemf, (variaveis.posx2 - imagens.largural - 32, variaveis.posy2 - imagens.altural - 32))
@@ -1189,48 +1206,49 @@ while rodando:
                 funcoes_Classes.nivelcin1(janela, funcoes_Classes.palavra(f'{escolhido.nivel}'))
                 funcoes_Classes.nivelcin2(janela, funcoes_Classes.palavra(f'{escolhido2.nivel}'))
                 if tecla[pygame.K_SPACE] or temporizador == 1:
+                    listacin = [cin for cin in equipe.lista if cin.hp > 0 and cin != '']
                     temporizador += 1
                     segundo = escolhido
                     auxhpc = auxhp1
                     auxc = aux1
                     marca = False
                     if mov1 == 1 and temporizador == 2:
-                        mov1 = mov2 = 1
-                        if equipe.lista[0].hp > 0 and escolhido is not equipe.lista[0]:
-                            escolhido = equipe.lista[0]
+                        if listacin[0].hp > 0 and escolhido is not listacin[0]:
+                            escolhido = equipe.lista[equipe.lista.index(listacin[0])]
                             marca = True
                     elif mov1 == 2 and temporizador == 2:
-                        mov1 = mov2 = 1
-                        if equipe.lista[1].hp > 0 and escolhido is not equipe.lista[1]:
-                            escolhido = equipe.lista[1]
+                        if listacin[1].hp > 0 and escolhido is not listacin[1]:
+                            escolhido = equipe.lista[equipe.lista.index(listacin[1])]
                             marca = True
                     elif mov1 == 3 and temporizador == 2:
-                        mov1 = mov2 = 1
-                        if equipe.lista[2].hp > 0 and escolhido is not equipe.lista[2]:
-                            escolhido = equipe.lista[2]
+                        if listacin[2].hp > 0 and escolhido is not listacin[2]:
+                            escolhido = equipe.lista[equipe.lista.index(listacin[2])]
                             marca = True
                     if segundo == escolhido and temporizador == 2:
                         marca = False
                         temporizador = 0
                     if temporizador == 2 and marca:
-                        trocado = True
+                        mov1 = mov2 = 1
+                        if (not morto):
+                            trocado = True
                         temporizador = 0
+                        evento = 'TROCA' if (not morto) else 'COMECO2'
+                        meu_pacote = {'evento': evento, 'nome': escolhido.nome, 'nivel': escolhido.nivel, 'hp': escolhido.hp}
+                        servidor.sendall(json.dumps(meu_pacote).encode('utf-8'))
+                        if (not morto):
+                            funcoes_Classes.terminal(janela, segundo, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
+                            funcoes_Classes.rodarpalavra(funcoes_Classes.palavra('aguardando adversario'), True, janela)
+                            while fila_receber.empty():
+                                sleep(0.5)
+                            pacote = fila_receber.get()
+                            funcoes_Classes.terminal(janela, segundo, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
+                        funcoes_Classes.rodarpalavra(funcoes_Classes.palavra(f'Va {escolhido.nome}'), True, janela)
+                        sleep(1.5)
+                        funcoes_Classes.comeco2(janela, fundo, False, True, variaveis.posx1, variaveis.posy1, variaveis.posx2, variaveis.posy2, sel, escolhendo, escolhido, escolhido2,  segundo, auxhp1, auxhp2, aux1, aux2, auxhpc, auxc, morto)
                         aux1 = int(150 * (escolhido.hp / escolhido.hp_max)//1)
                         auxhp1 = pygame.transform.scale(imagens.auxhp, (aux1, 10))
                         aux1x = int(270 * (escolhido.xp / (escolhido.nivel * 10))//1)
                         auxxp1 = pygame.transform.scale(imagens.auxxp, (aux1x, 10))
-                        evento = 'TROCA' if (not morto) else 'COMECO'
-                        meu_pacote = {'evento': evento, 'nome': escolhido.nome, 'nivel': escolhido.nivel, 'hp': escolhido.hp}
-                        servidor.sendall(json.dumps(meu_pacote).encode('utf-8'))
-                        funcoes_Classes.terminal(janela, segundo, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
-                        funcoes_Classes.rodarpalavra(funcoes_Classes.palavra('aguardando adversario'), True, janela)
-                        while fila_receber.empty():
-                            sleep(0.5)
-                        pacote = fila_receber.get()
-                        funcoes_Classes.terminal(janela, segundo, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
-                        funcoes_Classes.rodarpalavra(funcoes_Classes.palavra(f'Va {escolhido.nome}'), True, janela)
-                        sleep(1.5)
-                        funcoes_Classes.comeco2(janela, fundo, False, True, variaveis.posx1, variaveis.posy1, variaveis.posx2, variaveis.posy2, sel, escolhendo, escolhido, escolhido2,  segundo, auxhp1, auxhp2, aux1, aux2, auxhpc, auxc, morto)
                         escolhendo = False
                         funcoes_Classes.terminal(janela, escolhido, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
                         morto = False

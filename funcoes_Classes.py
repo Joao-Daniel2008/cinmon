@@ -510,7 +510,7 @@ def batalha_selvagem(self, player, fundo, janela, equipe, selvagem, batalha, tec
                                 time.sleep(0.2)
                                 if atk.efeito == 'dano':
                                     dano = int(((int(atk.dano * atk.efetivo(sel)//1) + int((sup * 0.5 * escolhido.nivel)//1)) * escolhido.status)//1)
-                                    animacao_ataque(janela, fundo, escolhido, sel, auxhp1, auxhp2, auxxp1, verturno, atk, escolhido.hp, sel.hp, escolhido.hp, sel.hp - dano)
+                                    animacao_ataque(janela, fundo, escolhido, sel, auxhp1, auxhp2, auxxp1, verturno, atk.nome, escolhido.hp, sel.hp, escolhido.hp, sel.hp - dano)
                                     sel.hp -= dano
                                     if sel.hp > 0:
                                         aux2 = int(150 * (sel.hp / sel.hp_max)//1)
@@ -630,7 +630,7 @@ def batalha_selvagem(self, player, fundo, janela, equipe, selvagem, batalha, tec
                 if atq.efeito == 'dano':
                     dano = int(((int(atq.dano * atq.efetivo(escolhido)//1) + int((sup2 * 0.5 * sel.nivel)//1)) * sel.status)//1)
                     time.sleep(0.2)
-                    animacao_ataque(janela, fundo, escolhido, sel, auxhp1, auxhp2, auxxp1, verturno, atq, escolhido.hp, sel.hp, escolhido.hp - dano, sel.hp)
+                    animacao_ataque(janela, fundo, escolhido, sel, auxhp1, auxhp2, auxxp1, verturno, atq.nome, escolhido.hp, sel.hp, escolhido.hp - dano, sel.hp)
                     escolhido.hp -= dano
                     if escolhido.hp > 0:
                         aux1 = int(150 * (escolhido.hp / escolhido.hp_max)//1)
@@ -1223,7 +1223,7 @@ def batalha_treinador(self, mochila, treinador, fundo, janela, equipe1, equipe2,
                             time.sleep(0.2)
                             if atk.efeito == 'dano':
                                 dano = int((int(atk.dano * atk.efetivo(escolhido2)//1) + (sup * 0.5 * escolhido.nivel)//1) * escolhido.status//1)
-                                animacao_ataque(janela, fundo, escolhido, escolhido2, auxhp1, auxhp2, auxxp1, verturno, atk, escolhido.hp, escolhido2.hp, escolhido.hp, escolhido2.hp - dano)
+                                animacao_ataque(janela, fundo, escolhido, escolhido2, auxhp1, auxhp2, auxxp1, verturno, atk.nome, escolhido.hp, escolhido2.hp, escolhido.hp, escolhido2.hp - dano)
                                 escolhido2.hp -= dano
                                 if escolhido2.hp > 0:
                                     aux2 = int(150 * (escolhido2.hp / escolhido2.hp_max)//1)
@@ -1357,7 +1357,7 @@ def batalha_treinador(self, mochila, treinador, fundo, janela, equipe1, equipe2,
                 if atq.efeito == 'dano':
                     dano = int(((int(atq.dano * atq.efetivo(escolhido)//1) + int(sup2 * 0.5 * escolhido2.nivel)//1) * escolhido2.status)//1)
                     terminal(janela, escolhido, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
-                    animacao_ataque(janela, fundo, escolhido, escolhido2, auxhp1, auxhp2, auxxp1, verturno, atq, escolhido.hp, escolhido2.hp, escolhido.hp - dano, escolhido2.hp)
+                    animacao_ataque(janela, fundo, escolhido, escolhido2, auxhp1, auxhp2, auxxp1, verturno, atq.nome, escolhido.hp, escolhido2.hp, escolhido.hp - dano, escolhido2.hp)
                     time.sleep(0.2)
                     escolhido.hp -= dano
                     if escolhido.hp > 0:

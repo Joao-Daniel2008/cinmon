@@ -47,7 +47,7 @@ superbad = funcoes_Classes.ataques('superbad', 'escuridao', 'selfatk', 0, 0, 5, 
 
 lupi = funcoes_Classes.Cimons('lupi', 'normal', imagens['lupi']['imagemc'], imagens['lupi']['imagemf'], imagens['lupi']['mini'], 11, 11, 11, 1, 0, {'ataque1':bater, 'ataque2': morder}, [voadora, 0, aura], [], 1)
 rayquaza = funcoes_Classes.Cimons('rayquaza', 'voador', imagens['rayquaza']['imagemc'], imagens['rayquaza']['imagemf'], imagens['rayquaza']['mini'], 14, 14, 14, 1, 0, {'ataque1':morder, 'ataque2':ventania}, [furia, 0, enfurecer], [], 1.25)
-gokussj = funcoes_Classes.Cimons('goku ssj', 'lutador', imagens['gokussj']['imagemc'], imagens['gokussj']['imagemf'], imagens['gokussj']['mini'], 14, 14, 14, 1, 0, {'ataque1':investida, 'ataque2':kamehameha, 'ataque3':bater, 'ataque4':carregar}, [], [], 1.2)
+gokussj = funcoes_Classes.Cimons('goku ssj', 'lutador', imagens['gokussj']['imagemc'], imagens['gokussj']['imagemf'], imagens['gokussj']['mini'], 14, 14, 14, 1, 0, {'ataque1':investida, 'ataque2':kamehameha, 'ataque3':carregar, 'ataque4':dracmeteor}, [], [], 1.2)
 goku = funcoes_Classes.Cimons('goku', 'lutador', imagens['goku']['imagemc'], imagens['goku']['imagemf'], imagens['goku']['mini'], 12, 12, 12, 1, 0, {'ataque1':investida, 'ataque2':kamehameha}, [0, carregar, 0, 0, dracmeteor], [gokussj, 6], 1.1)
 rath = funcoes_Classes.Cimons('rath', 'escuridao', imagens['rath']['imagemc'], imagens['rath']['imagemf'], imagens['rath']['mini'], 12, 12, 12, 1, 0, {'ataque1':bater, 'ataque2':voadora}, [brasas, 0, escuridao], [], 1)
 mewtwo = funcoes_Classes.Cimons('mewtwo', 'psiquico', imagens['mewtwo']['imagemc'], imagens['mewtwo']['imagemf'], imagens['mewtwo']['mini'], 14, 14, 14, 1, 0, {'ataque1':explosao, 'ataque2':estrelas}, [voadora], [], 1.25)
