@@ -1091,7 +1091,7 @@ while rodando:
                         funcoes_Classes.terminal(janela, escolhido, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
                         funcoes_Classes.rodarpalavra(funcoes_Classes.palavra(f'atk de {escolhido2.nome} aumentou'), True, janela)
                         sup2 += 1
-                    if pacote['ID'] == 2 and (not trocado):
+                    if pacote['ID'] == 2 and (not trocado) and escolhido.hp > 0:
                         minha_vez = True
                     else:
                         minha_vez = False
@@ -1209,6 +1209,9 @@ while rodando:
                         if equipe.lista[2].hp > 0 and escolhido is not equipe.lista[2]:
                             escolhido = equipe.lista[2]
                             marca = True
+                    if segundo == escolhido and temporizador == 2:
+                        marca = False
+                        temporizador = 0
                     if temporizador == 2 and marca:
                         trocado = True
                         temporizador = 0
