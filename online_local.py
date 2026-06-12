@@ -518,7 +518,7 @@ def gerenciar_clientes(conexao, endereco, idplayer):
 
 comeco1 = True
 comeco2 = True
-HOST='localhost'
+HOST='0.0.0.0'
 PORTA=5555
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
