@@ -614,7 +614,7 @@ while rodando:
                     equipe = funcoes_Classes.equipe(1, 1, 0, [escolha.clonar()])
                     estado['equipe'] = [(equipe.lista[0].nome, (equipe.lista[0].nivel - 1) * 10 + equipe.lista[0].xp, equipe.lista[0].hp)]
                     mochila = funcoes_Classes.mochila([imagens.crachabola, imagens.potion], [2,1], 0)
-                    estado['mochila'] = [['crachabola', 2, ['potion', 1]], 0]
+                    estado['mochila'] = [['crachabola', 2, ['potion', 3]], 0]
                     estado['escolhaioda'] = True
                     estado['posobj'] = variaveis.posobj4
 
