@@ -6,7 +6,7 @@ from time import sleep
 
 
 def resolver_turno(idplayer, conexao):
-    global cimons1, escolhas_turno, primeira, jogou, status1, status2, condicao_turno
+    global cimons1, escolhas_turno, primeira, jogou, status1, status2, condicao_turno, hpAnterior1, hpAnterior2
 
     if idplayer != 1:
         with condicao_turno:
@@ -36,9 +36,10 @@ def resolver_turno(idplayer, conexao):
     for ataque in cimons.ataques:
         if escolhas_turno[2] == ataque.nome:
             golpe_p2 = ataque
-
-    hpAnterior1 = cimons1[1]['hp']
-    hpAnterior2 = cimons1[2]['hp']
+    
+    if (not primeira):
+        hpAnterior1 = cimons1[1]['hp']
+        hpAnterior2 = cimons1[2]['hp']
 
 
     if (not primeira):
@@ -126,7 +127,7 @@ def resolver_turno(idplayer, conexao):
     
 
 def minha_troca_seu_ataque(idplayer, conexao):
-    global escolhas_turno, cimons1, primeira, jogou, status1, status2, condicao_turno
+    global escolhas_turno, cimons1, primeira, jogou, status1, status2, condicao_turno, hpAnterior1, hpAnterior2
 
     if idplayer != 1:
         with condicao_turno:
@@ -158,8 +159,9 @@ def minha_troca_seu_ataque(idplayer, conexao):
             cimon2.subir_nivel()
             cimon2.hp = cimons1[2]['hp']
     
-    hpAnterior1 = cimons1[1]['hp']
-    hpAnterior2 = cimons1[2]['hp']
+    if (not primeira):
+        hpAnterior1 = cimons1[1]['hp']
+        hpAnterior2 = cimons1[2]['hp']
     
 
     if idplayer == 1 and (not primeira):
@@ -269,7 +271,7 @@ def minha_troca_seu_ataque(idplayer, conexao):
             escolhas_turno.clear()
 
 def meu_ataque_sua_troca(idplayer, conexao):
-    global escolhas_turno, cimons1, primeira, jogou, status1, status2, condicao_turno
+    global escolhas_turno, cimons1, primeira, jogou, status1, status2, condicao_turno, hpAnterior1, hpAnterior2
 
     if idplayer != 1:
         with condicao_turno:
@@ -302,8 +304,9 @@ def meu_ataque_sua_troca(idplayer, conexao):
             if escolhas_turno[2] == ataque.nome:
                 golpe_p2 = ataque
 
-    hpAnterior1 = cimons1[1]['hp']
-    hpAnterior2 = cimons1[2]['hp']
+    if (not primeira):
+        hpAnterior1 = cimons1[1]['hp']
+        hpAnterior2 = cimons1[2]['hp']
     
 
     if idplayer == 1 and (not primeira):
@@ -566,6 +569,8 @@ cimons1 = {1: {}, 2: {}}
 jogou = 0
 outra_decisao = {1: '', 2: ''}
 primeira = False
+hpAnterior1 = 0
+hpAnterior2 = 0
 
 while True:
     conexao, endereco = server.accept()

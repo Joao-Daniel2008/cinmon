@@ -872,6 +872,7 @@ while rodando:
         trocado = False
         minha_vez = False
         ataques = False
+        aviso_troca = False
         mov1 = 1
         mov2 = 1
         fundo = imagens.fundo
@@ -898,8 +899,10 @@ while rodando:
                 sel = ''
                 aux1 = int(150 * (escolhido.hp / escolhido.hp_max)//1)
                 auxhp1 = pygame.transform.scale(imagens.auxhp, (aux1, 10))
-                aux2 = int(150 * (escolhido2.hp / escolhido2.hp_max)//1)
-                auxhp2 = pygame.transform.scale(imagens.auxhp, (aux2, 10))
+                if(not aviso_troca):
+                    aux2 = int(150 * (escolhido2.hp / escolhido2.hp_max)//1)
+                    auxhp2 = pygame.transform.scale(imagens.auxhp, (aux2, 10))
+                aviso_troca = False
                 aux1x = int(270 * (escolhido.xp / (escolhido.nivel * 10))//1)
                 auxxp1 = pygame.transform.scale(imagens.auxxp, (aux1x, 10))
                 janela.blit(fundo, (0, 0))
@@ -1158,6 +1161,13 @@ while rodando:
                             cin2.subir_nivel()
                             cin2.hp = pacote['hp']
                     escolhido2 = cin2
+                    if pacote['evento'] == 'TROCA_DUPLA':
+                        aux2 = int(150 * (escolhido2.hp / escolhido2.hp_max)//1)
+                        auxhp2 = pygame.transform.scale(imagens.auxhp, (aux2, 10))
+                    else:
+                        aux2 = int(150 * (pacote['hp_anterior2'] / escolhido2.hp_max)//1)
+                        auxhp2 = pygame.transform.scale(imagens.auxhp, (aux2, 10))
+                        aviso_troca = True
                     aviso2 = True
                     if pacote['evento'] == 'TROCA':
                         pacote['evento'] = 'RESULTADO_TURNO'
