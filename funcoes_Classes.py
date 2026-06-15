@@ -1935,7 +1935,7 @@ def escolhaioda1(janela, posx, posy, batalha, gramasatual, gramasxatual, gramasy
     rodarpalavra(palavra('ola seja bem vindo'), batalha, janela)
     time.sleep(1.5)
     limpar(janela, balaofala)
-    rodarpalavra(palavra('sou o professor ioda'), batalha, janela)
+    rodarpalavra(palavra('sou o professor iyoda'), batalha, janela)
     time.sleep(1.5)
     limpar(janela, balaofala)
     rodarpalavra(palavra('esse e o laboratorio cin'), batalha, janela)
@@ -2515,11 +2515,11 @@ def ircenario1(self, posobj1, posobjatual, fundo, gramasxatual, gramasyatual, gr
 
     if cenario2:
         self.visual = imagens.frente
-        fundo = imagens.cenario3
+        fundo = imagens.cenario1
         return fundo, posobjatual, listatual, gramasatual, gramasxatual, gramasyatual, gramas4_atual, listaobjatual, variaveis.posx, 256
     elif cenario3:
         self.visual = imagens.esquerda
-        fundo = imagens. cenario3
+        fundo = imagens.cenario1
         return fundo, posobjatual, listatual, gramasatual, gramasxatual, gramasyatual, gramas4_atual, listaobjatual, variaveis.largura - variaveis.largurap, posy
 
 def ircenario2(self, posx, posy, posobjatual, posobj2, listatual, lista2, listaobjatual, listaobj2, fundo):

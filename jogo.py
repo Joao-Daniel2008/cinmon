@@ -1256,6 +1256,6 @@ while rodando:
         
 
 
-
+    print(variaveis.posy)
     pygame.display.update()
     sleep(0.1)

@@ -212,6 +212,9 @@ caminho_porta = BASE_DIR / "assets" / "imagens" / "objetos1" / "porta.png"
 porta = pygame.image.load(caminho_porta)
 porta = pygame.transform.scale(porta, (64, 56))
 
+cerca = pygame.image.load(caminho_porta)
+cerca = pygame.transform.scale(porta, (320, 320))
+
 caminho_grama = BASE_DIR / "assets" / "imagens" / "grama.png"
 grama = pygame.image.load(caminho_grama)
 grama = pygame.transform.scale(grama, (largurap, alturap))

@@ -1,9 +1,9 @@
 {
-    "posicaox": 448,
-    "posicaoy": 384,
+    "posicaox": 320,
+    "posicaoy": 320,
     "posicao": [
-        448,
-        384
+        320,
+        320
     ],
     "equipe": [
         [
@@ -32,12 +32,16 @@
     "treinadores_derrotados": [],
     "posobj": [
         [
-            192,
-            128
+            476,
+            64
         ],
         [
-            448,
-            72
+            704,
+            264
+        ], 
+        [
+            0,
+            0
         ]
     ],
     "escolhaioda": true,

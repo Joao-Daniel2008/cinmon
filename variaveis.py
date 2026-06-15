@@ -37,7 +37,7 @@ gramas9_4 = tuple(n.get_rect() for n in gramas9)
 #posições de objeto de cada cenário
 posobj1 = ((128, 0), (192, 200))
 posobj2 = ((704, 192), (384, 128))
-posobj3 = ((476, 64), (704, 264))
+posobj3 = ((476, 64), (704, 264), (0, 0))
 posobj4 = ((448, 0), (576, 0), (587, 20), (715, 20), (843, 20))
 posobj5 = ((576, 192), (640, 0))
 posobj6 = ((704, 64), (832, 256), (64, 64), (192, 256))
@@ -49,7 +49,7 @@ posobjatual = posobj4
 #listas de objetos de cada cenário
 lista1 =(imagens.casa, imagens.porta, imagens.player)
 lista2 =(imagens.cama, imagens.tv, imagens.player)
-lista3 =(imagens.lab, imagens.porta, imagens.player)
+lista3 =(imagens.lab, imagens.porta, imagens.cerca, imagens.player)
 lista4 =(imagens.ioda, imagens.mesa, imagens.crachabol, imagens.crachabol, imagens.crachabol, imagens.player)
 lista5 =(imagens.imagenst['treinador1'], imagens.imagenst['treinador2'], imagens.player)
 lista6 =(imagens.centrocin1, imagens.porta, imagens.centrocin1, imagens.porta, imagens.player)
@@ -61,7 +61,7 @@ listatual = lista4
 #listas dos rects de cada objeto dos cenários
 listaobj1 = (objetos.casa4, objetos.porta4, objetos.player4)
 listaobj2 = (objetos.cama4, objetos.tv4, objetos.player4)
-listaobj3 = (objetos.lab4, objetos.porta2_4, objetos.player4)
+listaobj3 = (objetos.lab4, objetos.porta2_4, objetos.cerca_cen3, objetos.player4)
 listaobj4 = (objetos.ioda4, objetos.mesa4, objetos.crachabol1_4, objetos.crachabol2_4, objetos.crachabol3_4, objetos.player4)
 listaobj5 = (objetos.imagenst['treinador1'], objetos.imagenst['treinador2'], objetos.player4)
 listaobj6 = (objetos.centrocin1_4, objetos.porta3_4, objetos.loja1_4, objetos.porta4_4, objetos.player4)
