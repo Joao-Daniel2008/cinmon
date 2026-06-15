@@ -869,7 +869,6 @@ while rodando:
 
         aviso = False
         aviso2 = False
-        aviso_de_troca = False
         trocado = False
         minha_vez = False
         ataques = False
@@ -899,10 +898,8 @@ while rodando:
                 sel = ''
                 aux1 = int(150 * (escolhido.hp / escolhido.hp_max)//1)
                 auxhp1 = pygame.transform.scale(imagens.auxhp, (aux1, 10))
-                if (not aviso_de_troca):
-                    aux2 = int(150 * (escolhido2.hp / escolhido2.hp_max)//1)
-                    auxhp2 = pygame.transform.scale(imagens.auxhp, (aux2, 10))
-                aviso_de_troca = False
+                aux2 = int(150 * (escolhido2.hp / escolhido2.hp_max)//1)
+                auxhp2 = pygame.transform.scale(imagens.auxhp, (aux2, 10))
                 aux1x = int(270 * (escolhido.xp / (escolhido.nivel * 10))//1)
                 auxxp1 = pygame.transform.scale(imagens.auxxp, (aux1x, 10))
                 janela.blit(fundo, (0, 0))
@@ -972,9 +969,8 @@ while rodando:
                                     funcoes_Classes.rodarpalavra(funcoes_Classes.palavra(f'{escolhido.nome} usou {atk.nome}'), True, janela)
                                     sleep(0.2)
                                     if atk.efeito == 'dano':
-                                        hpAntes = escolhido2.hp
                                         escolhido2.hp = pacote['novo_hp2']
-                                        funcoes_Classes.animacao_ataque(janela, fundo, escolhido, escolhido2, auxhp1, auxhp2, auxxp1, True, atk.nome, escolhido.hp, hpAntes, escolhido.hp, escolhido2.hp)
+                                        funcoes_Classes.animacao_ataque(janela, fundo, escolhido, escolhido2, auxhp1, auxhp2, auxxp1, True, atk.nome, escolhido.hp, pacote['hp_anterior2'], escolhido.hp, escolhido2.hp)
                                         if escolhido2.hp > 0:
                                             aux2 = int(150 * (escolhido2.hp / escolhido2.hp_max)//1)
                                         else:
@@ -1084,10 +1080,9 @@ while rodando:
                     funcoes_Classes.rodarpalavra(funcoes_Classes.palavra(fataque), True, janela)
                     sleep(0.2)
                     if pacote['golpe_tomado'] != 'dano':
-                        hpAntes = escolhido.hp
                         escolhido.hp = pacote['novo_hp1']
                         funcoes_Classes.terminal(janela, escolhido, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
-                        funcoes_Classes.animacao_ataque(janela, fundo, escolhido, escolhido2, auxhp1, auxhp2, auxxp1, False, pacote['golpe_tomado'], hpAntes, escolhido2.hp, escolhido.hp, escolhido2.hp)
+                        funcoes_Classes.animacao_ataque(janela, fundo, escolhido, escolhido2, auxhp1, auxhp2, auxxp1, False, pacote['golpe_tomado'], pacote['hp_anterior1'], escolhido2.hp, escolhido.hp, escolhido2.hp)
                         sleep(0.2)
                         if escolhido.hp > 0:
                             aux1 = int(150 * (escolhido.hp / escolhido.hp_max)//1)
@@ -1164,7 +1159,6 @@ while rodando:
                             cin2.hp = pacote['hp']
                     escolhido2 = cin2
                     aviso2 = True
-                    aviso_de_troca = True
                     if pacote['evento'] == 'TROCA':
                         pacote['evento'] = 'RESULTADO_TURNO'
                         if (not trocado):
@@ -1255,6 +1249,7 @@ while rodando:
                         sup = 0
                     elif temporizador == 2:
                         temporizador = 0
+                sleep(0.1)
             pygame.display.update()
 
 

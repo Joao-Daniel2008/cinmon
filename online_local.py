@@ -37,6 +37,9 @@ def resolver_turno(idplayer, conexao):
         if escolhas_turno[2] == ataque.nome:
             golpe_p2 = ataque
 
+    hpAnterior1 = cimons1[1]['hp']
+    hpAnterior2 = cimons1[2]['hp']
+
 
     if (not primeira):
         cimons1[2]['hp'] -= int(((int(golpe_p1.dano * golpe_p1.efetivo(cimon2)//1)) * cimon1.status)//1)
@@ -69,6 +72,8 @@ def resolver_turno(idplayer, conexao):
         'evento': "RESULTADO_TURNO",
         'novo_hp1': cimons1[1]['hp'],
         'novo_hp2': cimons1[2]['hp'],
+        'hp_anterior1': hpAnterior1,
+        'hp_anterior2': hpAnterior2,
         'golpe_tomado': golpe_p2.nome,
         'ID': 1,
         'status': status2
@@ -78,6 +83,8 @@ def resolver_turno(idplayer, conexao):
         'evento': "RESULTADO_TURNO",
         'novo_hp1': cimons1[2]['hp'],
         'novo_hp2': cimons1[1]['hp'],
+        'hp_anterior1': hpAnterior1,
+        'hp_anterior2': hpAnterior2,
         'golpe_tomado': golpe_p1.nome,
         'ID': 2,
         'status': status1
@@ -151,6 +158,9 @@ def minha_troca_seu_ataque(idplayer, conexao):
             cimon2.subir_nivel()
             cimon2.hp = cimons1[2]['hp']
     
+    hpAnterior1 = cimons1[1]['hp']
+    hpAnterior2 = cimons1[2]['hp']
+    
 
     if idplayer == 1 and (not primeira):
         cimons1[1]['hp'] -= int(((int(golpe_p2.dano * golpe_p2.efetivo(cimon1)//1)) * cimon2.status)//1)
@@ -206,18 +216,22 @@ def minha_troca_seu_ataque(idplayer, conexao):
         'evento': "RESULTADO_TURNO",
         'novo_hp1': cimons1[1]['hp'],
         'novo_hp2': cimons1[2]['hp'],
+        'hp_anterior1': hpAnterior1,
+        'hp_anterior2': hpAnterior2,
         'golpe_tomado': golpe_tomado1,
         'ID': 1,
         'status': status2
         }
     
     resultado_p2 = {
-            'evento': "RESULTADO_TURNO",
-            'novo_hp1': cimons1[2]['hp'],
-            'novo_hp2': cimons1[1]['hp'],
-            'golpe_tomado': golpe_tomado2,
-            'ID': 2,
-            'status': status1
+        'evento': "RESULTADO_TURNO",
+        'novo_hp1': cimons1[2]['hp'],
+        'novo_hp2': cimons1[1]['hp'],
+        'hp_anterior1': hpAnterior1,
+        'hp_anterior2': hpAnterior2,
+        'golpe_tomado': golpe_tomado2,
+        'ID': 2,
+        'status': status1
         }
     
     if idplayer == 1:    
@@ -287,6 +301,9 @@ def meu_ataque_sua_troca(idplayer, conexao):
         for ataque in cimons.ataques:
             if escolhas_turno[2] == ataque.nome:
                 golpe_p2 = ataque
+
+    hpAnterior1 = cimons1[1]['hp']
+    hpAnterior2 = cimons1[2]['hp']
     
 
     if idplayer == 1 and (not primeira):
@@ -346,6 +363,8 @@ def meu_ataque_sua_troca(idplayer, conexao):
         'evento': "TROCA",
         'novo_hp1': cimons1[1]['hp'],
         'novo_hp2': cimons1[2]['hp'],
+        'hp_anterior1': hpAnterior1,
+        'hp_anterior2': hpAnterior2,
         'golpe_tomado': golpe_tomado1,
         'ID': 1,
         'status': status2,
@@ -358,6 +377,8 @@ def meu_ataque_sua_troca(idplayer, conexao):
         'evento': "TROCA",
         'novo_hp1': cimons1[2]['hp'],
         'novo_hp2': cimons1[1]['hp'],
+        'hp_anterior1': hpAnterior1,
+        'hp_anterior2': hpAnterior2,
         'golpe_tomado': golpe_tomado2,
         'ID': 2,
         'status': status1,
@@ -456,6 +477,8 @@ def gerenciar_clientes(conexao, endereco, idplayer):
                             condicao_turno.wait()
                         else:
                             condicao_turno.notify()
+                            if comeco1 or comeco2:
+                                escolhas_turno.clear()
                 if decisao['evento'] == 'TROCA':
                     cimons1['evento'] = 'TROCA'
                 elif comeco1 or comeco2:
