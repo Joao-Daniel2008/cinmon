@@ -830,7 +830,7 @@ def batalha_selvagem(self, player, fundo, janela, equipe, selvagem, batalha, tec
                         terminal(janela, escolhido, fundo, sel, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
                         rodarpalavra(palavra(f'Voce ja tem 3 cinmons'), batalha, janela)
                         time.sleep(1)
-                if mov1 == 2 and temporizador == 2:
+                elif mov1 == 2 and temporizador == 2:
                     mov1 = mov2 = 1
                     temporizador = 0
                     if self.listaDeQtd[1] > 0:
@@ -1558,7 +1558,31 @@ def batalha_treinador(self, mochila, treinador, fundo, janela, equipe1, equipe2,
                     terminal(janela, escolhido, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
                     rodarpalavra(palavra('Voce nao pode fazer isso'), batalha, janela)
                     time.sleep(1)
-
+                elif mov1 == 2 and temporizador == 2:
+                    mov1 = mov2 = 1
+                    temporizador = 0
+                    if mochila.listaDeQtd[1] > 0:
+                        if escolhido.hp < escolhido.hp_max:
+                            for i in range(40):
+                                if escolhido.hp < escolhido.hp_max:
+                                    escolhido.hp += 0.25
+                                    aux1 = int(150 * (escolhido.hp / escolhido.hp_max)//1)
+                                    auxhp1 = pygame.transform.scale(imagens.auxhp, (aux1, 10))
+                                    terminal(janela, escolhido, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
+                                    pygame.display.update()
+                                    time.sleep(0.05)
+                            mochila.listaDeQtd[1] -= 1
+                            rodarpalavra(palavra(f'{escolhido.nome} recuperou hp'),batalha, janela)
+                            verturno = False
+                            bolsa = False
+                        else:
+                            terminal(janela, escolhido, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
+                            rodarpalavra(palavra(f'{escolhido.nome} hp cheio'),batalha, janela)
+                            time.sleep(1)
+                    else:
+                        terminal(janela, escolhido, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
+                        rodarpalavra(palavra(f'voce nao tem potions'),batalha, janela)
+                        time.sleep(1)
 
         time.sleep(0.1)
         pygame.display.update()

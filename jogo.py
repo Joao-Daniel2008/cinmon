@@ -309,7 +309,7 @@ while rodando:
 
             if estado['mochila'] != '':
                 mochila = funcoes_Classes.mochila([imagens.crachabola, imagens.potion], [0, 0], 0)
-                mochila.dinheiro = estado['mochila'][1]
+                mochila.dinheiro = estado['mochila'][-1]
                 for n in range(int(len(estado['mochila']) - 1)):
                     mochila.listaDeQtd[n] = estado['mochila'][n][1]
                 
@@ -613,8 +613,8 @@ while rodando:
                 if escolhaioda:
                     equipe = funcoes_Classes.equipe(1, 1, 0, [escolha.clonar()])
                     estado['equipe'] = [(equipe.lista[0].nome, (equipe.lista[0].nivel - 1) * 10 + equipe.lista[0].xp, equipe.lista[0].hp)]
-                    mochila = funcoes_Classes.mochila([imagens.crachabola, imagens.potion], [2,1], 0)
-                    estado['mochila'] = [['crachabola', 2, ['potion', 3]], 0]
+                    mochila = funcoes_Classes.mochila([imagens.crachabola, imagens.potion], [2,3], 0)
+                    estado['mochila'] = [['crachabola', 2], ['potion', 3], 0]
                     estado['escolhaioda'] = True
                     estado['posobj'] = variaveis.posobj4
 
@@ -636,7 +636,9 @@ while rodando:
 
                 if menuloja:
                     rodando, menuloja = funcoes_Classes.menuloja(janela, 1, menuloja, listaitems1, mochila)
-                    estado['mochila'] = [['crachabola', mochila.listaDeQtd[mochila.listaDeles.index(imagens.crachabola)], 'potion',   ], mochila.dinheiro]
+                    qtd_cracha = mochila.listaDeQtd[mochila.listaDeles.index(imagens.crachabola)]
+                    qtd_potion = mochila.listaDeQtd[mochila.listaDeles.index(imagens.potion)]
+                    estado['mochila'] = [['crachabola', qtd_cracha], ['potion', qtd_potion], mochila.dinheiro]
 
 
 
@@ -733,7 +735,9 @@ while rodando:
             musicaB = False
             contador_xp = 0
             estado['equipe'] = [(equipe.lista[n].nome, sum(k  * 10 for k in range(1, equipe.lista[n].nivel)) + equipe.lista[n].xp, equipe.lista[n].hp) for n in range(len(equipe.lista))]
-            estado['mochila'] = [['crachabola', mochila.listaDeQtd[mochila.listaDeles.index(imagens.crachabola)]], mochila.dinheiro]
+            qtd_bola = mochila.listaDeQtd[mochila.listaDeles.index(imagens.crachabola)]
+            qtd_potion = mochila.listaDeQtd[mochila.listaDeles.index(imagens.potion)]
+            estado['mochila'] = [['crachabola', qtd_bola],['potion',qtd_potion], mochila.dinheiro]
             for n in ([equipe1, equipe2, equipe3, equipe4]):
                 if (not n.timevivo()) and treinador not in estado['treinadores_derrotados']:
                     estado['treinadores_derrotados'].append(indice)
