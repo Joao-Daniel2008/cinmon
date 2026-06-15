@@ -452,8 +452,10 @@ def gerenciar_clientes(conexao, endereco, idplayer):
                 if decisao['evento'] == 'TROCA' or comeco1 or comeco2:
                     with condicao_turno:
                         escolhas_turno[idplayer] = 'TROCA' if decisao['evento'] == 'TROCA' else ''
-                        condicao_turno.wait_for(lambda: len(escolhas_turno) == 2)
-                        condicao_turno.notify_all()
+                        if len(escolhas_turno) < 2:
+                            condicao_turno.wait()
+                        else:
+                            condicao_turno.notify()
                 if decisao['evento'] == 'TROCA':
                     cimons1['evento'] = 'TROCA'
                 elif comeco1 or comeco2:
@@ -473,8 +475,6 @@ def gerenciar_clientes(conexao, endereco, idplayer):
                     minha_troca_seu_ataque(idplayer, conexao)
                 elif decisao['evento'] == 'TROCA' and decisao2 == 'TROCA':
                     troca_dupla(idplayer, conexao)
-                else:
-                    escolhas_turno.clear()
 
             elif decisao['evento'] == 'AGUARDANDO_REPOSICAO':
                 with condicao_turno:
