@@ -83,8 +83,8 @@ def resolver_turno(idplayer, conexao):
         'evento': "RESULTADO_TURNO",
         'novo_hp1': cimons1[2]['hp'],
         'novo_hp2': cimons1[1]['hp'],
-        'hp_anterior1': hpAnterior1,
-        'hp_anterior2': hpAnterior2,
+        'hp_anterior1': hpAnterior2,
+        'hp_anterior2': hpAnterior1,
         'golpe_tomado': golpe_p1.nome,
         'ID': 2,
         'status': status1
