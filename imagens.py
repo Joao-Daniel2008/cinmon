@@ -251,6 +251,10 @@ caminho_crachabola = BASE_DIR / "assets" / "imagens" / "mochila" / "crachabola.p
 crachabola = pygame.image.load(caminho_crachabola)
 crachabola = pygame.transform.scale(crachabola, (49, 64))
 
+caminho_potion = BASE_DIR / "assets" / "imagens" / "mochila" / "potion.png"
+potion = pygame.image.load(caminho_potion)
+potion = pygame.transform.scale(potion, (49, 64))
+
 
 #objetos 6
 caminho_centrocin = BASE_DIR / "assets" / "imagens" / "objetos6" / "centropoke.png"
