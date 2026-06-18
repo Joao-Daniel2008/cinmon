@@ -816,7 +816,7 @@ while rodando:
 
             
             janela.blit(imagens.balaofala, (64, 384))
-            frase = funcoes_Classes.palavra(f'HOST {''.join(lista)}')
+            frase = funcoes_Classes.palavra(f'HOST {"".join(lista)}')
             HOST = ''.join(lista)
             aux = 8
             for letra in frase:
@@ -1082,7 +1082,7 @@ while rodando:
                             escolhido2 = cin2
                             aviso2 = True
                 elif pacote['evento'] == 'RESULTADO_TURNO':
-                    fataque = f'{escolhido2.nome} usou {pacote['golpe_tomado']}'
+                    fataque = f'{escolhido2.nome} usou {pacote["golpe_tomado"]}'
                     funcoes_Classes.terminal(janela, escolhido, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
                     funcoes_Classes.rodarpalavra(funcoes_Classes.palavra(fataque), True, janela)
                     sleep(0.2)
