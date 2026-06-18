@@ -1,7 +1,6 @@
 <img width="915" height="353" alt="Captura de tela 2026-06-18 192307" src="https://github.com/user-attachments/assets/2a2dfe6a-723c-45f0-984f-b71c7b8fb845" />
 <img width="505" height="394" alt="Captura de tela 2026-06-18 192603" src="https://github.com/user-attachments/assets/66f3cf65-4f60-4423-a547-7c4b2acc81a3" />
-<img width="557" height="301" alt="Captura de tela 2026-06-18 192545" src="https://github.com/user-attachments/assets/31372a41-028e-4da3-963a-c80b56a1c56d" />
-<img width="524" height="327" alt="Captura de tela 2026-06-18 192532" src="https://github.com/user-attachments/assets/edebc4fb-a0c3-42de-b03f-41aded5a56ea" />
+<img width="557" height="301" alt="Captura de tela 2026-06-18 192545" src="https://github.com/user-attachments/assets/31372a41-028e-4da3-963a-c80b56a1c56d" /><img width="524" height="327" alt="Captura de tela 2026-06-18 192532" src="https://github.com/user-attachments/assets/edebc4fb-a0c3-42de-b03f-41aded5a56ea" />
 
 
 # 🎮 CinMon
