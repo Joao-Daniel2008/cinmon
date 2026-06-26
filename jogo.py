@@ -62,9 +62,10 @@ def salvarJogo(estado):
     funcoes_Classes.rodarpalavra(funcoes_Classes.palavra('jogo salvo com sucesso'), False, janela)
     sleep(1)
 
-def menu_principal(janela, fundo_menu, imagem_botoes):
-    x = (1500 - imagem_botoes.get_width()) // 2
-    y = 260
+def menu_principal(janela, fundo_menu, imagem_botoes,som_clique):
+    pygame.mixer.music.play(-1)
+    x = (janela.get_width()  - imagem_botoes.get_width())  // 2
+    y = (janela.get_height() - imagem_botoes.get_height()) // 2 + 80
 
     rect_carregar = pygame.Rect(x + 20, y,      imagem_botoes.get_width() - 40, 45)
     rect_novo     = pygame.Rect(x + 20, y + 45, imagem_botoes.get_width() - 40, 50)
@@ -92,18 +93,22 @@ def menu_principal(janela, fundo_menu, imagem_botoes):
                     print(f"Procurando save em: {ARQUIVO_SAVE}")
                     print(f"Existe: {os.path.exists(ARQUIVO_SAVE)}")
                     if os.path.exists(ARQUIVO_SAVE):
+                        som_clique.play()
+                        pygame.time.wait(250)
                         escolha = 'carregar'
                         no_menu = False
                     else:
                         print("Nenhum save encontrado!")
 
                 elif rect_novo.collidepoint(mouse):
+                    som_clique.play()
+                    pygame.time.wait(250)
                     escolha = 'novo'
                     no_menu = False
         janela.blit(fundo_menu, (0, 0))
         janela.blit(imagem_botoes, (x, y))
         pygame.display.update()
-
+    pygame.mixer.music.stop()
     return escolha
 
 
@@ -309,7 +314,7 @@ equipe.lista[0].xp = 209
 bla, bla2, equipe.lista[0] =equipe.lista[0].subir_nivel()
 '''
 
-escolha_menu = menu_principal(janela, imagens.fundo_menu, imagens.botoes_menu)
+escolha_menu = menu_principal(janela, imagens.fundo_menu, imagens.botoes_menu,imagens.som_clique)
 
 if escolha_menu == 'novo':
     carregar_save = False

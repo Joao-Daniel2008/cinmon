@@ -1,52 +1,66 @@
 {
-    "posicaox": 320,
-    "posicaoy": 320,
+    "posicaox": 384,
+    "posicaoy": 384,
     "posicao": [
-        320,
-        320
+        384,
+        384
     ],
     "equipe": [
         [
-            "naruto beast",
-            280,
-            22
-        ],
-        [
-            "goku ssj",
-            280,
-            19
-        ],
-        [
-            "mewtwo",
-            280,
-            17
+            "rath",
+            0,
+            12
         ]
     ],
     "mochila": [
         [
             "crachabola",
-            0
+            2
+        ],
+        [
+            "potion",
+            3
         ],
         0
     ],
     "treinadores_derrotados": [],
     "posobj": [
         [
-            476,
-            64
+            576,
+            192
         ],
         [
-            704,
-            264
-        ], 
-        [
-            0,
+            640,
             0
         ]
     ],
     "escolhaioda": true,
-    "gramas": 0,
-    "gramasx": [],
-    "gramasy": [],
-    "gramas4": 0
+    "gramas": 11,
+    "gramasx": [
+        64,
+        128,
+        192,
+        320,
+        384,
+        448,
+        512,
+        320,
+        384,
+        448,
+        512
+    ],
+    "gramasy": [
+        64,
+        64,
+        64,
+        256,
+        256,
+        256,
+        256,
+        192,
+        192,
+        192,
+        192
+    ],
+    "gramas4": 11
 }

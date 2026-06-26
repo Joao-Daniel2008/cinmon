@@ -8,9 +8,11 @@ fundo_menu  = None
 botoes_menu = None
 
 def carregar():
-    global fundo_menu, botoes_menu
+    global fundo_menu, botoes_menu, som_clique
 
-    caminho_fundo_menu = BASE_DIR / "assets" / "imagens" / "TELAFINAL.png"
+    pygame.mixer.music.load(BASE_DIR / "assets" / "musicas" / "musica menu incial.mp3")
+
+    caminho_fundo_menu = BASE_DIR / "assets" / "imagens" / "mncin 1.png"
     fundo_menu  = pygame.image.load(caminho_fundo_menu)
     fundo_menu  = pygame.transform.scale(fundo_menu, (1024, 512))
 
@@ -18,6 +20,7 @@ def carregar():
     botoes_menu = pygame.image.load(caminho_botoes_menu)
     botoes_menu = pygame.transform.scale(botoes_menu, (300, 150))
 
+    som_clique = pygame.mixer.Sound(BASE_DIR / "assets" / "musicas" / "efeito_inicial.mp3")
 
 
 if getattr(sys, 'frozen', False):
