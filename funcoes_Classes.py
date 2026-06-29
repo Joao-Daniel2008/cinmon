@@ -1919,9 +1919,10 @@ def falarcomioda(self, posx, posy):
 
 def inicio(mov1a, ataques, escolhendo, bolsa, balao, janela, aviso, player1, player, batalha, cenario1, marca, tecla, escolhaioda):
     escolha = ''
+    ficar = True
     if (not aviso) and falarcomioda(player1, variaveis.posx, variaveis.posy):
-        aviso = escolhaioda1(janela, variaveis.posx, variaveis.posy, batalha, variaveis.gramasatual, variaveis.gramasxatual, variaveis.gramasyatual, variaveis.listatual, variaveis.posobjatual, imagens.player, imagens.balaofala)
-    if variaveis.posy == variaveis.alturap:
+        aviso, ficar = escolhaioda1(janela, variaveis.posx, variaveis.posy, batalha, variaveis.gramasatual, variaveis.gramasxatual, variaveis.gramasyatual, variaveis.listatual, variaveis.posobjatual, imagens.player, imagens.balaofala)
+    if aviso and variaveis.posy == variaveis.alturap:
         marcacao = False
         if (not balao):
             if variaveis.posx == 576:
@@ -1977,7 +1978,7 @@ def inicio(mov1a, ataques, escolhendo, bolsa, balao, janela, aviso, player1, pla
             balao = True
         else:
             marca = False
-    return escolhaioda, escolha, balao, mov1a
+    return escolhaioda, escolha, balao, mov1a, ficar, aviso
 
 
 
@@ -1985,38 +1986,52 @@ def inicio(mov1a, ataques, escolhendo, bolsa, balao, janela, aviso, player1, pla
 
 
 def escolhaioda1(janela, posx, posy, batalha, gramasatual, gramasxatual, gramasyatual, listatual, posobjatual, player, balaofala):
+    rodando = True
     limpar(janela, balaofala)
     rodarpalavra(palavra('ola seja bem vindo'), batalha, janela)
-    time.sleep(1.5)
-    limpar(janela, balaofala)
-    rodarpalavra(palavra('sou o professor iyoda'), batalha, janela)
-    time.sleep(1.5)
-    limpar(janela, balaofala)
-    rodarpalavra(palavra('esse e o laboratorio cin'), batalha, janela)
-    time.sleep(1.5)
-    limpar(janela, balaofala)
-    rodarpalavra(palavra('onde a jornada dos cins comeca'), batalha, janela)
-    time.sleep(1.5)
-    limpar(janela, balaofala)
-    rodarpalavra(palavra('o que'), batalha, janela)
-    time.sleep(1.5)
-    limpar(janela, balaofala)
-    rodarpalavra(palavra('quer ser um cin'), batalha, janela)
-    time.sleep(1.5)
-    limpar(janela, balaofala)
-    rodarpalavra(palavra('pois bem'), batalha, janela)
     time.sleep(1)
     limpar(janela, balaofala)
-    rodarpalavra(palavra('darei a voce 2 crachabolas'), batalha, janela)
-    time.sleep(1.5)
+    rodarpalavra(palavra('sou o professor iyoda'), batalha, janela)
+    time.sleep(1)
     limpar(janela, balaofala)
-    rodarpalavra(palavra('e podera escolher seu cinmon'), batalha, janela)
-    time.sleep(2)
+    rodarpalavra(palavra('esse e o laboratorio cin'), batalha, janela)
+    time.sleep(1)
     limpar(janela, balaofala)
-    rodarpalavra(palavra('va e se torne um cin'), batalha, janela)
-    time.sleep(1.5)
+    rodarpalavra(palavra('onde a jornada dos cins comeca'), batalha, janela)
+    time.sleep(1)
     limpar(janela, balaofala)
-    return True
+    rodarpalavra(palavra('o que'), batalha, janela)
+    time.sleep(1)
+    limpar(janela, balaofala)
+    rodarpalavra(palavra('quer ser um cin'), batalha, janela)
+    time.sleep(1)
+    ficar = True
+    mov1a = 1
+    while rodando:
+        for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                ficar = False
+                rodando = False
+        tecla = pygame.key.get_pressed()
+        janela.blit(imagens.menu1, (848, 240))
+        soun(palavra('sim'), 'sim', janela)
+        soun(palavra('nao'), 'nao', janela)
+        seta(1, mov1a, janela, imagens.setinha, False, False, False, True)
+        if tecla[pygame.K_UP]:# or ass == 'a':
+            if mov1a > 1:
+                mov1a -= 1
+        elif tecla[pygame.K_DOWN]:# or ass == 'b':
+            if mov1a < 2:
+                mov1a += 1 
+        elif tecla[pygame.K_SPACE]:
+            if mov1a == 1:
+                ficar = True
+                rodando = False
+            else:
+                ficar = False
+                rodando = False
+        pygame.display.update()
+    return True, ficar
 
 def cin1(batalha, janela, posx, posy, gramasatual, gramasxatual, gramasyatual, listatual, posobjatual, player, balaofala):
     limpar(janela, balaofala)
