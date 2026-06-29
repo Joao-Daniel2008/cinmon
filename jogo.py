@@ -5,10 +5,11 @@ import os
 import socket
 import threading
 import queue
-
+import itenschao
 
 from time import sleep
-
+import itenschao
+import time as time_module
 
 pygame.init()
 pygame.mixer.init()
@@ -256,6 +257,9 @@ listaitems1 = [imagens.crachabola, imagens.potion]           #imagens que há na
 
 rodando = True
 
+itens_cenario = []
+itens_gerados_para = None
+itens_por_cenario = {}
 batalha = False#
 trainer = False#
 ataques = False
@@ -335,6 +339,7 @@ while rodando:
         elif evento.type == pygame.KEYDOWN:
             if evento.key == pygame.K_s:
                 salvarJogo(estado)
+            
     if carregar_save:
         carregar_save = False
         try:
@@ -727,6 +732,38 @@ while rodando:
 
 
 ###
+        nome_cenario_atual = None
+        if cenario1: nome_cenario_atual = 'cenario1'
+        elif cenario2: nome_cenario_atual = 'cenario2'
+        elif cenario3: nome_cenario_atual = 'cenario3'
+        elif cenario5: nome_cenario_atual = 'cenario5'
+        elif cenario6: nome_cenario_atual = 'cenario6'
+        elif cenario9: nome_cenario_atual = 'cenario9'
+        elif centrocin: nome_cenario_atual = 'centrocin'
+        elif loja: nome_cenario_atual = 'loja'
+
+
+        itenschao.mochila_global = mochila
+        itenschao.escolhaioda_global = escolhaioda
+        itenschao.palavra_func = funcoes_Classes.palavra
+
+        if itens_gerados_para != nome_cenario_atual:
+            itens_gerados_para = nome_cenario_atual
+            if nome_cenario_atual in ('centrocin', 'loja', None):
+                itens_cenario = []
+                itenschao.itens_cenario_global = []
+            elif escolhaioda and mochila != '':
+                if nome_cenario_atual not in itens_por_cenario or itenschao.verificar_respawn(nome_cenario_atual):
+                    itens_por_cenario[nome_cenario_atual] = itenschao.gerar_itens(nome_cenario_atual, quantidade=2)
+                    itenschao.tempo_por_cenario[nome_cenario_atual] = time_module.time()
+                itens_cenario = itens_por_cenario[nome_cenario_atual]
+                itenschao.itens_cenario_global = itens_cenario
+
+       
+        if nome_cenario_atual and nome_cenario_atual not in ('centrocin', 'loja'):
+            if nome_cenario_atual in itens_por_cenario and len(itens_por_cenario[nome_cenario_atual]) == 0:
+                if nome_cenario_atual not in itenschao.tempo_por_cenario:
+                    itenschao.tempo_por_cenario[nome_cenario_atual] = time_module.time()
 
         if (not balao) and (not balao2):
             player.rect.x = variaveis.posx
@@ -738,8 +775,10 @@ while rodando:
 
             janela.blit(fundo, (0, 0))
             for n in range(len(variaveis.posobjatual)):
-                    janela.blit(variaveis.listatual[n], (variaveis.posobjatual[n][0], variaveis.posobjatual[n][1]))
+                janela.blit(variaveis.listatual[n], (variaveis.posobjatual[n][0], variaveis.posobjatual[n][1]))
+
             janela.blit(player.visual, (variaveis.posx, variaveis.posy))
+
             if cenario1 or cenario5 or cenario9:
                 for n in range(len(variaveis.gramasatual)):
                     janela.blit(variaveis.gramasatual[n], (variaveis.gramasxatual[n], variaveis.gramasyatual[n]))
@@ -749,6 +788,60 @@ while rodando:
                     if batalha:
                         musicaB = True
                         musicaP = False
+
+            
+            if mochila != '' and escolhaioda and nome_cenario_atual is not None:
+                player_rect_atual = pygame.Rect(variaveis.posx, variaveis.posy, 64, 64)
+                for item in itens_cenario:
+                    item.desenhar(janela)
+                itenschao.atualizar_itens(itens_cenario, player_rect_atual, mochila, imagens)
+
+        
+        if mochila != '' and escolhaioda:
+
+            def blit_mini_texto(texto, x, y, escala=0.55):
+                aux = 0
+                for letra in funcoes_Classes.palavra(str(texto)):
+                    if letra != ' ':
+                        l = pygame.transform.scale(letra, (int(imagens.largural * escala), int(imagens.altural * escala)))
+                        l_branco = l.copy()
+                        l_branco.fill((255, 255, 255), special_flags=pygame.BLEND_RGB_MAX)
+                        janela.blit(l_branco, (x + aux, y))
+                        aux += int(imagens.largural * escala) + 2
+                    else:
+                        aux += int(imagens.largural * escala) + 4
+
+            hud_w, hud_h = 130, 125
+            hud_surf = pygame.Surface((hud_w, hud_h), pygame.SRCALPHA)
+            pygame.draw.rect(hud_surf, (30, 30, 30, 220), (0, 0, hud_w, hud_h), border_radius=8)
+            pygame.draw.rect(hud_surf, (200, 200, 200, 180), (0, 0, hud_w, hud_h), width=2, border_radius=8)
+            janela.blit(hud_surf, (4, 4))
+
+            linha_h = 36
+            icon_size = 26
+            texto_x = 44
+            icon_x = 10
+
+            y = 10
+            crachabola_img = pygame.transform.scale(imagens.crachabola, (icon_size, icon_size))
+            janela.blit(crachabola_img, (icon_x, y))
+            qtd_cracha = mochila.listaDeQtd[mochila.listaDeles.index(imagens.crachabola)]
+            blit_mini_texto(str(qtd_cracha), texto_x, y + 6)
+            pygame.draw.line(janela, (150, 150, 150), (10, y + linha_h), (hud_w - 6, y + linha_h), 1)
+
+            y = 10 + linha_h + 4
+            potion_img = pygame.transform.scale(imagens.potion, (icon_size, icon_size))
+            janela.blit(potion_img, (icon_x, y))
+            qtd_potion = mochila.listaDeQtd[mochila.listaDeles.index(imagens.potion)]
+            blit_mini_texto(str(qtd_potion), texto_x, y + 6)
+            pygame.draw.line(janela, (150, 150, 150), (10, y + linha_h), (hud_w - 6, y + linha_h), 1)
+
+            y = 10 + (linha_h + 4) * 2
+            moeda_hud = pygame.transform.scale(imagens.moeda, (icon_size, icon_size))
+            janela.blit(moeda_hud, (icon_x, y))
+            blit_mini_texto(str(mochila.dinheiro), texto_x, y + 6)
+
+        pygame.display.update()
 
           
 

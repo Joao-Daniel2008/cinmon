@@ -6,12 +6,21 @@ from pathlib import Path
 
 fundo_menu  = None
 botoes_menu = None
-
+caminho_coleta = None
+moeda = None
 def carregar():
-    global fundo_menu, botoes_menu, som_clique
+    global fundo_menu, botoes_menu, som_clique,caminho_coleta,moeda
+
+
+    caminho_moeda = BASE_DIR / "assets" / "imagens" / "moeda_jogo_cinmon.png"
+    moeda = pygame.image.load(caminho_moeda)
+    moeda = pygame.transform.scale(moeda, (32, 32))
+
+
+
 
     pygame.mixer.music.load(BASE_DIR / "assets" / "musicas" / "musica menu incial.mp3")
-
+    caminho_coleta = BASE_DIR / "assets" / "sons" / "som_coleta_item.mp3"
     caminho_fundo_menu = BASE_DIR / "assets" / "imagens" / "mncin 1.png"
     fundo_menu  = pygame.image.load(caminho_fundo_menu)
     fundo_menu  = pygame.transform.scale(fundo_menu, (1024, 512))
