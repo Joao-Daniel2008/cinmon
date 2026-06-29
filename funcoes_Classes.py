@@ -30,6 +30,10 @@ class Player:
             if fundo == imagens.cenario1 or fundo == imagens.cenario5 or fundo == imagens.cenario9:
                 for j in range(len(variaveis.gramasatual)):
                     janela.blit(variaveis.gramasatual[j], (variaveis.gramasxatual[j], variaveis.gramasyatual[j]))
+        
+            import itenschao
+            for item in itenschao.itens_cenario_global:
+                item.desenhar(janela)
             if di:
                 self.posicao = (posx - self.velocidade + (self.velocidade / 4) * n, posy)
                 if andada == 0:
@@ -55,6 +59,51 @@ class Player:
                 else:
                     self.visual = imagens.andando_atras2
             janela.blit(self.visual, self.posicao)
+
+            
+            if itenschao.mochila_global is not None and itenschao.escolhaioda_global:
+                def blit_mini_texto(texto, x, y, escala=0.55):
+                    aux = 0
+                    for letra in itenschao.palavra_func(str(texto)):
+                        if letra != ' ':
+                            l = pygame.transform.scale(letra, (int(imagens.largural * escala), int(imagens.altural * escala)))
+                            l_branco = l.copy()
+                            l_branco.fill((255, 255, 255), special_flags=pygame.BLEND_RGB_MAX)
+                            janela.blit(l_branco, (x + aux, y))
+                            aux += int(imagens.largural * escala) + 2
+                        else:
+                            aux += int(imagens.largural * escala) + 4
+
+                hud_w, hud_h = 130, 125
+                hud_surf = pygame.Surface((hud_w, hud_h), pygame.SRCALPHA)
+                pygame.draw.rect(hud_surf, (30, 30, 30, 220), (0, 0, hud_w, hud_h), border_radius=8)
+                pygame.draw.rect(hud_surf, (200, 200, 200, 180), (0, 0, hud_w, hud_h), width=2, border_radius=8)
+                janela.blit(hud_surf, (4, 4))
+
+                linha_h = 36
+                icon_size = 26
+                texto_x = 44
+                icon_x = 10
+
+                y = 10
+                crachabola_img = pygame.transform.scale(imagens.crachabola, (icon_size, icon_size))
+                janela.blit(crachabola_img, (icon_x, y))
+                qtd_cracha = itenschao.mochila_global.listaDeQtd[itenschao.mochila_global.listaDeles.index(imagens.crachabola)]
+                blit_mini_texto(str(qtd_cracha), texto_x, y + 6)
+                pygame.draw.line(janela, (150, 150, 150), (10, y + linha_h), (hud_w - 6, y + linha_h), 1)
+
+                y = 10 + linha_h + 4
+                potion_img = pygame.transform.scale(imagens.potion, (icon_size, icon_size))
+                janela.blit(potion_img, (icon_x, y))
+                qtd_potion = itenschao.mochila_global.listaDeQtd[itenschao.mochila_global.listaDeles.index(imagens.potion)]
+                blit_mini_texto(str(qtd_potion), texto_x, y + 6)
+                pygame.draw.line(janela, (150, 150, 150), (10, y + linha_h), (hud_w - 6, y + linha_h), 1)
+
+                y = 10 + (linha_h + 4) * 2
+                moeda_hud = pygame.transform.scale(imagens.moeda, (icon_size, icon_size))
+                janela.blit(moeda_hud, (icon_x, y))
+                blit_mini_texto(str(itenschao.mochila_global.dinheiro), texto_x, y + 6)
+
             pygame.display.update()
             time.sleep(0.05)
 
@@ -1558,6 +1607,9 @@ def batalha_treinador(self, mochila, treinador, fundo, janela, equipe1, equipe2,
                     terminal(janela, escolhido, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
                     rodarpalavra(palavra('Voce nao pode fazer isso'), batalha, janela)
                     time.sleep(1)
+                    bolsa = False
+                    mov1=2
+                    mov2=1
                 elif mov1 == 2 and temporizador == 2:
                     mov1 = mov2 = 1
                     temporizador = 0
@@ -1579,6 +1631,9 @@ def batalha_treinador(self, mochila, treinador, fundo, janela, equipe1, equipe2,
                             terminal(janela, escolhido, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
                             rodarpalavra(palavra(f'{escolhido.nome} hp cheio'),batalha, janela)
                             time.sleep(1)
+                            bolsa=False
+                            mov1=2
+                            mov2=1
                     else:
                         terminal(janela, escolhido, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
                         rodarpalavra(palavra(f'voce nao tem potions'),batalha, janela)
