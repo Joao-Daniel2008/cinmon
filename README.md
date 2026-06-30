@@ -46,6 +46,7 @@ Use o teclado para comandar o Cin e seus CinMons:
 | **Delete** | Voltar / Cancelar |
 | **M** | Abrir a Bolsa / Menu de CinMons |
 | **S** | Salvar o jogo (*Save Game*) |
+| **V** | Sprint (Aumentar a velocidade) |
 
 ---
 
