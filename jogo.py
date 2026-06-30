@@ -3,7 +3,7 @@ import sys
 import json
 import os
 import socket
-import threading
+import threading 
 import queue
 import itenschao
 
@@ -33,8 +33,6 @@ else:
     pasta_do_jogo = os.path.dirname(os.path.abspath(__file__))
 
 ARQUIVO_SAVE = os.path.join(pasta_do_jogo, "savegame.json")
-
-
 
 player = funcoes_Classes.Player(variaveis.posx, variaveis.posy, 64, imagens.player, imagens.frente, objetos.player4)
 
@@ -340,6 +338,8 @@ while rodando:
         elif evento.type == pygame.KEYDOWN:
             if evento.key == pygame.K_s:
                 salvarJogo(estado)
+            if evento.key == pygame.K_v:
+                player.alternar_montaria()
             
     if carregar_save:
         carregar_save = False

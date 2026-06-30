@@ -17,10 +17,29 @@ som_nivel.set_volume(0.8)
 class Player:
     def __init__(self, posx, posy, velocidade, imagem, visual, rect):
         self.posicao = (posx, posy)
-        self.velocidade = velocidade
+        
+       
+        self.velocidade_normal = velocidade 
+        
+        self.velocidade_montaria = velocidade * 2 
+        
+        
+        self.velocidade = velocidade 
+        
+        self.esta_montado = False
         self.imagem = imagem
         self.visual = visual
         self.rect = rect
+
+    
+    def alternar_montaria(self):
+        self.esta_montado = not self.esta_montado
+        if self.esta_montado:
+            self.velocidade = self.velocidade_montaria
+            print("correndo! Velocidade agora é:", self.velocidade)
+        else:
+            self.velocidade = self.velocidade_normal
+            print("andando. Velocidade agora é:", self.velocidade)
 
     def movimento(self, posx, posy, di, es, ci, ba, janela, fundo, andada):
         for n in range(1, 5):
