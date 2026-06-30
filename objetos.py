@@ -1,6 +1,6 @@
 import imagens
 import pygame
-import variaveis
+
 
 posx = 576
 posy = 64
@@ -29,9 +29,7 @@ porta2_4 = imagens.porta.get_rect()
 porta2_4.x = 704
 porta2_4.y = 264
 
-ioda4 = imagens.ioda.get_rect()
-ioda4.x = 448
-ioda4.y = 0
+
 
 mesa4 = imagens.mesa.get_rect()
 mesa4.x = 576

@@ -3,11 +3,11 @@ import imagens
 import variaveis
 import objetos
 import copy
-#joalucaasmacio
 import time
 import random
-#betas
+
 pygame.mixer.init()
+
 som_atk = pygame.mixer.Sound(imagens.caminho_atk)
 som_atk.set_volume(0.8)
 som_nivel = pygame.mixer.Sound(imagens.caminho_nivel)
