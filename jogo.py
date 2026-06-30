@@ -310,6 +310,7 @@ balao2 = False
 escolhaioda = False#
 falaioda = False#
 falaioda_2 = False
+aviso = False
 
 '''
 equipe = funcoes_Classes.equipe(1, 1, 0, [cimons.naruto.clonar()])
@@ -651,7 +652,7 @@ while rodando:
 
             estado['posobj'] = variaveis.posobjatual
             estado['gramas'] = len(variaveis.gramasatual)
-            estado['gramasx'] = variaveis.gramasxatual
+            estado['gramasx'] = variaveis.gramasxatual          
             estado['gramasy'] = variaveis.gramasyatual
             estado['gramas4'] = len(variaveis.gramas4_atual)
                 
@@ -667,7 +668,7 @@ while rodando:
         if tecla[pygame.K_SPACE] or balao:
 #inicio
             if cenario4 and (tecla[pygame.K_SPACE] or balao) and (not escolhaioda) and player.visual == imagens.atras:
-                escolhaioda, escolha, balao, mov1a = funcoes_Classes.inicio(mov1a, ataques, escolhendo, bolsa, balao, janela, aviso, player, imagens.player, batalha, cenario1, marca2, tecla, escolhaioda)
+                escolhaioda, escolha, balao, mov1a, rodando, aviso = funcoes_Classes.inicio(mov1a, ataques, escolhendo, bolsa, balao, janela, aviso, player, imagens.player, batalha, cenario1, marca2, tecla, escolhaioda)
                 if escolhaioda:
                     equipe = funcoes_Classes.equipe(1, 1, 0, [escolha.clonar()])
                     estado['equipe'] = [(equipe.lista[0].nome, (equipe.lista[0].nivel - 1) * 10 + equipe.lista[0].xp, equipe.lista[0].hp)]
