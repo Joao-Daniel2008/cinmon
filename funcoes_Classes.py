@@ -2737,7 +2737,7 @@ def ircenario6(self, posx, posy, posobjatual, posobj6, listatual, lista6, listao
         self.visual = imagens.frente
         return posobjatual, listatual, listaobjatual, fundo, posx, 0
 
-def ircenario9(self, posobj, posobjatual, fundo, posy, listatual, listaobjatual, lista, listaobj):
+def ircenario9(self, posobj, posobjatual, fundo, posy, listatual, listaobjatual, lista, listaobj, cenario6, cenario10):
     posobjatual = posobj
     listatual = lista
     listaobjatual = listaobj
@@ -2749,10 +2749,15 @@ def ircenario9(self, posobj, posobjatual, fundo, posy, listatual, listaobjatual,
         variaveis.gramas4_atual.append(variaveis.gramasatual[n].get_rect())
         variaveis.gramas4_atual[n].x = variaveis.gramasx9[n]
         variaveis.gramas4_atual[n].y = variaveis.gramasy9[n]
-    self.visual = imagens.atras
+    if cenario6:
+        self.visual = imagens.atras
+        variaveis.posy = imagens.altura - imagens.alturap
+    elif cenario10:
+        self.visual = imagens.frente
+        variaveis.posy = 0
     fundo = imagens.cenario9
-    self.posicao = (variaveis.posx, imagens.altura - imagens.alturap)
-    return posobjatual, listatual, listaobjatual, fundo, variaveis.posx, imagens.altura - imagens.alturap
+    self.posicao = (variaveis.posx, variaveis.posy)
+    return posobjatual, listatual, listaobjatual, fundo, variaveis.posx, variaveis.posy
 
 
 def ircentrocin(self, posx, posy, posobjatual, posobj7, listatual, lista7, listaobjatual, listaobj7, fundo):
@@ -2779,6 +2784,20 @@ def irloja(self, posx, posy, posobjatual, posobj8, listatual, lista8, listaobjat
     variaveis.gramas4_atual = []
     return posobjatual, listatual, listaobjatual, fundo, 448, variaveis.altura - variaveis.alturap
 
+def ircenario10(self, posx, posy, posobjatual, posobj, listatual, lista, listaobjatual, listaobj, fundo):
+    posobjatual = posobj
+    listatual = lista
+    listaobjatual = listaobj
+    self.visual = imagens.atras
+    fundo = imagens.cenario10
+    variaveis.gramasatual = ()
+    variaveis.gramasxatual = ()
+    variaveis.gramasyatual = ()
+    variaveis.gramas4_atual = []
+    return posobjatual, listatual, listaobjatual, fundo, variaveis.posx, variaveis.altura - variaveis.alturap
+
+
+#funcoes de verificar
 
 def verificar4_3(posx, posy, direcao):
     if posx == 704 and posy == 448 and direcao:
@@ -2880,6 +2899,18 @@ def verificar6_9(posx, posy, direcao):
         return False
     
 def verificar9_6(posx, posy, direcao):
+    if posy == imagens.altura - imagens.alturap and direcao:
+        return True
+    else:
+        return False
+
+def verificar9_10(posx, posy, direcao):
+    if posy == 0 and direcao:
+        return True
+    else:
+        return False
+    
+def verificar10_9(posx, posy, direcao):
     if posy == imagens.altura - imagens.alturap and direcao:
         return True
     else:

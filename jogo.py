@@ -135,6 +135,7 @@ def cenario(posobj):
     cenario5 = False
     cenario6 = False
     cenario9 = False
+    cenario10 = False
     centrocin = False
     loja = False
     if posobj == variaveis.posobj1:
@@ -173,7 +174,11 @@ def cenario(posobj):
         cenario9 = True
         variaveis.listatual = variaveis.lista9
         variaveis.listaobjatual = variaveis.listaobj9
-    return cenario1, cenario2, cenario3, cenario4, cenario5, cenario6, centrocin, loja, cenario9
+    elif posobj == variaveis.posobj10:
+        cenario10 = True
+        variaveis.listatual = variaveis.lista10
+        variaveis.listaobjatual = variaveis.listaobj10
+    return cenario1, cenario2, cenario3, cenario4, cenario5, cenario6, centrocin, loja, cenario9, cenario10
 
 def gerenciando_servidor(servidor):
     global fila_receber
@@ -280,6 +285,7 @@ cenario4 = True#
 cenario5 = False
 cenario6 = False
 cenario9 = False
+cenario10 = False
 centrocin = False
 loja = False
 
@@ -396,7 +402,7 @@ while rodando:
             equipe3.curar()
             equipe4.curar()
             
-            cenario1, cenario2, cenario3, cenario4, cenario5, cenario6, centrocin, loja, cenario9 = cenario(variaveis.posobjatual)
+            cenario1, cenario2, cenario3, cenario4, cenario5, cenario6, centrocin, loja, cenario9, cenario10 = cenario(variaveis.posobjatual)
         except:
             print('ERRO ERRO')
 
@@ -428,6 +434,8 @@ while rodando:
             fundo = imagens.cenario9
         elif centrocin or loja:
             fundo = imagens.centrocin
+        elif cenario10:
+            fundo = imagens.cenario10
 
         if (not balao) and (not balao2):
             if tecla[pygame.K_RIGHT]:
@@ -613,7 +621,7 @@ while rodando:
                         else:
                             mudar = funcoes_Classes.verificar6_9(variaveis.posx, variaveis.posy, ci)
                             if mudar:
-                                variaveis.posobjatual, variaveis.listatual, variaveis.listaobjatual, fundo, variaveis.posx, variaveis.posy = funcoes_Classes.ircenario9(player, variaveis.posobj9, variaveis.posobjatual, fundo, variaveis.posy, variaveis.listatual, variaveis.listaobjatual, variaveis.lista9, variaveis.listaobj9)
+                                variaveis.posobjatual, variaveis.listatual, variaveis.listaobjatual, fundo, variaveis.posx, variaveis.posy = funcoes_Classes.ircenario9(player, variaveis.posobj9, variaveis.posobjatual, fundo, variaveis.posy, variaveis.listatual, variaveis.listaobjatual, variaveis.lista9, variaveis.listaobj9, cenario6, cenario10)
                                 cenario6 = False
                                 cenario9 = True
                                 ci = False
@@ -628,7 +636,23 @@ while rodando:
                     cenario6 = True
                     ba = False
                     tentou = False
+                mudar = funcoes_Classes.verificar9_10(variaveis.posx, variaveis.posy, ci)
+                if mudar:
+                    variaveis.posobjatual, variaveis.listatual, variaveis.listaobjatual, fundo, variaveis.posx, variaveis.posy = funcoes_Classes.ircenario10(player, variaveis.posx, variaveis.posy, variaveis.posobjatual, variaveis.posobj10, variaveis.listatual, variaveis.lista10, variaveis.listaobjatual, variaveis.listaobj10, fundo)
+                    cenario9 = False
+                    cenario10 = True
+                    ci = False
+                    tentou = False
 
+            elif cenario10:
+                mudar = funcoes_Classes.verificar10_9(variaveis.posx, variaveis.posy, ba)
+                if mudar:
+                    if mudar:
+                        variaveis.posobjatual, variaveis.listatual, variaveis.listaobjatual, fundo, variaveis.posx, variaveis.posy = funcoes_Classes.ircenario9(player, variaveis.posobj9, variaveis.posobjatual, fundo, variaveis.posy, variaveis.listatual, variaveis.listaobjatual, variaveis.lista9, variaveis.listaobj9, cenario6, cenario10)
+                        cenario10 = False
+                        cenario9 = True
+                        ba = False
+                        tentou = False
 
             
             elif centrocin:
@@ -1369,6 +1393,6 @@ while rodando:
         
 
 
-    print(variaveis.posy)
+    print(variaveis.posx)
     pygame.display.update()
     sleep(0.1)
