@@ -16,7 +16,7 @@ Ao explorar os cenários, você encontrará itens espalhados pelo mapa que podem
 
 - Crachabola: usada durante batalhas para tentar capturar CinMons selvagens e expandir seu time
 
-- Poção: recupera o HP do seu CinMon durante ou fora de combate, mantendo-o apto para batalhar
+- Poção: recupera o HP do seu CinMon durante o combate, mantendo-o apto para batalhar
 
 - CinReais: a moeda do jogo, usada para comprar mais itens na loja do Seu Jailson
 
