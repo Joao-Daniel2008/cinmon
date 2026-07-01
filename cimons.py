@@ -11,9 +11,8 @@ bater = funcoes_Classes.ataques('bater', 'normal', 'dano', 2, 2, 25, 25)
 kamehameha = funcoes_Classes.ataques('kamehameha', 'normal', 'dano', 3, 3, 10, 10)
 explosao = funcoes_Classes.ataques('explosao', 'normal', 'dano', 4, 4, 5, 5)
 rasengan = funcoes_Classes.ataques('rasengan', 'normal', 'dano', 4, 4, 10, 10)
-juizo_final = funcoes_Classes.ataques('juizo final', 'normal', 'dano', 8, 8, 1, 1)
-#ataque do arceus onde literalmente ele fica com pena de você, e nao te ataca, só assusta
-pena = funcoes_Classes.ataques('pena', 'normal', 'dano', 0, 0, 15, 15)
+juizo_final = funcoes_Classes.ataques('juizo final', 'normal', 'dano', 9, 9, 1, 1)
+
 
 #escuridao
 morder = funcoes_Classes.ataques('morder', 'escuridao', 'dano', 3, 3, 15, 15)
@@ -32,18 +31,17 @@ laser = funcoes_Classes.ataques('laser', 'fogo', 'dano', 4, 4, 10, 10)
 
 #psiquico
 estrelas = funcoes_Classes.ataques('estrelas', 'psiquico', 'dano', 3, 3, 10, 10)
-shadow_ball = funcoes_Classes.ataques('shadow ball', 'psiquico', 'dano', 4, 4, 5, 5)
+bola_sombria = funcoes_Classes.ataques('bola sombria', 'psiquico', 'dano', 4, 4, 5, 5)
 
 #dragao
 furia = funcoes_Classes.ataques('furia', 'dragao', 'dano', 4, 4, 5, 5)
 dracmeteor = funcoes_Classes.ataques('dracmeteor', 'dragao', 'dano', 5, 5, 20, 20)
 enfurecer = funcoes_Classes.ataques('enfurecer', 'dragao', 'selfatk', 0, 0, 15, 15)
-obliterar = funcoes_Classes.ataques('obliterar', 'dragao', 'dano', 5, 5, 3, 3)
+obliterar = funcoes_Classes.ataques('obliterar', 'dragao', 'dano', 5, 5, 5, 5)
 
 ataques = [bater, kamehameha, explosao, rasengan, morder, escuridao,
             investida, voadora, ventania, brasas, laser, estrelas, 
-            furia, dracmeteor, enfurecer, obliterar, juizo_final, pena, shadow_ball]
-
+            furia, dracmeteor, enfurecer, obliterar, juizo_final, bola sombria]
 #selfatk
 aura = funcoes_Classes.ataques('aura', 'aura', 'selfatk', 0, 0, 15, 15)
 carregar = funcoes_Classes.ataques('carregar', 'normal', 'selfatk', 0, 0, 10, 10)
@@ -55,12 +53,12 @@ rayquaza = funcoes_Classes.Cimons('rayquaza', 'voador', imagens['rayquaza']['ima
 gokussj = funcoes_Classes.Cimons('goku ssj', 'lutador', imagens['gokussj']['imagemc'], imagens['gokussj']['imagemf'], imagens['gokussj']['mini'], 14, 14, 14, 1, 0, {'ataque1':investida, 'ataque2':kamehameha, 'ataque3':carregar, 'ataque4':dracmeteor}, [], [], 1.2)
 goku = funcoes_Classes.Cimons('goku', 'lutador', imagens['goku']['imagemc'], imagens['goku']['imagemf'], imagens['goku']['mini'], 12, 12, 12, 1, 0, {'ataque1':investida, 'ataque2':kamehameha}, [0, carregar, 0, 0, dracmeteor], [gokussj, 6], 1.1)
 rath = funcoes_Classes.Cimons('rath', 'escuridao', imagens['rath']['imagemc'], imagens['rath']['imagemf'], imagens['rath']['mini'], 12, 12, 12, 1, 0, {'ataque1':bater, 'ataque2':voadora}, [brasas, 0, escuridao], [], 1)
-mewtwo = funcoes_Classes.Cimons('mewtwo', 'psiquico', imagens['mewtwo']['imagemc'], imagens['mewtwo']['imagemf'], imagens['mewtwo']['mini'], 14, 14, 14, 1, 0, {'ataque1':explosao, 'ataque2':estrelas}, [voadora], [], 1.25)
+mewtwo = funcoes_Classes.Cimons('mewtwo', 'psiquico', imagens['mewtwo']['imagemc'], imagens['mewtwo']['imagemf'], imagens['mewtwo']['mini'], 14, 14, 14, 1, 0, {'ataque1':explosao, 'ataque2':estrelas}, [bola_sombria], [], 1.25)
 mclovin = funcoes_Classes.Cimons('mc lovin', 'psiquico', imagens['mc lovin']['imagemc'], imagens['mc lovin']['imagemf'], imagens['mc lovin']['mini'], 11, 11, 11, 1, 0, {'ataque1':estrelas, 'ataque2':kamehameha}, [explosao, 0, superbad], [], 1.2)
 homelander = funcoes_Classes.Cimons('homelander', 'voador', imagens['homelander']['imagemc'], imagens['homelander']['imagemf'], imagens['homelander']['mini'], 13, 13, 13, 1, 0, {'ataque1':laser, 'ataque2':estrelas}, [0, 0, aura, 0, 0, ventania], [], 1.2)
 narutobeast = funcoes_Classes.Cimons('naruto beast', 'lutador', imagens['naruto beast']['imagemc'], imagens['naruto beast']['imagemf'], imagens['naruto beast']['mini'], 15, 15, 15, 1, 0, {'ataque1':investida, 'ataque2':rasengan, 'ataque3':chackra, 'ataque4':furia}, [], [], 1.25)
 naruto = funcoes_Classes.Cimons('naruto', 'lutador', imagens['naruto']['imagemc'], imagens['naruto']['imagemf'], imagens['naruto']['mini'], 12, 12, 12, 1, 0, {'ataque1':investida, 'ataque2':rasengan}, [0, 0, chackra, 0, 0, furia], [narutobeast, 7], 1.15)
 shiny_mega_rayquaza = funcoes_Classes.Cimons('mega rayquaza', 'voador', imagens['shiny_mega_rayquaza']['imagemc'], imagens['shiny_mega_rayquaza']['imagemf'], imagens['shiny_mega_rayquaza']['mini'], 14, 14, 14, 1, 0, {'ataque1':obliterar, 'ataque2':morder, 'ataque3':furia,'ataque4':enfurecer},[], [], 1.25)
-arceus = funcoes_Classes.Cimons('arceus', 'normal', imagens['arceus']['imagemc'], imagens['arceus']['imagemf'], imagens['arceus']['mini'], 15, 15, 15, 1, 0, {'ataque1':obliterar, 'ataque2':juizo_final, 'ataque3':pena},[], [], 1.25)
+arceus = funcoes_Classes.Cimons('arceus', 'normal', imagens['arceus']['imagemc'], imagens['arceus']['imagemf'], imagens['arceus']['mini'], 15, 15, 15, 1, 0, {'ataque1':obliterar, 'ataque2':juizo_final, 'ataque3':bater},[], [], 1.25)
 
 cimons = [lupi, rayquaza, gokussj, goku, rath, mewtwo, mclovin, homelander, narutobeast, naruto, shiny_mega_rayquaza, arceus]
