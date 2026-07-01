@@ -238,7 +238,7 @@ for n in range(len(equipe3.lista)):
 equipe3.curar()
 
 treinador4 = funcoes_Classes.treinador('marcelo')
-equipe4 = funcoes_Classes.equipe(1, 1, 0, [cimons.shiny_mega_rayquaza.clonar()])
+equipe4 = funcoes_Classes.equipe(1, 1, 0, [cimons.arceus.clonar()])
 for n in range(len(equipe4.lista)):
     equipe4.lista[n].xp += 100
     equipe4.lista[n].subir_nivel()
@@ -257,6 +257,13 @@ for n in range(len(equipe6.lista)):
     equipe6.lista[n].xp += 100
     equipe6.lista[n].subir_nivel()
 equipe6.curar()
+
+treinador7 = funcoes_Classes.treinador('arthur duque')
+equipe7 = funcoes_Classes.equipe(1, 1, 0, [cimons.arceus.clonar()])
+for n in range(len(equipe7.lista)):
+    equipe7.lista[n].xp += 120
+    equipe7.lista[n].subir_nivel()
+equipe7.curar()
 
 #treinador = treinador2
 #equipe_2 = equipe2

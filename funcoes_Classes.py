@@ -1706,13 +1706,21 @@ def avisoCombate(janela, treinador):
         rodarpalavra(palavra('voce nao tem aura mano'), batalha, janela)
         time.sleep(1)
     elif treinador.nome == 'marcelo':
-        rodarpalavra(palavra('shiny mega rayquaza use obliterar'), batalha, janela)
+        rodarpalavra(palavra('shiny mega rayquaza'), batalha, janela)
+        time.sleep(0.4)
+        limpar(janela, imagens.balaofala)
+        rodarpalavra(palavra('com 6 ivs perfeitos'), batalha, janela)
+        time.sleep(0.4)
+        limpar(janela, imagens.balaofala)
+        rodarpalavra(palavra('use obliteraaaaar'), batalha, janela)
         time.sleep(1)
     elif treinador.nome == 'andre':
         rodarpalavra(palavra('hmmmm'), batalha, janela)
         time.sleep(1)
     elif treinador.nome == 'joloca':
-        rodarpalavra(palavra('to confuso'), batalha, janela)
+        rodarpalavra(palavra('voce vai ficar confuso'), batalha, janela)
+        time.sleep(0.4)
+        rodarpalavra(palavra('melhor treinar mais'), batalha, janela)
         time.sleep(1)
 
 def menu(janela, equipe, balao, mov1a, escolhendo, bolsa, tecla, marca):

@@ -352,7 +352,7 @@ caminho_homelander = BASE_DIR / "assets" / "imagens" / "batalha" / "homelander.p
 caminho_naruto = BASE_DIR / "assets" / "imagens" / "batalha" / "naruto.png"
 caminho_narutobeast = BASE_DIR / "assets" / "imagens" / "batalha" / "naruto beast.png"
 caminho_megarayquaza = BASE_DIR / "assets" / "imagens" / "batalha" / "megarayquazashiny.png"
-
+caminho_arceus = BASE_DIR / "assets" / "imagens" / "batalha" / "arceus.png"
 
 caminho_lupi2 = BASE_DIR / "assets" / "imagens" / "batalha" / "lupi2.png"
 caminho_mewtwo2 = BASE_DIR / "assets" / "imagens" / "batalha" / "mewtwo2.png"
@@ -365,6 +365,7 @@ caminho_homelander2 = BASE_DIR / "assets" / "imagens" / "batalha" / "homelander2
 caminho_naruto2 = BASE_DIR / "assets" / "imagens" / "batalha" / "naruto2.png"
 caminho_narutobeast2 = BASE_DIR / "assets" / "imagens" / "batalha" / "naruto beast2.png"
 caminho_megarayquaza2 = BASE_DIR / "assets" / "imagens" / "batalha" / "megarayquazashiny2.png"
+caminho_arceus2 = BASE_DIR / "assets" / "imagens" / "batalha" / "arceus2.png"
 
 caminho_lupim = BASE_DIR / "assets" / "imagens" / "minis" / "mini lupi.png"
 caminho_mewtwom = BASE_DIR / "assets" / "imagens" / "minis" / "mini mewtwo.png"
@@ -377,7 +378,7 @@ caminho_homelanderm = BASE_DIR / "assets" / "imagens" / "minis" / "mini homeland
 caminho_narutom = BASE_DIR / "assets" / "imagens" / "minis" / "mini naruto.png"
 caminho_narutobeastm = BASE_DIR / "assets" / "imagens" / "minis" / "mini naruto beast.png"
 caminho_megarayquazam = BASE_DIR / "assets" / "imagens" / "minis" / "mini megarayquaza.png"
-
+caminho_arceusm = BASE_DIR / "assets" / "imagens" / "minis" / "mini_arceuss.png"
 imagens_cinmons = {
     'lupi': {
         'imagemf': pygame.image.load(caminho_lupi2),
@@ -410,6 +411,11 @@ imagens_cinmons = {
         'imagemf': pygame.image.load(caminho_rayquaza2),
         'mini' : pygame.image.load(caminho_rayquazam)
     },
+    'arceus':{
+        'imagemc': pygame.image.load(caminho_arceus),
+        'imagemf': pygame.image.load(caminho_arceus2),
+        'mini': pygame.image.load(caminho_arceusm)
+    },
     'goku':{
         'imagemc': pygame.image.load(caminho_goku),
         'imagemf': pygame.image.load(caminho_goku2),
@@ -435,6 +441,7 @@ imagens_cinmons = {
         'imagemf': pygame.image.load(caminho_narutobeast2),
         'mini': pygame.image.load(caminho_narutobeastm)
     }
+    
 }
 
 for n in imagens_cinmons:
