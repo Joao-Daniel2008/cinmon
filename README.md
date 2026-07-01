@@ -131,22 +131,21 @@ itenschao.py        — sistema de itens coletáveis no chão (classe ItemChao)
 
 ## 📚 Conceitos da Disciplina Utilizados
 
-- **Programação Orientada a Objetos (POO)**: o sistema é totalmente estruturado em classes (`Player`, `Cimons`, `equipe`, `mochila`, `treinador`, `ataques`, `ItemChao`), cada uma encapsulando seus próprios atributos e métodos.
+- **Programação Orientada a Objetos (POO)**: a estrutura do jogo é baseada em classes como `Player`, `Cimons`, `equipe`, `mochila`, `treinador`, `ataques` e `ItemChao`, definidas em `funcoes_Classes.py` e `itenschao.py`, onde cada uma reúne os dados e comportamentos relacionados a uma entidade específica do jogo.
 
-- **Encapsulamento**: cada classe controla seus próprios dados internos. Por exemplo, `Cimons` gerencia HP, XP e nível através de métodos como `subir_nivel()`, sem expor a lógica de cálculo para o restante do código.
+- **Encapsulamento**: as classes escondem sua lógica interna e expõem apenas o necessário. A classe `Cimons` em `funcoes_Classes.py`, por exemplo, cuida sozinha do crescimento do personagem: ganho de XP, subida de nível e atualização de atributos são feitos internamente pelo método `subir_nivel()`. Da mesma forma, a classe `mochila` controla o saldo e os itens através do método `comprar()`.
 
-- **Abstração**: métodos como `verificar_coleta()` na classe `ItemChao` e `colisaon()` na classe `Player` escondem a lógica interna, retornando apenas um booleano para quem os usa.
+- **Abstração**: detalhes complexos são ocultados atrás de métodos simples. Em `itenschao.py`, `verificar_coleta()` esconde a lógica de colisão com o player. Em `funcoes_Classes.py`, `colisaon()` da classe `Player` abstrai a verificação com todos os objetos do mapa, ambos retornam apenas `True` ou `False`.
 
-- **Composição**: a classe `equipe` é composta por uma lista de objetos `Cimons`, gerenciando o conjunto deles (cura, verificação de derrota, lançamento em batalha). Da mesma forma, `mochila` é composta por listas de itens e quantidades.
+- **Composição**: objetos são construídos a partir de outros objetos. Em `funcoes_Classes.py`, a classe `equipe` agrupa instâncias de `Cimons` em `self.lista` e oferece métodos como `curar()`, `verificar()` e `lancar()` para gerenciá-las em conjunto. A `mochila` segue o mesmo princípio com `listaDeles` e `listaDeQtd`.
 
-- **Reutilização de código**: o método `clonar()` na classe `Cimons` cria instâncias independentes de uma criatura, essencial para que múltiplos treinadores possam ter o mesmo tipo de CinMon com HP e nível próprios.
+- **Reutilização de código**: o método `clonar()` da classe `Cimons` em `funcoes_Classes.py` permite criar cópias completamente independentes de uma criatura. Usado em `cimons.py` e em `jogo.py`, é fundamental para que treinadores diferentes possam ter o mesmo tipo de CinMon sem compartilhar HP, nível ou estado de batalha.
 
-- **Polimorfismo**: o método `efetivo()` na classe `ataques` se comporta de forma diferente conforme o tipo do CinMon-alvo (normal, lutador, voador, psíquico, escuridão, dragão, fogo), retornando multiplicadores distintos de dano.
+- **Polimorfismo**: o método `efetivo()` da classe `ataques` em `funcoes_Classes.py` produz resultados distintos dependendo de quem recebe o ataque , retorna `2`, `0.5` ou `1` conforme a combinação de tipos. É chamado dentro de `batalha_selvagem()` e `batalha_treinador()` para calcular o dano final.
 
-- **Listas**: usadas para armazenar equipes de CinMons, inventários, objetos do mapa e gramas dos cenários. Itens coletáveis também são gerenciados como listas que se atualizam dinamicamente conforme o jogador coleta.
+- **Listas**: estrutura central do jogo. Em `variaveis.py`, listas armazenam objetos e gramas de cada cenário. Em `funcoes_Classes.py`, `self.lista` da classe `equipe` gerencia o time de CinMons. Em `itenschao.py`, `itens_cenario_global` armazena os itens ativos no mapa, atualizada dinamicamente conforme o jogador coleta.
 
-- **Dicionários**: os ataques de cada CinMon são armazenados em dicionários (`{'ataque1': ..., 'ataque2': ...}`), e o estado completo do jogo salvo em JSON é um dicionário aninhado com posição, equipe, inventário e treinadores derrotados.
-
+- **Dicionários**: em `funcoes_Classes.py`, os ataques de cada `Cimons` são mapeados dinamicamente em `self.ataques` (`{'ataque1': ..., 'ataque2': ...}`). Em `jogo.py`, o dicionário `estado` representa o progresso completo do jogo - posição, equipe, inventário e treinadores derrotados - e é convertido em JSON pelo método `salvarJogo()`.
 ---
 
 ## 📝 Divisão de Trabalho
