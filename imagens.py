@@ -6,11 +6,22 @@ from pathlib import Path
 
 fundo_menu  = None
 botoes_menu = None
-
+caminho_coleta = None
+moeda = None
 def carregar():
-    global fundo_menu, botoes_menu
+    global fundo_menu, botoes_menu, som_clique,caminho_coleta,moeda
 
-    caminho_fundo_menu = BASE_DIR / "assets" / "imagens" / "TELAFINAL.png"
+
+    caminho_moeda = BASE_DIR / "assets" / "imagens" / "moeda_jogo_cinmon.png"
+    moeda = pygame.image.load(caminho_moeda)
+    moeda = pygame.transform.scale(moeda, (32, 32))
+
+
+
+
+    pygame.mixer.music.load(BASE_DIR / "assets" / "musicas" / "musica menu incial.mp3")
+    caminho_coleta = BASE_DIR / "assets" / "sons" / "som_coleta_item.mp3"
+    caminho_fundo_menu = BASE_DIR / "assets" / "imagens" / "mncin 1.png"
     fundo_menu  = pygame.image.load(caminho_fundo_menu)
     fundo_menu  = pygame.transform.scale(fundo_menu, (1024, 512))
 
@@ -18,6 +29,7 @@ def carregar():
     botoes_menu = pygame.image.load(caminho_botoes_menu)
     botoes_menu = pygame.transform.scale(botoes_menu, (300, 150))
 
+    som_clique = pygame.mixer.Sound(BASE_DIR / "assets" / "musicas" / "efeito_inicial.mp3")
 
 
 if getattr(sys, 'frozen', False):
@@ -157,6 +169,10 @@ caminho_cenario9 = BASE_DIR / "assets" / "imagens" / "cenarios" / "cenario.png"
 cenario9 = pygame.image.load(caminho_cenario9)
 cenario9 = pygame.transform.scale(cenario9, (largura, altura))
 
+caminho_cenario10 = BASE_DIR / "assets" / "imagens" / "cenarios" / "cenario.png"
+cenario10 = pygame.image.load(caminho_cenario10)
+cenario10 = pygame.transform.scale(cenario10, (largura, altura))
+
 caminho_centrocin = BASE_DIR / "assets" / "imagens" / "cenarios" / "centrocin.png"
 centrocin = pygame.image.load(caminho_centrocin)
 centrocin = pygame.transform.scale(centrocin, (largura, altura))
@@ -212,6 +228,9 @@ caminho_porta = BASE_DIR / "assets" / "imagens" / "objetos1" / "porta.png"
 porta = pygame.image.load(caminho_porta)
 porta = pygame.transform.scale(porta, (64, 56))
 
+cerca = pygame.image.load(caminho_porta)
+cerca = pygame.transform.scale(porta, (320, 320))
+
 caminho_grama = BASE_DIR / "assets" / "imagens" / "grama.png"
 grama = pygame.image.load(caminho_grama)
 grama = pygame.transform.scale(grama, (largurap, alturap))
@@ -248,6 +267,10 @@ caminho_crachabola = BASE_DIR / "assets" / "imagens" / "mochila" / "crachabola.p
 crachabola = pygame.image.load(caminho_crachabola)
 crachabola = pygame.transform.scale(crachabola, (49, 64))
 
+caminho_potion = BASE_DIR / "assets" / "imagens" / "mochila" / "potion.png"
+potion = pygame.image.load(caminho_potion)
+potion = pygame.transform.scale(potion, (49, 64))
+
 
 #objetos 6
 caminho_centrocin = BASE_DIR / "assets" / "imagens" / "objetos6" / "centropoke.png"
@@ -258,6 +281,11 @@ centrocin1 = pygame.transform.scale(centrocin1, (320, 256))
 caminho_jailson = BASE_DIR / "assets" / "imagens" / "objetos7" / "jailson.png"
 jailson = pygame.image.load(caminho_jailson)
 jailson = pygame.transform.scale(jailson, (alturap, largurap))
+
+#objetos 10
+caminho_ginasio = BASE_DIR / "assets" / "imagens" / "objetos10" / "casa.png"
+ginasio = pygame.image.load(caminho_ginasio)
+ginasio = pygame.transform.scale(ginasio, (512, 320))
 
 #variações do player
 caminho_frente = BASE_DIR / "assets" / "imagens" / "player_frente.png"
@@ -313,7 +341,11 @@ imagenst = {
     'treinador1': pygame.image.load(caminho_treinador1),
     'treinador2': pygame.image.load(caminho_treinador2),
     'treinador3': pygame.image.load(caminho_treinador2),
-    'treinador4': pygame.image.load(caminho_treinador2)
+    'treinador4': pygame.image.load(caminho_treinador2),
+    'treinador5': pygame.image.load(caminho_treinador2),
+    'treinador6': pygame.image.load(caminho_treinador2),
+    'treinador7': pygame.image.load(caminho_treinador2)
+
 }
 for n in imagenst:
     imagenst[n] = pygame.transform.scale(imagenst[n], (largurap, alturap))
@@ -329,6 +361,9 @@ caminho_goku = BASE_DIR / "assets" / "imagens" / "batalha" / "goku.png"
 caminho_homelander = BASE_DIR / "assets" / "imagens" / "batalha" / "homelander.png"
 caminho_naruto = BASE_DIR / "assets" / "imagens" / "batalha" / "naruto.png"
 caminho_narutobeast = BASE_DIR / "assets" / "imagens" / "batalha" / "naruto beast.png"
+caminho_megarayquaza = BASE_DIR / "assets" / "imagens" / "batalha" / "megarayquazashiny.png"
+caminho_arceus = BASE_DIR / "assets" / "imagens" / "batalha" / "arceus.png"
+caminho_gengar = BASE_DIR / "assets" / "imagens" / "batalha" / "gengar.png"
 
 caminho_lupi2 = BASE_DIR / "assets" / "imagens" / "batalha" / "lupi2.png"
 caminho_mewtwo2 = BASE_DIR / "assets" / "imagens" / "batalha" / "mewtwo2.png"
@@ -340,6 +375,9 @@ caminho_goku2 = BASE_DIR / "assets" / "imagens" / "batalha" / "goku2.png"
 caminho_homelander2 = BASE_DIR / "assets" / "imagens" / "batalha" / "homelander2.png"
 caminho_naruto2 = BASE_DIR / "assets" / "imagens" / "batalha" / "naruto2.png"
 caminho_narutobeast2 = BASE_DIR / "assets" / "imagens" / "batalha" / "naruto beast2.png"
+caminho_megarayquaza2 = BASE_DIR / "assets" / "imagens" / "batalha" / "megarayquazashiny2.png"
+caminho_arceus2 = BASE_DIR / "assets" / "imagens" / "batalha" / "arceus2.png"
+caminho_gengar2 = BASE_DIR / "assets" / "imagens" / "batalha" / "gengar2.png"
 
 caminho_lupim = BASE_DIR / "assets" / "imagens" / "minis" / "mini lupi.png"
 caminho_mewtwom = BASE_DIR / "assets" / "imagens" / "minis" / "mini mewtwo.png"
@@ -351,7 +389,9 @@ caminho_gokum = BASE_DIR / "assets" / "imagens" / "minis" / "mini goku.png"
 caminho_homelanderm = BASE_DIR / "assets" / "imagens" / "minis" / "mini homelander.png"
 caminho_narutom = BASE_DIR / "assets" / "imagens" / "minis" / "mini naruto.png"
 caminho_narutobeastm = BASE_DIR / "assets" / "imagens" / "minis" / "mini naruto beast.png"
-
+caminho_megarayquazam = BASE_DIR / "assets" / "imagens" / "minis" / "mini megarayquaza.png"
+caminho_arceusm = BASE_DIR / "assets" / "imagens" / "minis" / "mini_arceuss.png"
+caminho_gengarm = BASE_DIR / "assets" / "imagens" / "minis" / "mini gengar.png"
 
 imagens_cinmons = {
     'lupi': {
@@ -359,6 +399,16 @@ imagens_cinmons = {
         'imagemc': pygame.image.load(caminho_lupi),
         'mini': pygame.transform.scale(pygame.image.load(caminho_lupim), (20, 20))
     }, 
+    'shiny_mega_rayquaza' : {
+        'imagemf': pygame.image.load(caminho_megarayquaza),
+        'imagemc': pygame.image.load(caminho_megarayquaza2),
+        'mini': pygame.image.load(caminho_megarayquazam)
+    },
+    'gengar': {
+        'imagemf': pygame.image.load(caminho_gengar2),
+        'imagemc': pygame.image.load(caminho_gengar),
+        'mini': pygame.image.load(caminho_gengarm)
+    },
     'mewtwo': {
         'mini': pygame.image.load(caminho_mewtwom),
         'imagemc': pygame.image.load(caminho_mewtwo),
@@ -379,6 +429,11 @@ imagens_cinmons = {
         'imagemc': pygame.image.load(caminho_rayquaza),
         'imagemf': pygame.image.load(caminho_rayquaza2),
         'mini' : pygame.image.load(caminho_rayquazam)
+    },
+    'arceus':{
+        'imagemc': pygame.image.load(caminho_arceus),
+        'imagemf': pygame.image.load(caminho_arceus2),
+        'mini': pygame.image.load(caminho_arceusm)
     },
     'goku':{
         'imagemc': pygame.image.load(caminho_goku),
@@ -405,6 +460,7 @@ imagens_cinmons = {
         'imagemf': pygame.image.load(caminho_narutobeast2),
         'mini': pygame.image.load(caminho_narutobeastm)
     }
+    
 }
 
 for n in imagens_cinmons:
@@ -420,8 +476,12 @@ imagensc = {
 
 for n in imagens_cinmons:
     if n != 'teo':    #################
-        imagens_cinmons[n]['imagemf'] = pygame.transform.scale(imagens_cinmons[n]['imagemf'], (padraoL * 1.5, padraoA * 1.5))
-        imagens_cinmons[n]['imagemc'] = pygame.transform.scale(imagens_cinmons[n]['imagemc'], (padraoL * 1.5, padraoA * 1.5))
+        if n == 'gengar':
+            imagens_cinmons[n]['imagemf'] = pygame.transform.scale(imagens_cinmons[n]['imagemf'], (padraoL * 1.25, padraoA * 1.25))
+            imagens_cinmons[n]['imagemc'] = pygame.transform.scale(imagens_cinmons[n]['imagemc'], (padraoL * 1.25, padraoA * 1.25))
+        else:
+            imagens_cinmons[n]['imagemf'] = pygame.transform.scale(imagens_cinmons[n]['imagemf'], (padraoL * 1.5, padraoA * 1.5))
+            imagens_cinmons[n]['imagemc'] = pygame.transform.scale(imagens_cinmons[n]['imagemc'], (padraoL * 1.5, padraoA * 1.5))
 
 
 #numeros

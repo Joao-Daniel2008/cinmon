@@ -36,9 +36,10 @@ def resolver_turno(idplayer, conexao):
     for ataque in cimons.ataques:
         if escolhas_turno[2] == ataque.nome:
             golpe_p2 = ataque
-
-    hpAnterior1 = cimons1[1]['hp']
-    hpAnterior2 = cimons1[2]['hp']
+    
+    if (not primeira):
+        hpAnterior1 = cimons1[1]['hp']
+        hpAnterior2 = cimons1[2]['hp']
 
 
     if (not primeira):
@@ -83,8 +84,8 @@ def resolver_turno(idplayer, conexao):
         'evento': "RESULTADO_TURNO",
         'novo_hp1': cimons1[2]['hp'],
         'novo_hp2': cimons1[1]['hp'],
-        'hp_anterior1': hpAnterior1,
-        'hp_anterior2': hpAnterior2,
+        'hp_anterior1': hpAnterior2,
+        'hp_anterior2': hpAnterior1,
         'golpe_tomado': golpe_p1.nome,
         'ID': 2,
         'status': status1
@@ -158,8 +159,9 @@ def minha_troca_seu_ataque(idplayer, conexao):
             cimon2.subir_nivel()
             cimon2.hp = cimons1[2]['hp']
     
-    hpAnterior1 = cimons1[1]['hp']
-    hpAnterior2 = cimons1[2]['hp']
+    if (not primeira):
+        hpAnterior1 = cimons1[1]['hp']
+        hpAnterior2 = cimons1[2]['hp']
     
 
     if idplayer == 1 and (not primeira):
@@ -227,8 +229,8 @@ def minha_troca_seu_ataque(idplayer, conexao):
         'evento': "RESULTADO_TURNO",
         'novo_hp1': cimons1[2]['hp'],
         'novo_hp2': cimons1[1]['hp'],
-        'hp_anterior1': hpAnterior1,
-        'hp_anterior2': hpAnterior2,
+        'hp_anterior1': hpAnterior2,
+        'hp_anterior2': hpAnterior1,
         'golpe_tomado': golpe_tomado2,
         'ID': 2,
         'status': status1
@@ -302,8 +304,9 @@ def meu_ataque_sua_troca(idplayer, conexao):
             if escolhas_turno[2] == ataque.nome:
                 golpe_p2 = ataque
 
-    hpAnterior1 = cimons1[1]['hp']
-    hpAnterior2 = cimons1[2]['hp']
+    if (not primeira):
+        hpAnterior1 = cimons1[1]['hp']
+        hpAnterior2 = cimons1[2]['hp']
     
 
     if idplayer == 1 and (not primeira):
@@ -378,8 +381,8 @@ def meu_ataque_sua_troca(idplayer, conexao):
         'evento': "TROCA",
         'novo_hp1': cimons1[2]['hp'],
         'novo_hp2': cimons1[1]['hp'],
-        'hp_anterior1': hpAnterior1,
-        'hp_anterior2': hpAnterior2,
+        'hp_anterior1': hpAnterior2,
+        'hp_anterior2': hpAnterior1,
         'golpe_tomado': golpe_tomado2,
         'ID': 2,
         'status': status1,
@@ -570,6 +573,8 @@ cimons1 = {1: {}, 2: {}}
 jogou = 0
 outra_decisao = {1: '', 2: ''}
 primeira = False
+hpAnterior1 = 0
+hpAnterior2 = 0
 
 while True:
     conexao, endereco = server.accept()

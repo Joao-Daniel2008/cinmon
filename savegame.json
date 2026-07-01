@@ -1,43 +1,37 @@
 {
-    "posicaox": 448,
+    "posicaox": 192,
     "posicaoy": 384,
     "posicao": [
-        448,
+        192,
         384
     ],
     "equipe": [
         [
-            "naruto beast",
-            280,
-            22
-        ],
-        [
-            "goku ssj",
-            280,
-            19
-        ],
-        [
-            "mewtwo",
-            280,
-            17
+            "lupi",
+            0,
+            11
         ]
     ],
     "mochila": [
         [
             "crachabola",
-            0
+            4
+        ],
+        [
+            "potion",
+            3
         ],
         0
     ],
     "treinadores_derrotados": [],
     "posobj": [
         [
-            192,
-            128
+            256,
+            64
         ],
         [
-            448,
-            72
+            256,
+            64
         ]
     ],
     "escolhaioda": true,

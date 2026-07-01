@@ -3,12 +3,13 @@ import sys
 import json
 import os
 import socket
-import threading
+import threading 
 import queue
-
+import itenschao
 
 from time import sleep
-
+import itenschao
+import time as time_module
 
 pygame.init()
 pygame.mixer.init()
@@ -32,8 +33,6 @@ else:
     pasta_do_jogo = os.path.dirname(os.path.abspath(__file__))
 
 ARQUIVO_SAVE = os.path.join(pasta_do_jogo, "savegame.json")
-
-
 
 player = funcoes_Classes.Player(variaveis.posx, variaveis.posy, 64, imagens.player, imagens.frente, objetos.player4)
 
@@ -62,9 +61,10 @@ def salvarJogo(estado):
     funcoes_Classes.rodarpalavra(funcoes_Classes.palavra('jogo salvo com sucesso'), False, janela)
     sleep(1)
 
-def menu_principal(janela, fundo_menu, imagem_botoes):
-    x = (1500 - imagem_botoes.get_width()) // 2
-    y = 260
+def menu_principal(janela, fundo_menu, imagem_botoes,som_clique):
+    pygame.mixer.music.play(-1)
+    x = (janela.get_width()  - imagem_botoes.get_width())  // 2
+    y = (janela.get_height() - imagem_botoes.get_height()) // 2 + 80
 
     rect_carregar = pygame.Rect(x + 20, y,      imagem_botoes.get_width() - 40, 45)
     rect_novo     = pygame.Rect(x + 20, y + 45, imagem_botoes.get_width() - 40, 50)
@@ -92,18 +92,22 @@ def menu_principal(janela, fundo_menu, imagem_botoes):
                     print(f"Procurando save em: {ARQUIVO_SAVE}")
                     print(f"Existe: {os.path.exists(ARQUIVO_SAVE)}")
                     if os.path.exists(ARQUIVO_SAVE):
+                        som_clique.play()
+                        pygame.time.wait(250)
                         escolha = 'carregar'
                         no_menu = False
                     else:
                         print("Nenhum save encontrado!")
 
                 elif rect_novo.collidepoint(mouse):
+                    som_clique.play()
+                    pygame.time.wait(250)
                     escolha = 'novo'
                     no_menu = False
         janela.blit(fundo_menu, (0, 0))
         janela.blit(imagem_botoes, (x, y))
         pygame.display.update()
-
+    pygame.mixer.music.stop()
     return escolha
 
 
@@ -129,6 +133,7 @@ def cenario(posobj):
     cenario5 = False
     cenario6 = False
     cenario9 = False
+    cenario10 = False
     centrocin = False
     loja = False
     if posobj == variaveis.posobj1:
@@ -167,7 +172,11 @@ def cenario(posobj):
         cenario9 = True
         variaveis.listatual = variaveis.lista9
         variaveis.listaobjatual = variaveis.listaobj9
-    return cenario1, cenario2, cenario3, cenario4, cenario5, cenario6, centrocin, loja, cenario9
+    elif posobj == variaveis.posobj10:
+        cenario10 = True
+        variaveis.listatual = variaveis.lista10
+        variaveis.listaobjatual = variaveis.listaobj10
+    return cenario1, cenario2, cenario3, cenario4, cenario5, cenario6, centrocin, loja, cenario9, cenario10
 
 def gerenciando_servidor(servidor):
     global fila_receber
@@ -211,46 +220,70 @@ def iniciar_servidor(HOST):
 
 
 treinador1 = funcoes_Classes.treinador('ewerton')
-equipe1 = funcoes_Classes.equipe(2, 2, 0, [cimons.rayquaza.clonar(), cimons.lupi.clonar()])
-equipe1.lista[0].xp = 10
-equipe1.lista[1].xp = 10
-equipe1.lista[0].subir_nivel()
-equipe1.lista[1].subir_nivel()
+equipe1 = funcoes_Classes.equipe(2, 2, 0, [cimons.gengar.clonar(), cimons.lupi.clonar()])
+for n in range(len(equipe1.lista)):
+    equipe1.lista[n].xp += 25
+    equipe1.lista[n].subir_nivel()
 equipe1.curar()
 
 treinador2 = funcoes_Classes.treinador('jl')
-equipe2 = funcoes_Classes.equipe(1, 1, 0, [cimons.goku.clonar()])
-equipe2.lista[0].xp = 30
-equipe2.lista[0].subir_nivel()
+equipe2 = funcoes_Classes.equipe(1, 1, 0, [cimons.goku.clonar(), cimons.rath.clonar()])
+for n in range(len(equipe2.lista)):
+    equipe2.lista[n].xp += 45
+    equipe2.lista[n].subir_nivel()
 equipe2.curar()
 
 treinador3 = funcoes_Classes.treinador('daniel')
 equipe3 = funcoes_Classes.equipe(3, 3, 0, [cimons.lupi.clonar(), cimons.mclovin.clonar(), cimons.mewtwo.clonar()])
 for n in range(len(equipe3.lista)):
-    equipe3.lista[n].xp += 100
-    if equipe3.lista[n].nome == 'mewtwo':
-        equipe3.lista[n].xp += 50 
+    equipe3.lista[n].xp += 90
+    if equipe3.lista[n].nome == 'lupi':
+        equipe3.lista[n].xp += 100
     equipe3.lista[n].subir_nivel()
 equipe3.curar()
 
-treinador4 = funcoes_Classes.treinador('jose')
-equipe4 = funcoes_Classes.equipe(3, 3, 0, [cimons.lupi.clonar(), cimons.rath.clonar(), cimons.rayquaza.clonar()])
+treinador4 = funcoes_Classes.treinador('marcelo')
+equipe4 = funcoes_Classes.equipe(1, 1, 0, [cimons.shiny_mega_rayquaza.clonar()])
 for n in range(len(equipe4.lista)):
-    equipe4.lista[n].xp += 100
-    if equipe4.lista[n].nome == 'rayquaza':
-        equipe4.lista[n].xp += 50 
+    equipe4.lista[n].xp += 150
     equipe4.lista[n].subir_nivel()
 equipe4.curar()
+
+treinador5 = funcoes_Classes.treinador('andre')
+equipe5 = funcoes_Classes.equipe(1, 1, 0, [cimons.gengar.clonar(),cimons.mewtwo.clonar()])
+for n in range(len(equipe5.lista)):
+    equipe5.lista[n].xp += 95
+    equipe5.lista[n].subir_nivel()
+equipe5.curar()
+
+treinador6 = funcoes_Classes.treinador('joloca')
+equipe6 = funcoes_Classes.equipe(2, 2, 0, [cimons.gokussj.clonar(),cimons.narutobeast.clonar()])
+for n in range(len(equipe6.lista)):
+    equipe6.lista[n].xp += 95
+    equipe6.lista[n].subir_nivel()
+equipe6.curar()
+
+treinador7 = funcoes_Classes.treinador('arthur duque')
+equipe7 = funcoes_Classes.equipe(1, 1, 0, [cimons.homelander.clonar(), cimons.arceus.clonar()])
+for n in range(len(equipe7.lista)):
+    equipe7.lista[n].xp += 100
+    if equipe7.lista[n].nome == 'arceus':
+        equipe7.lista[n].xp += 180
+    equipe7.lista[n].subir_nivel()
+equipe7.curar()
 
 #treinador = treinador2
 #equipe_2 = equipe2
 #treinador = treinador1
 #equipe_2 = equipe1
 listaT = [imagens.cenario5, imagens.cenario9]       #cenarios onde há treinadores
-listaitems1 = [imagens.crachabola]                  #imagens que há na loja
+listaitems1 = [imagens.crachabola, imagens.potion]           #imagens que há na loja
 
 rodando = True
 
+itens_cenario = []
+itens_gerados_para = None
+itens_por_cenario = {}
 batalha = False#
 trainer = False#
 ataques = False
@@ -271,6 +304,7 @@ cenario4 = True#
 cenario5 = False
 cenario6 = False
 cenario9 = False
+cenario10 = False
 centrocin = False
 loja = False
 
@@ -301,6 +335,7 @@ balao2 = False
 escolhaioda = False#
 falaioda = False#
 falaioda_2 = False
+aviso = False
 
 '''
 equipe = funcoes_Classes.equipe(1, 1, 0, [cimons.naruto.clonar()])
@@ -309,7 +344,7 @@ equipe.lista[0].xp = 209
 bla, bla2, equipe.lista[0] =equipe.lista[0].subir_nivel()
 '''
 
-escolha_menu = menu_principal(janela, imagens.fundo_menu, imagens.botoes_menu)
+escolha_menu = menu_principal(janela, imagens.fundo_menu, imagens.botoes_menu,imagens.som_clique)
 
 if escolha_menu == 'novo':
     carregar_save = False
@@ -330,6 +365,9 @@ while rodando:
         elif evento.type == pygame.KEYDOWN:
             if evento.key == pygame.K_s:
                 salvarJogo(estado)
+            if evento.key == pygame.K_v:
+                player.alternar_montaria()
+            
     if carregar_save:
         carregar_save = False
         try:
@@ -354,8 +392,8 @@ while rodando:
                                 equipe.derrotados += 1
 
             if estado['mochila'] != '':
-                mochila = funcoes_Classes.mochila([imagens.crachabola], [0], 0)
-                mochila.dinheiro = estado['mochila'][1]
+                mochila = funcoes_Classes.mochila([imagens.crachabola, imagens.potion], [0, 0], 0)
+                mochila.dinheiro = estado['mochila'][-1]
                 for n in range(int(len(estado['mochila']) - 1)):
                     mochila.listaDeQtd[n] = estado['mochila'][n][1]
                 
@@ -385,7 +423,7 @@ while rodando:
             equipe3.curar()
             equipe4.curar()
             
-            cenario1, cenario2, cenario3, cenario4, cenario5, cenario6, centrocin, loja, cenario9 = cenario(variaveis.posobjatual)
+            cenario1, cenario2, cenario3, cenario4, cenario5, cenario6, centrocin, loja, cenario9, cenario10 = cenario(variaveis.posobjatual)
         except:
             print('ERRO ERRO')
 
@@ -417,6 +455,8 @@ while rodando:
             fundo = imagens.cenario9
         elif centrocin or loja:
             fundo = imagens.centrocin
+        elif cenario10:
+            fundo = imagens.cenario10
 
         if (not balao) and (not balao2):
             if tecla[pygame.K_RIGHT]:
@@ -602,7 +642,7 @@ while rodando:
                         else:
                             mudar = funcoes_Classes.verificar6_9(variaveis.posx, variaveis.posy, ci)
                             if mudar:
-                                variaveis.posobjatual, variaveis.listatual, variaveis.listaobjatual, fundo, variaveis.posx, variaveis.posy = funcoes_Classes.ircenario9(player, variaveis.posobj9, variaveis.posobjatual, fundo, variaveis.posy, variaveis.listatual, variaveis.listaobjatual, variaveis.lista9, variaveis.listaobj9)
+                                variaveis.posobjatual, variaveis.listatual, variaveis.listaobjatual, fundo, variaveis.posx, variaveis.posy = funcoes_Classes.ircenario9(player, variaveis.posobj9, variaveis.posobjatual, fundo, variaveis.posy, variaveis.listatual, variaveis.listaobjatual, variaveis.lista9, variaveis.listaobj9, cenario6, cenario10)
                                 cenario6 = False
                                 cenario9 = True
                                 ci = False
@@ -617,7 +657,23 @@ while rodando:
                     cenario6 = True
                     ba = False
                     tentou = False
+                mudar = funcoes_Classes.verificar9_10(variaveis.posx, variaveis.posy, ci)
+                if mudar:
+                    variaveis.posobjatual, variaveis.listatual, variaveis.listaobjatual, fundo, variaveis.posx, variaveis.posy = funcoes_Classes.ircenario10(player, variaveis.posx, variaveis.posy, variaveis.posobjatual, variaveis.posobj10, variaveis.listatual, variaveis.lista10, variaveis.listaobjatual, variaveis.listaobj10, fundo)
+                    cenario9 = False
+                    cenario10 = True
+                    ci = False
+                    tentou = False
 
+            elif cenario10:
+                mudar = funcoes_Classes.verificar10_9(variaveis.posx, variaveis.posy, ba)
+                if mudar:
+                    if mudar:
+                        variaveis.posobjatual, variaveis.listatual, variaveis.listaobjatual, fundo, variaveis.posx, variaveis.posy = funcoes_Classes.ircenario9(player, variaveis.posobj9, variaveis.posobjatual, fundo, variaveis.posy, variaveis.listatual, variaveis.listaobjatual, variaveis.lista9, variaveis.listaobj9, cenario6, cenario10)
+                        cenario10 = False
+                        cenario9 = True
+                        ba = False
+                        tentou = False
 
             
             elif centrocin:
@@ -641,7 +697,7 @@ while rodando:
 
             estado['posobj'] = variaveis.posobjatual
             estado['gramas'] = len(variaveis.gramasatual)
-            estado['gramasx'] = variaveis.gramasxatual
+            estado['gramasx'] = variaveis.gramasxatual          
             estado['gramasy'] = variaveis.gramasyatual
             estado['gramas4'] = len(variaveis.gramas4_atual)
                 
@@ -657,12 +713,12 @@ while rodando:
         if tecla[pygame.K_SPACE] or balao:
 #inicio
             if cenario4 and (tecla[pygame.K_SPACE] or balao) and (not escolhaioda) and player.visual == imagens.atras:
-                escolhaioda, escolha, balao, mov1a = funcoes_Classes.inicio(mov1a, ataques, escolhendo, bolsa, balao, janela, aviso, player, imagens.player, batalha, cenario1, marca2, tecla, escolhaioda)
+                escolhaioda, escolha, balao, mov1a, rodando, aviso = funcoes_Classes.inicio(mov1a, ataques, escolhendo, bolsa, balao, janela, aviso, player, imagens.player, batalha, cenario1, marca2, tecla, escolhaioda)
                 if escolhaioda:
                     equipe = funcoes_Classes.equipe(1, 1, 0, [escolha.clonar()])
                     estado['equipe'] = [(equipe.lista[0].nome, (equipe.lista[0].nivel - 1) * 10 + equipe.lista[0].xp, equipe.lista[0].hp)]
-                    mochila = funcoes_Classes.mochila([imagens.crachabola], [2], 0)
-                    estado['mochila'] = [['crachabola', 2], 0]
+                    mochila = funcoes_Classes.mochila([imagens.crachabola, imagens.potion], [2,3], 0)
+                    estado['mochila'] = [['crachabola', 2], ['potion', 3], 0]
                     estado['escolhaioda'] = True
                     estado['posobj'] = variaveis.posobj4
 
@@ -684,7 +740,9 @@ while rodando:
 
                 if menuloja:
                     rodando, menuloja = funcoes_Classes.menuloja(janela, 1, menuloja, listaitems1, mochila)
-                    estado['mochila'] = [['crachabola', mochila.listaDeQtd[mochila.listaDeles.index(imagens.crachabola)]], mochila.dinheiro]
+                    qtd_cracha = mochila.listaDeQtd[mochila.listaDeles.index(imagens.crachabola)]
+                    qtd_potion = mochila.listaDeQtd[mochila.listaDeles.index(imagens.potion)]
+                    estado['mochila'] = [['crachabola', qtd_cracha], ['potion', qtd_potion], mochila.dinheiro]
 
 
 
@@ -709,6 +767,14 @@ while rodando:
                 indice = 'treinador4'
                 treinador = treinador4
                 equipe_2 = equipe4
+            elif treinador == 'treinador5':
+                indice = 'treinador5'
+                treinador = treinador5
+                equipe_2 = equipe5
+            elif treinador == 'treinador6':
+                indice = 'treinador6'
+                treinador = treinador6
+                equipe_2 = equipe6
             if equipe_2.timevivo() and indice not in estado['treinadores_derrotados']:
                 batalha = True
                 musicaB = True
@@ -720,6 +786,38 @@ while rodando:
 
 
 ###
+        nome_cenario_atual = None
+        if cenario1: nome_cenario_atual = 'cenario1'
+        elif cenario2: nome_cenario_atual = 'cenario2'
+        elif cenario3: nome_cenario_atual = 'cenario3'
+        elif cenario5: nome_cenario_atual = 'cenario5'
+        elif cenario6: nome_cenario_atual = 'cenario6'
+        elif cenario9: nome_cenario_atual = 'cenario9'
+        elif centrocin: nome_cenario_atual = 'centrocin'
+        elif loja: nome_cenario_atual = 'loja'
+
+
+        itenschao.mochila_global = mochila
+        itenschao.escolhaioda_global = escolhaioda
+        itenschao.palavra_func = funcoes_Classes.palavra
+
+        if itens_gerados_para != nome_cenario_atual:
+            itens_gerados_para = nome_cenario_atual
+            if nome_cenario_atual in ('centrocin', 'loja', None):
+                itens_cenario = []
+                itenschao.itens_cenario_global = []
+            elif escolhaioda and mochila != '':
+                if nome_cenario_atual not in itens_por_cenario or itenschao.verificar_respawn(nome_cenario_atual):
+                    itens_por_cenario[nome_cenario_atual] = itenschao.gerar_itens(nome_cenario_atual, quantidade=2)
+                    itenschao.tempo_por_cenario[nome_cenario_atual] = time_module.time()
+                itens_cenario = itens_por_cenario[nome_cenario_atual]
+                itenschao.itens_cenario_global = itens_cenario
+
+       
+        if nome_cenario_atual and nome_cenario_atual not in ('centrocin', 'loja'):
+            if nome_cenario_atual in itens_por_cenario and len(itens_por_cenario[nome_cenario_atual]) == 0:
+                if nome_cenario_atual not in itenschao.tempo_por_cenario:
+                    itenschao.tempo_por_cenario[nome_cenario_atual] = time_module.time()
 
         if (not balao) and (not balao2):
             player.rect.x = variaveis.posx
@@ -731,8 +829,10 @@ while rodando:
 
             janela.blit(fundo, (0, 0))
             for n in range(len(variaveis.posobjatual)):
-                    janela.blit(variaveis.listatual[n], (variaveis.posobjatual[n][0], variaveis.posobjatual[n][1]))
+                janela.blit(variaveis.listatual[n], (variaveis.posobjatual[n][0], variaveis.posobjatual[n][1]))
+
             janela.blit(player.visual, (variaveis.posx, variaveis.posy))
+
             if cenario1 or cenario5 or cenario9:
                 for n in range(len(variaveis.gramasatual)):
                     janela.blit(variaveis.gramasatual[n], (variaveis.gramasxatual[n], variaveis.gramasyatual[n]))
@@ -742,6 +842,60 @@ while rodando:
                     if batalha:
                         musicaB = True
                         musicaP = False
+
+            
+            if mochila != '' and escolhaioda and nome_cenario_atual is not None:
+                player_rect_atual = pygame.Rect(variaveis.posx, variaveis.posy, 64, 64)
+                for item in itens_cenario:
+                    item.desenhar(janela)
+                itenschao.atualizar_itens(itens_cenario, player_rect_atual, mochila, imagens)
+
+        
+        if mochila != '' and escolhaioda:
+
+            def blit_mini_texto(texto, x, y, escala=0.55):
+                aux = 0
+                for letra in funcoes_Classes.palavra(str(texto)):
+                    if letra != ' ':
+                        l = pygame.transform.scale(letra, (int(imagens.largural * escala), int(imagens.altural * escala)))
+                        l_branco = l.copy()
+                        l_branco.fill((255, 255, 255), special_flags=pygame.BLEND_RGB_MAX)
+                        janela.blit(l_branco, (x + aux, y))
+                        aux += int(imagens.largural * escala) + 2
+                    else:
+                        aux += int(imagens.largural * escala) + 4
+
+            hud_w, hud_h = 130, 125
+            hud_surf = pygame.Surface((hud_w, hud_h), pygame.SRCALPHA)
+            pygame.draw.rect(hud_surf, (30, 30, 30, 220), (0, 0, hud_w, hud_h), border_radius=8)
+            pygame.draw.rect(hud_surf, (200, 200, 200, 180), (0, 0, hud_w, hud_h), width=2, border_radius=8)
+            janela.blit(hud_surf, (4, 4))
+
+            linha_h = 36
+            icon_size = 26
+            texto_x = 44
+            icon_x = 10
+
+            y = 10
+            crachabola_img = pygame.transform.scale(imagens.crachabola, (icon_size, icon_size))
+            janela.blit(crachabola_img, (icon_x, y))
+            qtd_cracha = mochila.listaDeQtd[mochila.listaDeles.index(imagens.crachabola)]
+            blit_mini_texto(str(qtd_cracha), texto_x, y + 6)
+            pygame.draw.line(janela, (150, 150, 150), (10, y + linha_h), (hud_w - 6, y + linha_h), 1)
+
+            y = 10 + linha_h + 4
+            potion_img = pygame.transform.scale(imagens.potion, (icon_size, icon_size))
+            janela.blit(potion_img, (icon_x, y))
+            qtd_potion = mochila.listaDeQtd[mochila.listaDeles.index(imagens.potion)]
+            blit_mini_texto(str(qtd_potion), texto_x, y + 6)
+            pygame.draw.line(janela, (150, 150, 150), (10, y + linha_h), (hud_w - 6, y + linha_h), 1)
+
+            y = 10 + (linha_h + 4) * 2
+            moeda_hud = pygame.transform.scale(imagens.moeda, (icon_size, icon_size))
+            janela.blit(moeda_hud, (icon_x, y))
+            blit_mini_texto(str(mochila.dinheiro), texto_x, y + 6)
+
+        pygame.display.update()
 
           
 
@@ -781,7 +935,9 @@ while rodando:
             musicaB = False
             contador_xp = 0
             estado['equipe'] = [(equipe.lista[n].nome, sum(k  * 10 for k in range(1, equipe.lista[n].nivel)) + equipe.lista[n].xp, equipe.lista[n].hp) for n in range(len(equipe.lista))]
-            estado['mochila'] = [['crachabola', mochila.listaDeQtd[mochila.listaDeles.index(imagens.crachabola)]], mochila.dinheiro]
+            qtd_bola = mochila.listaDeQtd[mochila.listaDeles.index(imagens.crachabola)]
+            qtd_potion = mochila.listaDeQtd[mochila.listaDeles.index(imagens.potion)]
+            estado['mochila'] = [['crachabola', qtd_bola],['potion',qtd_potion], mochila.dinheiro]
             for n in ([equipe1, equipe2, equipe3, equipe4]):
                 if (not n.timevivo()) and treinador not in estado['treinadores_derrotados']:
                     estado['treinadores_derrotados'].append(indice)
@@ -812,7 +968,7 @@ while rodando:
 
             
             janela.blit(imagens.balaofala, (64, 384))
-            frase = funcoes_Classes.palavra(f'HOST {''.join(lista)}')
+            frase = funcoes_Classes.palavra(f'HOST {"".join(lista)}')
             HOST = ''.join(lista)
             aux = 8
             for letra in frase:
@@ -872,6 +1028,7 @@ while rodando:
         trocado = False
         minha_vez = False
         ataques = False
+        aviso_troca = False
         mov1 = 1
         mov2 = 1
         sup = 0
@@ -900,8 +1057,10 @@ while rodando:
                 sel = ''
                 aux1 = int(150 * (escolhido.hp / escolhido.hp_max)//1)
                 auxhp1 = pygame.transform.scale(imagens.auxhp, (aux1, 10))
-                aux2 = int(150 * (escolhido2.hp / escolhido2.hp_max)//1)
-                auxhp2 = pygame.transform.scale(imagens.auxhp, (aux2, 10))
+                if(not aviso_troca):
+                    aux2 = int(150 * (escolhido2.hp / escolhido2.hp_max)//1)
+                    auxhp2 = pygame.transform.scale(imagens.auxhp, (aux2, 10))
+                aviso_troca = False
                 aux1x = int(270 * (escolhido.xp / (escolhido.nivel * 10))//1)
                 auxxp1 = pygame.transform.scale(imagens.auxxp, (aux1x, 10))
                 janela.blit(fundo, (0, 0))
@@ -1077,7 +1236,7 @@ while rodando:
                             escolhido2 = cin2
                             aviso2 = True
                 elif pacote['evento'] == 'RESULTADO_TURNO':
-                    fataque = f'{escolhido2.nome} usou {pacote['golpe_tomado']}'
+                    fataque = f'{escolhido2.nome} usou {pacote["golpe_tomado"]}'
                     funcoes_Classes.terminal(janela, escolhido, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
                     funcoes_Classes.rodarpalavra(funcoes_Classes.palavra(fataque), True, janela)
                     sleep(0.2)
@@ -1161,6 +1320,13 @@ while rodando:
                             cin2.subir_nivel()
                             cin2.hp = pacote['hp']
                     escolhido2 = cin2
+                    if pacote['evento'] == 'TROCA_DUPLA':
+                        aux2 = int(150 * (escolhido2.hp / escolhido2.hp_max)//1)
+                        auxhp2 = pygame.transform.scale(imagens.auxhp, (aux2, 10))
+                    else:
+                        aux2 = int(150 * (pacote['hp_anterior2'] / escolhido2.hp_max)//1)
+                        auxhp2 = pygame.transform.scale(imagens.auxhp, (aux2, 10))
+                        aviso_troca = True
                     aviso2 = True
                     if pacote['evento'] == 'TROCA':
                         pacote['evento'] = 'RESULTADO_TURNO'
@@ -1259,6 +1425,6 @@ while rodando:
         
 
 
-
+    print(variaveis.posx)
     pygame.display.update()
     sleep(0.1)

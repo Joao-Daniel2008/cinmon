@@ -17,10 +17,29 @@ som_nivel.set_volume(0.8)
 class Player:
     def __init__(self, posx, posy, velocidade, imagem, visual, rect):
         self.posicao = (posx, posy)
-        self.velocidade = velocidade
+        
+       
+        self.velocidade_normal = velocidade 
+        
+        self.velocidade_montaria = velocidade * 2 
+        
+        
+        self.velocidade = velocidade 
+        
+        self.esta_montado = False
         self.imagem = imagem
         self.visual = visual
         self.rect = rect
+
+    
+    def alternar_montaria(self):
+        self.esta_montado = not self.esta_montado
+        if self.esta_montado:
+            self.velocidade = self.velocidade_montaria
+            print("correndo! Velocidade agora é:", self.velocidade)
+        else:
+            self.velocidade = self.velocidade_normal
+            print("andando. Velocidade agora é:", self.velocidade)
 
     def movimento(self, posx, posy, di, es, ci, ba, janela, fundo, andada):
         for n in range(1, 5):
@@ -30,6 +49,10 @@ class Player:
             if fundo == imagens.cenario1 or fundo == imagens.cenario5 or fundo == imagens.cenario9:
                 for j in range(len(variaveis.gramasatual)):
                     janela.blit(variaveis.gramasatual[j], (variaveis.gramasxatual[j], variaveis.gramasyatual[j]))
+        
+            import itenschao
+            for item in itenschao.itens_cenario_global:
+                item.desenhar(janela)
             if di:
                 self.posicao = (posx - self.velocidade + (self.velocidade / 4) * n, posy)
                 if andada == 0:
@@ -55,6 +78,51 @@ class Player:
                 else:
                     self.visual = imagens.andando_atras2
             janela.blit(self.visual, self.posicao)
+
+            
+            if itenschao.mochila_global is not None and itenschao.escolhaioda_global:
+                def blit_mini_texto(texto, x, y, escala=0.55):
+                    aux = 0
+                    for letra in itenschao.palavra_func(str(texto)):
+                        if letra != ' ':
+                            l = pygame.transform.scale(letra, (int(imagens.largural * escala), int(imagens.altural * escala)))
+                            l_branco = l.copy()
+                            l_branco.fill((255, 255, 255), special_flags=pygame.BLEND_RGB_MAX)
+                            janela.blit(l_branco, (x + aux, y))
+                            aux += int(imagens.largural * escala) + 2
+                        else:
+                            aux += int(imagens.largural * escala) + 4
+
+                hud_w, hud_h = 130, 125
+                hud_surf = pygame.Surface((hud_w, hud_h), pygame.SRCALPHA)
+                pygame.draw.rect(hud_surf, (30, 30, 30, 220), (0, 0, hud_w, hud_h), border_radius=8)
+                pygame.draw.rect(hud_surf, (200, 200, 200, 180), (0, 0, hud_w, hud_h), width=2, border_radius=8)
+                janela.blit(hud_surf, (4, 4))
+
+                linha_h = 36
+                icon_size = 26
+                texto_x = 44
+                icon_x = 10
+
+                y = 10
+                crachabola_img = pygame.transform.scale(imagens.crachabola, (icon_size, icon_size))
+                janela.blit(crachabola_img, (icon_x, y))
+                qtd_cracha = itenschao.mochila_global.listaDeQtd[itenschao.mochila_global.listaDeles.index(imagens.crachabola)]
+                blit_mini_texto(str(qtd_cracha), texto_x, y + 6)
+                pygame.draw.line(janela, (150, 150, 150), (10, y + linha_h), (hud_w - 6, y + linha_h), 1)
+
+                y = 10 + linha_h + 4
+                potion_img = pygame.transform.scale(imagens.potion, (icon_size, icon_size))
+                janela.blit(potion_img, (icon_x, y))
+                qtd_potion = itenschao.mochila_global.listaDeQtd[itenschao.mochila_global.listaDeles.index(imagens.potion)]
+                blit_mini_texto(str(qtd_potion), texto_x, y + 6)
+                pygame.draw.line(janela, (150, 150, 150), (10, y + linha_h), (hud_w - 6, y + linha_h), 1)
+
+                y = 10 + (linha_h + 4) * 2
+                moeda_hud = pygame.transform.scale(imagens.moeda, (icon_size, icon_size))
+                janela.blit(moeda_hud, (icon_x, y))
+                blit_mini_texto(str(itenschao.mochila_global.dinheiro), texto_x, y + 6)
+
             pygame.display.update()
             time.sleep(0.05)
 
@@ -393,6 +461,10 @@ class mochila:
         if objeto == 'crachabola' and self.dinheiro >= 30:
             self.dinheiro -= 30
             self.listaDeQtd[self.listaDeles.index(imagens.crachabola)] += 1
+            comprou = True
+        elif objeto == 'potion' and self.dinheiro >= 35:
+            self.dinheiro -= 35
+            self.listaDeQtd[self.listaDeles.index(imagens.potion)] += 1
             comprou = True
         return comprou
 
@@ -826,6 +898,32 @@ def batalha_selvagem(self, player, fundo, janela, equipe, selvagem, batalha, tec
                         terminal(janela, escolhido, fundo, sel, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
                         rodarpalavra(palavra(f'Voce ja tem 3 cinmons'), batalha, janela)
                         time.sleep(1)
+                elif mov1 == 2 and temporizador == 2:
+                    mov1 = mov2 = 1
+                    temporizador = 0
+                    if self.listaDeQtd[1] > 0:
+                        if escolhido.hp < escolhido.hp_max:
+                            for i in range(40):
+                                if escolhido.hp < escolhido.hp_max:
+                                    escolhido.hp += 0.25
+                                    aux1 = int(150 * (escolhido.hp / escolhido.hp_max)//1)
+                                    auxhp1 = pygame.transform.scale(imagens.auxhp, (aux1, 10))
+                                    terminal(janela, escolhido, fundo, sel, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
+                                    pygame.display.update()
+                                    time.sleep(0.05)
+                            self.listaDeQtd[1] -= 1
+                            rodarpalavra(palavra(f'{escolhido.nome} recuperou hp'),batalha, janela)
+                            verturno = False
+                            bolsa = False
+                        else:
+                            terminal(janela, escolhido, fundo, sel, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
+                            rodarpalavra(palavra(f'{escolhido.nome} hp cheio'),batalha, janela)
+                            time.sleep(1)
+                    else:
+                        terminal(janela, escolhido, fundo, sel, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
+                        rodarpalavra(palavra(f'{escolhido.nome} voce nao tem potions'),batalha, janela)
+                        time.sleep(1)
+
         time.sleep(0.1)
         pygame.display.update()
 
@@ -1528,7 +1626,37 @@ def batalha_treinador(self, mochila, treinador, fundo, janela, equipe1, equipe2,
                     terminal(janela, escolhido, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
                     rodarpalavra(palavra('Voce nao pode fazer isso'), batalha, janela)
                     time.sleep(1)
-
+                    bolsa = False
+                    mov1=2
+                    mov2=1
+                elif mov1 == 2 and temporizador == 2:
+                    mov1 = mov2 = 1
+                    temporizador = 0
+                    if mochila.listaDeQtd[1] > 0:
+                        if escolhido.hp < escolhido.hp_max:
+                            for i in range(40):
+                                if escolhido.hp < escolhido.hp_max:
+                                    escolhido.hp += 0.25
+                                    aux1 = int(150 * (escolhido.hp / escolhido.hp_max)//1)
+                                    auxhp1 = pygame.transform.scale(imagens.auxhp, (aux1, 10))
+                                    terminal(janela, escolhido, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
+                                    pygame.display.update()
+                                    time.sleep(0.05)
+                            mochila.listaDeQtd[1] -= 1
+                            rodarpalavra(palavra(f'{escolhido.nome} recuperou hp'),batalha, janela)
+                            verturno = False
+                            bolsa = False
+                        else:
+                            terminal(janela, escolhido, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
+                            rodarpalavra(palavra(f'{escolhido.nome} hp cheio'),batalha, janela)
+                            time.sleep(1)
+                            bolsa=False
+                            mov1=2
+                            mov2=1
+                    else:
+                        terminal(janela, escolhido, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
+                        rodarpalavra(palavra(f'voce nao tem potions'),batalha, janela)
+                        time.sleep(1)
 
         time.sleep(0.1)
         pygame.display.update()
@@ -1577,8 +1705,22 @@ def avisoCombate(janela, treinador):
     elif treinador.nome == 'daniel':
         rodarpalavra(palavra('voce nao tem aura mano'), batalha, janela)
         time.sleep(1)
-    elif treinador.nome == 'jose':
-        rodarpalavra(palavra('cabra da peste'), batalha, janela)
+    elif treinador.nome == 'marcelo':
+        rodarpalavra(palavra('shiny mega rayquaza'), batalha, janela)
+        time.sleep(0.4)
+        limpar(janela, imagens.balaofala)
+        rodarpalavra(palavra('com 6 ivs perfeitos'), batalha, janela)
+        time.sleep(0.4)
+        limpar(janela, imagens.balaofala)
+        rodarpalavra(palavra('use obliteraaaaar'), batalha, janela)
+        time.sleep(1)
+    elif treinador.nome == 'andre':
+        rodarpalavra(palavra('hmmmm'), batalha, janela)
+        time.sleep(1)
+    elif treinador.nome == 'joloca':
+        rodarpalavra(palavra('voce vai ficar confuso'), batalha, janela)
+        time.sleep(0.4)
+        rodarpalavra(palavra('melhor treinar mais'), batalha, janela)
         time.sleep(1)
 
 def menu(janela, equipe, balao, mov1a, escolhendo, bolsa, tecla, marca):
@@ -1865,9 +2007,10 @@ def falarcomioda(self, posx, posy):
 
 def inicio(mov1a, ataques, escolhendo, bolsa, balao, janela, aviso, player1, player, batalha, cenario1, marca, tecla, escolhaioda):
     escolha = ''
+    ficar = True
     if (not aviso) and falarcomioda(player1, variaveis.posx, variaveis.posy):
-        aviso = escolhaioda1(janela, variaveis.posx, variaveis.posy, batalha, variaveis.gramasatual, variaveis.gramasxatual, variaveis.gramasyatual, variaveis.listatual, variaveis.posobjatual, imagens.player, imagens.balaofala)
-    if variaveis.posy == variaveis.alturap:
+        aviso, ficar = escolhaioda1(janela, variaveis.posx, variaveis.posy, batalha, variaveis.gramasatual, variaveis.gramasxatual, variaveis.gramasyatual, variaveis.listatual, variaveis.posobjatual, imagens.player, imagens.balaofala)
+    if aviso and variaveis.posy == variaveis.alturap:
         marcacao = False
         if (not balao):
             if variaveis.posx == 576:
@@ -1923,7 +2066,7 @@ def inicio(mov1a, ataques, escolhendo, bolsa, balao, janela, aviso, player1, pla
             balao = True
         else:
             marca = False
-    return escolhaioda, escolha, balao, mov1a
+    return escolhaioda, escolha, balao, mov1a, ficar, aviso
 
 
 
@@ -1931,38 +2074,52 @@ def inicio(mov1a, ataques, escolhendo, bolsa, balao, janela, aviso, player1, pla
 
 
 def escolhaioda1(janela, posx, posy, batalha, gramasatual, gramasxatual, gramasyatual, listatual, posobjatual, player, balaofala):
+    rodando = True
     limpar(janela, balaofala)
     rodarpalavra(palavra('ola seja bem vindo'), batalha, janela)
-    time.sleep(1.5)
-    limpar(janela, balaofala)
-    rodarpalavra(palavra('sou o professor ioda'), batalha, janela)
-    time.sleep(1.5)
-    limpar(janela, balaofala)
-    rodarpalavra(palavra('esse e o laboratorio cin'), batalha, janela)
-    time.sleep(1.5)
-    limpar(janela, balaofala)
-    rodarpalavra(palavra('onde a jornada dos cins comeca'), batalha, janela)
-    time.sleep(1.5)
-    limpar(janela, balaofala)
-    rodarpalavra(palavra('o que'), batalha, janela)
-    time.sleep(1.5)
-    limpar(janela, balaofala)
-    rodarpalavra(palavra('quer ser um cin'), batalha, janela)
-    time.sleep(1.5)
-    limpar(janela, balaofala)
-    rodarpalavra(palavra('pois bem'), batalha, janela)
     time.sleep(1)
     limpar(janela, balaofala)
-    rodarpalavra(palavra('darei a voce 2 crachabolas'), batalha, janela)
-    time.sleep(1.5)
+    rodarpalavra(palavra('sou o professor iyoda'), batalha, janela)
+    time.sleep(1)
     limpar(janela, balaofala)
-    rodarpalavra(palavra('e podera escolher seu cinmon'), batalha, janela)
-    time.sleep(2)
+    rodarpalavra(palavra('esse e o laboratorio cin'), batalha, janela)
+    time.sleep(1)
     limpar(janela, balaofala)
-    rodarpalavra(palavra('va e se torne um cin'), batalha, janela)
-    time.sleep(1.5)
+    rodarpalavra(palavra('onde sua jornada no cin comeca'), batalha, janela)
+    time.sleep(1)
     limpar(janela, balaofala)
-    return True
+    rodarpalavra(palavra('aqui vai minha pergunta '), batalha, janela)
+    time.sleep(1)
+    limpar(janela, balaofala)
+    rodarpalavra(palavra('quer ser um treinador do cin'), batalha, janela)
+    time.sleep(1)
+    ficar = True
+    mov1a = 1
+    while rodando:
+        for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                ficar = False
+                rodando = False
+        tecla = pygame.key.get_pressed()
+        janela.blit(imagens.menu1, (848, 240))
+        soun(palavra('sim'), 'sim', janela)
+        soun(palavra('nao'), 'nao', janela)
+        seta(1, mov1a, janela, imagens.setinha, False, False, False, True)
+        if tecla[pygame.K_UP]:# or ass == 'a':
+            if mov1a > 1:
+                mov1a -= 1
+        elif tecla[pygame.K_DOWN]:# or ass == 'b':
+            if mov1a < 2:
+                mov1a += 1 
+        elif tecla[pygame.K_SPACE]:
+            if mov1a == 1:
+                ficar = True
+                rodando = False
+            else:
+                ficar = False
+                rodando = False
+        pygame.display.update()
+    return True, ficar
 
 def cin1(batalha, janela, posx, posy, gramasatual, gramasxatual, gramasyatual, listatual, posobjatual, player, balaofala):
     limpar(janela, balaofala)
@@ -2009,8 +2166,11 @@ def curarfala(janela, player, batalha, posx, posy):
     rodarpalavra(palavra('so um instante'), batalha, janela)
     time.sleep(2)
     limpar(janela, imagens.balaofala)
-    rodarpalavra(palavra('pronto seus cinmons estao ok'), batalha, janela)
-    time.sleep(1)
+    rodarpalavra(palavra('hp cheio'), batalha, janela)
+    time.sleep(0.5)
+    limpar(janela, imagens.balaofala)
+    rodarpalavra(palavra('seu cinmons estao ok'), batalha, janela)
+    time.sleep(0.5)
 
 #loja
 def lojafala(janela, batalha):
@@ -2105,7 +2265,7 @@ def menuloja(janela, mov1, menuloja, lista, mochila):
                     selecionado = 'crachabola'
                     marca = selecao1 = True
                 elif mov1 == 2 and temporizador == 2:
-                    selecionado = 'pocao'
+                    selecionado = 'potion'
                     marca = selecao1 = True
                 if temporizador == 2 and marca:
                     temporizador = 0
@@ -2515,11 +2675,11 @@ def ircenario1(self, posobj1, posobjatual, fundo, gramasxatual, gramasyatual, gr
 
     if cenario2:
         self.visual = imagens.frente
-        fundo = imagens.cenario3
+        fundo = imagens.cenario1
         return fundo, posobjatual, listatual, gramasatual, gramasxatual, gramasyatual, gramas4_atual, listaobjatual, variaveis.posx, 256
     elif cenario3:
         self.visual = imagens.esquerda
-        fundo = imagens. cenario3
+        fundo = imagens.cenario1
         return fundo, posobjatual, listatual, gramasatual, gramasxatual, gramasyatual, gramas4_atual, listaobjatual, variaveis.largura - variaveis.largurap, posy
 
 def ircenario2(self, posx, posy, posobjatual, posobj2, listatual, lista2, listaobjatual, listaobj2, fundo):
@@ -2613,7 +2773,7 @@ def ircenario6(self, posx, posy, posobjatual, posobj6, listatual, lista6, listao
         self.visual = imagens.frente
         return posobjatual, listatual, listaobjatual, fundo, posx, 0
 
-def ircenario9(self, posobj, posobjatual, fundo, posy, listatual, listaobjatual, lista, listaobj):
+def ircenario9(self, posobj, posobjatual, fundo, posy, listatual, listaobjatual, lista, listaobj, cenario6, cenario10):
     posobjatual = posobj
     listatual = lista
     listaobjatual = listaobj
@@ -2625,10 +2785,15 @@ def ircenario9(self, posobj, posobjatual, fundo, posy, listatual, listaobjatual,
         variaveis.gramas4_atual.append(variaveis.gramasatual[n].get_rect())
         variaveis.gramas4_atual[n].x = variaveis.gramasx9[n]
         variaveis.gramas4_atual[n].y = variaveis.gramasy9[n]
-    self.visual = imagens.atras
+    if cenario6:
+        self.visual = imagens.atras
+        variaveis.posy = imagens.altura - imagens.alturap
+    elif cenario10:
+        self.visual = imagens.frente
+        variaveis.posy = 0
     fundo = imagens.cenario9
-    self.posicao = (variaveis.posx, imagens.altura - imagens.alturap)
-    return posobjatual, listatual, listaobjatual, fundo, variaveis.posx, imagens.altura - imagens.alturap
+    self.posicao = (variaveis.posx, variaveis.posy)
+    return posobjatual, listatual, listaobjatual, fundo, variaveis.posx, variaveis.posy
 
 
 def ircentrocin(self, posx, posy, posobjatual, posobj7, listatual, lista7, listaobjatual, listaobj7, fundo):
@@ -2655,6 +2820,20 @@ def irloja(self, posx, posy, posobjatual, posobj8, listatual, lista8, listaobjat
     variaveis.gramas4_atual = []
     return posobjatual, listatual, listaobjatual, fundo, 448, variaveis.altura - variaveis.alturap
 
+def ircenario10(self, posx, posy, posobjatual, posobj, listatual, lista, listaobjatual, listaobj, fundo):
+    posobjatual = posobj
+    listatual = lista
+    listaobjatual = listaobj
+    self.visual = imagens.atras
+    fundo = imagens.cenario10
+    variaveis.gramasatual = ()
+    variaveis.gramasxatual = ()
+    variaveis.gramasyatual = ()
+    variaveis.gramas4_atual = []
+    return posobjatual, listatual, listaobjatual, fundo, variaveis.posx, variaveis.altura - variaveis.alturap
+
+
+#funcoes de verificar
 
 def verificar4_3(posx, posy, direcao):
     if posx == 704 and posy == 448 and direcao:
@@ -2678,6 +2857,8 @@ def verificar3_1(posx, posy, direcao):
         return False
 
 def verificar1_3(posx, posy, direcao):
+    if posy == 256:
+        return False    
     if posx == variaveis.largura - variaveis.largurap and direcao:
         return True
     else:
@@ -2754,6 +2935,18 @@ def verificar6_9(posx, posy, direcao):
         return False
     
 def verificar9_6(posx, posy, direcao):
+    if posy == imagens.altura - imagens.alturap and direcao:
+        return True
+    else:
+        return False
+
+def verificar9_10(posx, posy, direcao):
+    if posy == 0 and direcao:
+        return True
+    else:
+        return False
+    
+def verificar10_9(posx, posy, direcao):
     if posy == imagens.altura - imagens.alturap and direcao:
         return True
     else:

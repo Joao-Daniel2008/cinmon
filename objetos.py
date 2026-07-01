@@ -51,9 +51,21 @@ centrocin1_4 = imagens.centrocin1.get_rect()
 centrocin1_4.x = 704
 centrocin1_4.y = 64
 
+ginasio4 = imagens.ginasio.get_rect()
+ginasio4.x = 256
+ginasio4.y = 64
+
+portagym_4 = imagens.porta.get_rect()
+portagymn_4.x = 448
+portagym_4.y = 384
+
 porta3_4 = imagens.porta.get_rect()
 porta3_4.x = 832
 porta3_4.y = 256
+
+cerca_cen3 = imagens.cerca.get_rect()
+cerca_cen3.x = 0
+cerca_cen3.y = 0  
 
 loja1_4 = imagens.centrocin1.get_rect()
 loja1_4.x = 64
@@ -88,8 +100,8 @@ imagenst['treinador2'].x = 640
 imagenst['treinador2'].y = 0
 
 imagenst['treinador3'].x = 384
-imagenst['treinador3'].y = 0
+imagenst['treinador3'].y = 64
 
 imagenst['treinador4'].x = 512
-imagenst['treinador4'].y = 0
+imagenst['treinador4'].y = 64
 
