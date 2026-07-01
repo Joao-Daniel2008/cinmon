@@ -334,7 +334,8 @@ imagenst = {
     'treinador3': pygame.image.load(caminho_treinador2),
     'treinador4': pygame.image.load(caminho_treinador2),
     'treinador5': pygame.image.load(caminho_treinador2),
-    'treinador6': pygame.image.load(caminho_treinador2)
+    'treinador6': pygame.image.load(caminho_treinador2),
+    'treinador7': pygame.image.load(caminho_treinador2)
 
 }
 for n in imagenst:
@@ -353,6 +354,7 @@ caminho_naruto = BASE_DIR / "assets" / "imagens" / "batalha" / "naruto.png"
 caminho_narutobeast = BASE_DIR / "assets" / "imagens" / "batalha" / "naruto beast.png"
 caminho_megarayquaza = BASE_DIR / "assets" / "imagens" / "batalha" / "megarayquazashiny.png"
 caminho_arceus = BASE_DIR / "assets" / "imagens" / "batalha" / "arceus.png"
+caminho_gengar = BASE_DIR / "assets" / "imagens" / "batalha" / "gengar.png"
 
 caminho_lupi2 = BASE_DIR / "assets" / "imagens" / "batalha" / "lupi2.png"
 caminho_mewtwo2 = BASE_DIR / "assets" / "imagens" / "batalha" / "mewtwo2.png"
@@ -366,6 +368,7 @@ caminho_naruto2 = BASE_DIR / "assets" / "imagens" / "batalha" / "naruto2.png"
 caminho_narutobeast2 = BASE_DIR / "assets" / "imagens" / "batalha" / "naruto beast2.png"
 caminho_megarayquaza2 = BASE_DIR / "assets" / "imagens" / "batalha" / "megarayquazashiny2.png"
 caminho_arceus2 = BASE_DIR / "assets" / "imagens" / "batalha" / "arceus2.png"
+caminho_gengar2 = BASE_DIR / "assets" / "imagens" / "batalha" / "gengar2.png"
 
 caminho_lupim = BASE_DIR / "assets" / "imagens" / "minis" / "mini lupi.png"
 caminho_mewtwom = BASE_DIR / "assets" / "imagens" / "minis" / "mini mewtwo.png"
@@ -379,6 +382,7 @@ caminho_narutom = BASE_DIR / "assets" / "imagens" / "minis" / "mini naruto.png"
 caminho_narutobeastm = BASE_DIR / "assets" / "imagens" / "minis" / "mini naruto beast.png"
 caminho_megarayquazam = BASE_DIR / "assets" / "imagens" / "minis" / "mini megarayquaza.png"
 caminho_arceusm = BASE_DIR / "assets" / "imagens" / "minis" / "mini_arceuss.png"
+caminho_gengarm = BASE_DIR / "assets" / "imagens" / "minis" / "mini gengar.png"
 
 imagens_cinmons = {
     'lupi': {
@@ -390,6 +394,11 @@ imagens_cinmons = {
         'imagemf': pygame.image.load(caminho_megarayquaza),
         'imagemc': pygame.image.load(caminho_megarayquaza2),
         'mini': pygame.image.load(caminho_megarayquazam)
+    },
+    'gengar': {
+        'imagemf': pygame.image.load(caminho_gengar2),
+        'imagemc': pygame.image.load(caminho_gengar),
+        'mini': pygame.image.load(caminho_gengarm)
     },
     'mewtwo': {
         'mini': pygame.image.load(caminho_mewtwom),
