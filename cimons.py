@@ -31,7 +31,7 @@ laser = funcoes_Classes.ataques('laser', 'fogo', 'dano', 4, 4, 10, 10)
 
 #psiquico
 estrelas = funcoes_Classes.ataques('estrelas', 'psiquico', 'dano', 3, 3, 10, 10)
-bola_sombria = funcoes_Classes.ataques('bola sombria', 'psiquico', 'dano', 5, 5, 10, 10)
+bola_sombria = funcoes_Classes.ataques('bola sombria', 'psiquico', 'dano', 4, 4, 10, 10)
 
 #dragao
 furia = funcoes_Classes.ataques('furia', 'dragao', 'dano', 4, 4, 5, 5)

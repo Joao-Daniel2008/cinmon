@@ -215,9 +215,9 @@ def iniciar_servidor(HOST):
 
 
 treinador1 = funcoes_Classes.treinador('ewerton')
-equipe1 = funcoes_Classes.equipe(2, 2, 0, [cimons.rayquaza.clonar(), cimons.lupi.clonar()])
+equipe1 = funcoes_Classes.equipe(2, 2, 0, [cimons.gengar.clonar(), cimons.lupi.clonar()])
 for n in range(len(equipe1.lista)):
-    equipe1.lista[n].xp += 40
+    equipe1.lista[n].xp += 25
     equipe1.lista[n].subir_nivel()
 equipe1.curar()
 
@@ -240,7 +240,7 @@ equipe3.curar()
 treinador4 = funcoes_Classes.treinador('marcelo')
 equipe4 = funcoes_Classes.equipe(1, 1, 0, [cimons.shiny_mega_rayquaza.clonar()])
 for n in range(len(equipe4.lista)):
-    equipe4.lista[n].xp += 110
+    equipe4.lista[n].xp += 100
     equipe4.lista[n].subir_nivel()
 equipe4.curar()
 

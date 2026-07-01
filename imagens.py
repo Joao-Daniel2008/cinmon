@@ -467,8 +467,12 @@ imagensc = {
 
 for n in imagens_cinmons:
     if n != 'teo':    #################
-        imagens_cinmons[n]['imagemf'] = pygame.transform.scale(imagens_cinmons[n]['imagemf'], (padraoL * 1.5, padraoA * 1.5))
-        imagens_cinmons[n]['imagemc'] = pygame.transform.scale(imagens_cinmons[n]['imagemc'], (padraoL * 1.5, padraoA * 1.5))
+        if n == 'gengar':
+            imagens_cinmons[n]['imagemf'] = pygame.transform.scale(imagens_cinmons[n]['imagemf'], (padraoL * 1.25, padraoA * 1.25))
+            imagens_cinmons[n]['imagemc'] = pygame.transform.scale(imagens_cinmons[n]['imagemc'], (padraoL * 1.25, padraoA * 1.25))
+        else:
+            imagens_cinmons[n]['imagemf'] = pygame.transform.scale(imagens_cinmons[n]['imagemf'], (padraoL * 1.5, padraoA * 1.5))
+            imagens_cinmons[n]['imagemc'] = pygame.transform.scale(imagens_cinmons[n]['imagemc'], (padraoL * 1.5, padraoA * 1.5))
 
 
 #numeros

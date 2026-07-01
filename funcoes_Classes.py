@@ -2085,13 +2085,13 @@ def escolhaioda1(janela, posx, posy, batalha, gramasatual, gramasxatual, gramasy
     rodarpalavra(palavra('esse e o laboratorio cin'), batalha, janela)
     time.sleep(1)
     limpar(janela, balaofala)
-    rodarpalavra(palavra('onde a jornada dos cins comeca'), batalha, janela)
+    rodarpalavra(palavra('onde sua jornada no cin comeca'), batalha, janela)
     time.sleep(1)
     limpar(janela, balaofala)
-    rodarpalavra(palavra('o que'), batalha, janela)
+    rodarpalavra(palavra('aqui vai minha pergunta '), batalha, janela)
     time.sleep(1)
     limpar(janela, balaofala)
-    rodarpalavra(palavra('quer ser um cin'), batalha, janela)
+    rodarpalavra(palavra('quer ser um treinador do cin'), batalha, janela)
     time.sleep(1)
     ficar = True
     mov1a = 1
@@ -2166,8 +2166,11 @@ def curarfala(janela, player, batalha, posx, posy):
     rodarpalavra(palavra('so um instante'), batalha, janela)
     time.sleep(2)
     limpar(janela, imagens.balaofala)
-    rodarpalavra(palavra('pronto seus cinmons estao ok'), batalha, janela)
-    time.sleep(1)
+    rodarpalavra(palavra('hp cheio'), batalha, janela)
+    time.sleep(0.5)
+    limpar(janela, imagens.balaofala)
+    rodarpalavra(palavra('seu cinmons estao ok'), batalha, janela)
+    time.sleep(0.5)
 
 #loja
 def lojafala(janela, batalha):
