@@ -1,6 +1,5 @@
 import pygame
 import imagens
-import variaveis
 import objetos
 import copy
 import time
@@ -25,11 +24,11 @@ class Player:
     def movimento(self, posx, posy, di, es, ci, ba, janela, fundo, andada):
         for n in range(1, 5):
             janela.blit(fundo, (0, 0))
-            for k in range(len(variaveis.posobjatual)):
-                janela.blit(variaveis.listatual[k], (variaveis.posobjatual[k][0], variaveis.posobjatual[k][1]))
+            for k in range(len(objetos.posobjatual)):
+                janela.blit(objetos.listatual[k], (objetos.posobjatual[k][0], objetos.posobjatual[k][1]))
             if fundo == imagens.cenario1 or fundo == imagens.cenario5 or fundo == imagens.cenario9:
-                for j in range(len(variaveis.gramasatual)):
-                    janela.blit(variaveis.gramasatual[j], (variaveis.gramasxatual[j], variaveis.gramasyatual[j]))
+                for j in range(len(objetos.gramasatual)):
+                    janela.blit(objetos.gramasatual[j], (objetos.gramasxatual[j], objetos.gramasyatual[j]))
         
             import itenschao
             for item in itenschao.itens_cenario_global:
@@ -199,13 +198,13 @@ class Player:
         return posy, tentou
 
     def limiten(self, posx, posy):
-        if posx >= variaveis.largura or posx < 0 or posy >= variaveis.altura or posy < 0:
+        if posx >= objetos.largura or posx < 0 or posy >= objetos.altura or posy < 0:
             return True
         else:
             return False
     
     def colisaon(self):
-        for k in variaveis.listaobjatual:
+        for k in objetos.listaobjatual:
             if self.rect.colliderect(k) and k is not objetos.player4:
                 return True
         return False
@@ -523,11 +522,11 @@ def batalha_selvagem(self, player, fundo, janela, equipe, selvagem, batalha, tec
             frase = palavra(frase)
             rodarpalavra(frase, batalha, janela)
             time.sleep(1)
-            comeco1(janela, fundo, selvagem, variaveis.posx2, variaveis.posy2, sel, aviso, aviso2, trainer, escolhido, escolhido2, auxhp1, auxhp2, aux1, aux2, aux1x, auxxp1)
+            comeco1(janela, fundo, selvagem, objetos.posx2, objetos.posy2, sel, aviso, aviso2, trainer, escolhido, escolhido2, auxhp1, auxhp2, aux1, aux2, aux1x, auxxp1)
             time.sleep(1)
             rodarpalavra(palavra(f'Va {escolhido.nome}'), batalha, janela)
             time.sleep(1)
-            comeco2(janela, fundo, selvagem, trainer, variaveis.posx1, variaveis.posy1, variaveis.posx2, variaveis.posy2, sel, escolhendo, escolhido, escolhido2, segundo, auxhp1, auxhp2, aux1, aux2, auxhpc, auxc, morto)
+            comeco2(janela, fundo, selvagem, trainer, objetos.posx1, objetos.posy1, objetos.posx2, objetos.posy2, sel, escolhendo, escolhido, escolhido2, segundo, auxhp1, auxhp2, aux1, aux2, auxhpc, auxc, morto)
             time.sleep(1)
         if (not escolhendo) and (not bolsa):
             temporizador = 0
@@ -620,13 +619,13 @@ def batalha_selvagem(self, player, fundo, janela, equipe, selvagem, batalha, tec
                     seta(mov1, mov2, janela, imagens.setinha, ataques, escolhendo, bolsa, balao)
                     golpes(escolhido, janela)
 
-                janela.blit(escolhido.imagemc, (variaveis.posx1 - 80, variaveis.posy1 - 80))
-                janela.blit(sel.imagemf, (variaveis.posx2 - imagens.largural - 32, variaveis.posy2 - imagens.altural - 32))
-                janela.blit(imagens.barra, (variaveis.posx2, variaveis.posy1 + 32))     #barra1
-                janela.blit(imagens.barra, (variaveis.posx1 - 48, variaveis.posy2 - 64))          #barra 2
-                janela.blit(auxhp1, (variaveis.posx2 + 132, variaveis.posy1 + 53 + 32))
-                janela.blit(auxhp2, (variaveis.posx1 + 84, variaveis.posy2 - 11))
-                janela.blit(auxxp1, (variaveis.posx2 + 30, variaveis.posy1 + 116))
+                janela.blit(escolhido.imagemc, (objetos.posx1 - 80, objetos.posy1 - 80))
+                janela.blit(sel.imagemf, (objetos.posx2 - imagens.largural - 32, objetos.posy2 - imagens.altural - 32))
+                janela.blit(imagens.barra, (objetos.posx2, objetos.posy1 + 32))     #barra1
+                janela.blit(imagens.barra, (objetos.posx1 - 48, objetos.posy2 - 64))          #barra 2
+                janela.blit(auxhp1, (objetos.posx2 + 132, objetos.posy1 + 53 + 32))
+                janela.blit(auxhp2, (objetos.posx1 + 84, objetos.posy2 - 11))
+                janela.blit(auxxp1, (objetos.posx2 + 30, objetos.posy1 + 116))
                 nomecin1(janela, palavra(escolhido.nome), escolhido.nome)
                 nomecin2(janela, palavra(sel.nome), sel.nome)
                 nivelcin1(janela, palavra(f'{escolhido.nivel}'))
@@ -640,7 +639,7 @@ def batalha_selvagem(self, player, fundo, janela, equipe, selvagem, batalha, tec
                         terminal(janela, escolhido, fundo, sel, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
                         rodarpalavra(palavra(f'{sel.nome} desmaiou'), batalha, janela)
                         time.sleep(1)
-                        fainted2(janela, fundo, escolhido, sel, variaveis.posx2 - imagens.largural - 32, variaveis.posy2 - imagens.altural - 32, imagens.altural * 1.5, selvagem, trainer, auxhp1, aux1, aux1x, auxxp1)
+                        fainted2(janela, fundo, escolhido, sel, objetos.posx2 - imagens.largural - 32, objetos.posy2 - imagens.altural - 32, imagens.altural * 1.5, selvagem, trainer, auxhp1, aux1, aux1x, auxxp1)
                         time.sleep(1)
                         sel.hp_base = 0
                         savexp1 = escolhido.xp
@@ -703,24 +702,24 @@ def batalha_selvagem(self, player, fundo, janela, equipe, selvagem, batalha, tec
                 verturno = True
                 janela.blit(fundo, (0, 0))
                 janela.blit(imagens.molde3, (0, 384))
-                janela.blit(escolhido.imagemc, (variaveis.posx1 - 80, variaveis.posy1 - 80))
-                janela.blit(sel.imagemf, (variaveis.posx2 - imagens.largural - 32, variaveis.posy2 - imagens.altural - 32))
-                janela.blit(imagens.barra, (variaveis.posx2, variaveis.posy1 + 32))     #barra 1
-                janela.blit(imagens.barra, (variaveis.posx1 - 48, variaveis.posy2 - 64))          #barra 2
+                janela.blit(escolhido.imagemc, (objetos.posx1 - 80, objetos.posy1 - 80))
+                janela.blit(sel.imagemf, (objetos.posx2 - imagens.largural - 32, objetos.posy2 - imagens.altural - 32))
+                janela.blit(imagens.barra, (objetos.posx2, objetos.posy1 + 32))     #barra 1
+                janela.blit(imagens.barra, (objetos.posx1 - 48, objetos.posy2 - 64))          #barra 2
                 nomecin1(janela, palavra(escolhido.nome), escolhido.nome)
                 nomecin2(janela, palavra(sel.nome), sel.nome)
                 nivelcin1(janela, palavra(f'{escolhido.nivel}'))
                 nivelcin2(janela, palavra(f'{sel.nivel}'))
-                janela.blit(auxhp1, (variaveis.posx2 + 132, variaveis.posy1 + 53 + 32))
-                janela.blit(auxhp2, (variaveis.posx1 + 84, variaveis.posy2 - 11))
-                janela.blit(auxxp1, (variaveis.posx2 + 30, variaveis.posy1 + 116))
+                janela.blit(auxhp1, (objetos.posx2 + 132, objetos.posy1 + 53 + 32))
+                janela.blit(auxhp2, (objetos.posx1 + 84, objetos.posy2 - 11))
+                janela.blit(auxxp1, (objetos.posx2 + 30, objetos.posy1 + 116))
                 if escolhido.hp <= 0:
                     terminal(janela, escolhido, fundo, sel, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
                     rodarpalavra(palavra(f'{escolhido.nome} desmaiou'), batalha, janela)
                     time.sleep(1.5)
                     terminal(janela, escolhido, fundo, sel, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
                     time.sleep(1)
-                    fainted1(janela, fundo, escolhido, sel, variaveis.posx1 - 48, variaveis.posy1 - 48, imagens.altural * 1.3, selvagem, trainer, auxhp2, aux2)
+                    fainted1(janela, fundo, escolhido, sel, objetos.posx1 - 48, objetos.posy1 - 48, imagens.altural * 1.3, selvagem, trainer, auxhp2, aux2)
                     time.sleep(1)
                     equipe.derrotados += 1
                     equipe.vivos -= 1
@@ -756,14 +755,14 @@ def batalha_selvagem(self, player, fundo, janela, equipe, selvagem, batalha, tec
                 for n in range(len(equipe.lista)):
                     janela.blit(equipe.lista[n].mini, (64 + n * 128 * 1.5, 400))
             if (not morto):
-                janela.blit(escolhido.imagemc, (variaveis.posx1 - 80, variaveis.posy1 - 80))
-            janela.blit(sel.imagemf, (variaveis.posx2 - imagens.largural - 32, variaveis.posy2 - imagens.altural - 32))
-            janela.blit(imagens.barra, (variaveis.posx2, variaveis.posy1 + 32))     #barra1
-            janela.blit(imagens.barra, (variaveis.posx1 - 48, variaveis.posy2 - 64))          #barra 2
+                janela.blit(escolhido.imagemc, (objetos.posx1 - 80, objetos.posy1 - 80))
+            janela.blit(sel.imagemf, (objetos.posx2 - imagens.largural - 32, objetos.posy2 - imagens.altural - 32))
+            janela.blit(imagens.barra, (objetos.posx2, objetos.posy1 + 32))     #barra1
+            janela.blit(imagens.barra, (objetos.posx1 - 48, objetos.posy2 - 64))          #barra 2
             if (not morto):
-                janela.blit(auxhp1, (variaveis.posx2 + 132, variaveis.posy1 + 53 + 32))
-                janela.blit(auxxp1, (variaveis.posx2 + 30, variaveis.posy1 + 116))
-            janela.blit(auxhp2, (variaveis.posx1 + 84, variaveis.posy2 - 11))
+                janela.blit(auxhp1, (objetos.posx2 + 132, objetos.posy1 + 53 + 32))
+                janela.blit(auxxp1, (objetos.posx2 + 30, objetos.posy1 + 116))
+            janela.blit(auxhp2, (objetos.posx1 + 84, objetos.posy2 - 11))
             nomecin1(janela, palavra(escolhido.nome), escolhido.nome)
             nomecin2(janela, palavra(sel.nome), sel.nome)
             nivelcin1(janela, palavra(f'{escolhido.nivel}'))
@@ -799,7 +798,7 @@ def batalha_selvagem(self, player, fundo, janela, equipe, selvagem, batalha, tec
                     aux1x = int(270 * (escolhido.xp / (escolhido.nivel * 10))//1)
                     auxxp1 = pygame.transform.scale(imagens.auxxp, (aux1x, 10))
                     time.sleep(1.5)
-                    comeco2(janela, fundo, selvagem, trainer, variaveis.posx1, variaveis.posy1, variaveis.posx2, variaveis.posy2, sel, escolhendo, escolhido, escolhido2,  segundo, auxhp1, auxhp2, aux1, aux2, auxhpc, auxc, morto)
+                    comeco2(janela, fundo, selvagem, trainer, objetos.posx1, objetos.posy1, objetos.posx2, objetos.posy2, sel, escolhendo, escolhido, escolhido2,  segundo, auxhp1, auxhp2, aux1, aux2, auxhpc, auxc, morto)
                     escolhendo = False
                     terminal(janela, escolhido, fundo, sel, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
                     morto = False
@@ -822,13 +821,13 @@ def batalha_selvagem(self, player, fundo, janela, equipe, selvagem, batalha, tec
                     mov1 += 1
             janela.blit(fundo, (0, 0))
             janela.blit(imagens.molde3, (0, 384))
-            janela.blit(escolhido.imagemc, (variaveis.posx1 - 80, variaveis.posy1 - 80))
-            janela.blit(sel.imagemf, (variaveis.posx2 - imagens.largural - 32, variaveis.posy2 - imagens.altural - 32))
-            janela.blit(imagens.barra, (variaveis.posx2, variaveis.posy1 + 32))     #barra1
-            janela.blit(imagens.barra, (variaveis.posx1 - 48, variaveis.posy2 - 64))          #barra 2
-            janela.blit(auxhp1, (variaveis.posx2 + 132, variaveis.posy1 + 53 + 32))
-            janela.blit(auxhp2, (variaveis.posx1 + 84, variaveis.posy2 - 11))
-            janela.blit(auxxp1, (variaveis.posx2 + 30, variaveis.posy1 + 116))
+            janela.blit(escolhido.imagemc, (objetos.posx1 - 80, objetos.posy1 - 80))
+            janela.blit(sel.imagemf, (objetos.posx2 - imagens.largural - 32, objetos.posy2 - imagens.altural - 32))
+            janela.blit(imagens.barra, (objetos.posx2, objetos.posy1 + 32))     #barra1
+            janela.blit(imagens.barra, (objetos.posx1 - 48, objetos.posy2 - 64))          #barra 2
+            janela.blit(auxhp1, (objetos.posx2 + 132, objetos.posy1 + 53 + 32))
+            janela.blit(auxhp2, (objetos.posx1 + 84, objetos.posy2 - 11))
+            janela.blit(auxxp1, (objetos.posx2 + 30, objetos.posy1 + 116))
             nomecin1(janela, palavra(escolhido.nome), escolhido.nome)
             nomecin2(janela, palavra(sel.nome), sel.nome)
             nivelcin1(janela, palavra(f'{escolhido.nivel}'))
@@ -852,7 +851,7 @@ def batalha_selvagem(self, player, fundo, janela, equipe, selvagem, batalha, tec
                         time.sleep(0.5)
                         if capturado:
                             janela.blit(fundo, (0, 0))
-                            janela.blit(imagens.crachabola, (variaveis.posx2 - imagens.largural + 63, variaveis.posy2 - imagens.altural + 124))
+                            janela.blit(imagens.crachabola, (objetos.posx2 - imagens.largural + 63, objetos.posy2 - imagens.altural + 124))
                             equipe.adicionar(sel)
                             som_nivel.play()
                             terminal(janela, escolhido, fundo, sel, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
@@ -925,9 +924,9 @@ def animacao_ataque(janela, fundo, escolhido, sel, auxhp1, auxhp2, auxxp1, vertu
                     aux += 28
                 else:
                     aux += 36
-            janela.blit(escolhido.imagemc, (variaveis.posx1 - 80, variaveis.posy1 - 80))
+            janela.blit(escolhido.imagemc, (objetos.posx1 - 80, objetos.posy1 - 80))
             if n % 4 != 0:
-                janela.blit(sel.imagemf, (variaveis.posx2 - imagens.largural - 32, variaveis.posy2 - imagens.altural - 32))
+                janela.blit(sel.imagemf, (objetos.posx2 - imagens.largural - 32, objetos.posy2 - imagens.altural - 32))
         else:
             aux = 0
             for k in palavra(f'{sel.nome} usou {ataque}'):
@@ -937,13 +936,13 @@ def animacao_ataque(janela, fundo, escolhido, sel, auxhp1, auxhp2, auxxp1, vertu
                 else:
                     aux += 36
             if n % 4 != 0:
-                janela.blit(escolhido.imagemc, (variaveis.posx1 - 80, variaveis.posy1 - 80))
-            janela.blit(sel.imagemf, (variaveis.posx2 - imagens.largural - 32, variaveis.posy2 - imagens.altural - 32))
-        janela.blit(imagens.barra, (variaveis.posx2, variaveis.posy1 + 32))     #barra1
-        janela.blit(imagens.barra, (variaveis.posx1 - 48, variaveis.posy2 - 64))          #barra 2
-        janela.blit(auxhp1, (variaveis.posx2 + 132, variaveis.posy1 + 53 + 32))
-        janela.blit(auxhp2, (variaveis.posx1 + 84, variaveis.posy2 - 11))
-        janela.blit(auxxp1, (variaveis.posx2 + 30, variaveis.posy1 + 116))
+                janela.blit(escolhido.imagemc, (objetos.posx1 - 80, objetos.posy1 - 80))
+            janela.blit(sel.imagemf, (objetos.posx2 - imagens.largural - 32, objetos.posy2 - imagens.altural - 32))
+        janela.blit(imagens.barra, (objetos.posx2, objetos.posy1 + 32))     #barra1
+        janela.blit(imagens.barra, (objetos.posx1 - 48, objetos.posy2 - 64))          #barra 2
+        janela.blit(auxhp1, (objetos.posx2 + 132, objetos.posy1 + 53 + 32))
+        janela.blit(auxhp2, (objetos.posx1 + 84, objetos.posy2 - 11))
+        janela.blit(auxxp1, (objetos.posx2 + 30, objetos.posy1 + 116))
         nomecin1(janela, palavra(escolhido.nome), escolhido.nome)
         nomecin2(janela, palavra(sel.nome), sel.nome)
         nivelcin1(janela, palavra(f'{escolhido.nivel}'))
@@ -958,8 +957,8 @@ def animacao_ataque(janela, fundo, escolhido, sel, auxhp1, auxhp2, auxxp1, vertu
             else:
                 aux = 0
             auxhp = pygame.transform.scale(imagens.auxhp, (aux, 10))
-            janela.blit(imagens.barra, (variaveis.posx1 - 48, variaveis.posy2 - 64))          #barra 2
-            janela.blit(auxhp, (variaveis.posx1 + 84, variaveis.posy2 - 11))
+            janela.blit(imagens.barra, (objetos.posx1 - 48, objetos.posy2 - 64))          #barra 2
+            janela.blit(auxhp, (objetos.posx1 + 84, objetos.posy2 - 11))
             nomecin2(janela, palavra(sel.nome), sel.nome)
             nivelcin2(janela, palavra(f'{sel.nivel}'))
             pygame.display.update()
@@ -972,9 +971,9 @@ def animacao_ataque(janela, fundo, escolhido, sel, auxhp1, auxhp2, auxxp1, vertu
             else:
                 aux = 0
             auxhp = pygame.transform.scale(imagens.auxhp, (aux, 10))
-            janela.blit(imagens.barra, (variaveis.posx2, variaveis.posy1 + 32))     #barra1
-            janela.blit(auxhp, (variaveis.posx2 + 132, variaveis.posy1 + 53 + 32))
-            janela.blit(auxxp1, (variaveis.posx2 + 30, variaveis.posy1 + 116))
+            janela.blit(imagens.barra, (objetos.posx2, objetos.posy1 + 32))     #barra1
+            janela.blit(auxhp, (objetos.posx2 + 132, objetos.posy1 + 53 + 32))
+            janela.blit(auxxp1, (objetos.posx2 + 30, objetos.posy1 + 116))
             nomecin1(janela, palavra(escolhido.nome), escolhido.nome)
             nivelcin1(janela, palavra(f'{escolhido.nivel}'))
             pygame.display.update()
@@ -1019,37 +1018,37 @@ def selvagens_do_cenario(cenario):
 def animacao_captura(janela, fundo, sel, vezes, escolhido, auxhp1, auxhp2, aux1, aux2, aux1x, auxxp1):
     janela.blit(fundo, (0, 0))
     janela.blit(imagens.molde3, (0, 384))
-    janela.blit(escolhido.imagemc, (variaveis.posx1 - 80, variaveis.posy1 - 80))
-    janela.blit(sel.imagemf, (variaveis.posx2 - imagens.largural - 32, variaveis.posy2 - imagens.altural - 32))
-    janela.blit(imagens.barra, (variaveis.posx2, variaveis.posy1 + 32))     #barra1
-    janela.blit(imagens.barra, (variaveis.posx1 - 48, variaveis.posy2 - 64))          #barra 2
-    janela.blit(auxhp1, (variaveis.posx2 + 132, variaveis.posy1 + 53 + 32))
-    janela.blit(auxhp2, (variaveis.posx1 + 84, variaveis.posy2 - 11))
-    janela.blit(auxxp1, (variaveis.posx2 + 30, variaveis.posy1 + 116))
+    janela.blit(escolhido.imagemc, (objetos.posx1 - 80, objetos.posy1 - 80))
+    janela.blit(sel.imagemf, (objetos.posx2 - imagens.largural - 32, objetos.posy2 - imagens.altural - 32))
+    janela.blit(imagens.barra, (objetos.posx2, objetos.posy1 + 32))     #barra1
+    janela.blit(imagens.barra, (objetos.posx1 - 48, objetos.posy2 - 64))          #barra 2
+    janela.blit(auxhp1, (objetos.posx2 + 132, objetos.posy1 + 53 + 32))
+    janela.blit(auxhp2, (objetos.posx1 + 84, objetos.posy2 - 11))
+    janela.blit(auxxp1, (objetos.posx2 + 30, objetos.posy1 + 116))
     nomecin1(janela, palavra(escolhido.nome), escolhido.nome)
     nomecin2(janela, palavra(sel.nome), sel.nome)
     nivelcin1(janela, palavra(f'{escolhido.nivel}'))
     nivelcin2(janela, palavra(f'{sel.nivel}'))
-    janela.blit(imagens.crachabola, (variaveis.posx2 - imagens.largural + 63, variaveis.posy2 - 32))
+    janela.blit(imagens.crachabola, (objetos.posx2 - imagens.largural + 63, objetos.posy2 - 32))
     pygame.display.update()
     time.sleep(1)
     auxy = 240  #0
-    auxLy = variaveis.posx2 - imagens.largural - 32  #posx2 - largural + 88
-    auxAy = variaveis.posy2 - imagens.altural - 32  #posy2
+    auxLy = objetos.posx2 - imagens.largural - 32  #posx2 - largural + 88
+    auxAy = objetos.posy2 - imagens.altural - 32  #posy2
     while auxy > 0:
         janela.blit(fundo, (0, 0))
         janela.blit(imagens.molde3, (0, 384))
-        janela.blit(escolhido.imagemc, (variaveis.posx1 - 80, variaveis.posy1 - 80))
-        janela.blit(imagens.barra, (variaveis.posx2, variaveis.posy1 + 32))     #barra1
-        janela.blit(imagens.barra, (variaveis.posx1 - 48, variaveis.posy2 - 64))          #barra 2
-        janela.blit(auxhp1, (variaveis.posx2 + 132, variaveis.posy1 + 53 + 32))
-        janela.blit(auxhp2, (variaveis.posx1 + 84, variaveis.posy2 - 11))
-        janela.blit(auxxp1, (variaveis.posx2 + 30, variaveis.posy1 + 116))
+        janela.blit(escolhido.imagemc, (objetos.posx1 - 80, objetos.posy1 - 80))
+        janela.blit(imagens.barra, (objetos.posx2, objetos.posy1 + 32))     #barra1
+        janela.blit(imagens.barra, (objetos.posx1 - 48, objetos.posy2 - 64))          #barra 2
+        janela.blit(auxhp1, (objetos.posx2 + 132, objetos.posy1 + 53 + 32))
+        janela.blit(auxhp2, (objetos.posx1 + 84, objetos.posy2 - 11))
+        janela.blit(auxxp1, (objetos.posx2 + 30, objetos.posy1 + 116))
         nomecin1(janela, palavra(escolhido.nome), escolhido.nome)
         nomecin2(janela, palavra(sel.nome), sel.nome)
         nivelcin1(janela, palavra(f'{escolhido.nivel}'))
         nivelcin2(janela, palavra(f'{sel.nivel}'))
-        janela.blit(imagens.crachabola, (variaveis.posx2 - imagens.largural + 63, variaveis.posy2 - 32))        
+        janela.blit(imagens.crachabola, (objetos.posx2 - imagens.largural + 63, objetos.posy2 - 32))        
         auxy -= 12
         auxLy += 6
         auxAy += 4
@@ -1058,120 +1057,120 @@ def animacao_captura(janela, fundo, sel, vezes, escolhido, auxhp1, auxhp2, aux1,
         time.sleep(0.03)
         pygame.display.update()
     
-    auxy2 = variaveis.posy2 - 32    #posy2 - altural + 124
-    while auxy2 < variaveis.posy2 - imagens.altural + 124:
+    auxy2 = objetos.posy2 - 32    #posy2 - altural + 124
+    while auxy2 < objetos.posy2 - imagens.altural + 124:
         janela.blit(fundo, (0, 0))
         janela.blit(imagens.molde3, (0, 384))
-        janela.blit(escolhido.imagemc, (variaveis.posx1 - 80, variaveis.posy1 - 80))
-        janela.blit(imagens.barra, (variaveis.posx2, variaveis.posy1 + 32))     #barra1
-        janela.blit(imagens.barra, (variaveis.posx1 - 48, variaveis.posy2 - 64))          #barra 2
-        janela.blit(auxhp1, (variaveis.posx2 + 132, variaveis.posy1 + 53 + 32))
-        janela.blit(auxhp2, (variaveis.posx1 + 84, variaveis.posy2 - 11))
-        janela.blit(auxxp1, (variaveis.posx2 + 30, variaveis.posy1 + 116))
+        janela.blit(escolhido.imagemc, (objetos.posx1 - 80, objetos.posy1 - 80))
+        janela.blit(imagens.barra, (objetos.posx2, objetos.posy1 + 32))     #barra1
+        janela.blit(imagens.barra, (objetos.posx1 - 48, objetos.posy2 - 64))          #barra 2
+        janela.blit(auxhp1, (objetos.posx2 + 132, objetos.posy1 + 53 + 32))
+        janela.blit(auxhp2, (objetos.posx1 + 84, objetos.posy2 - 11))
+        janela.blit(auxxp1, (objetos.posx2 + 30, objetos.posy1 + 116))
         nomecin1(janela, palavra(escolhido.nome), escolhido.nome)
         nomecin2(janela, palavra(sel.nome), sel.nome)      
         nivelcin1(janela, palavra(f'{escolhido.nivel}'))
         nivelcin2(janela, palavra(f'{sel.nivel}'))
         auxy -= 12
         auxy2 += 4
-        janela.blit(imagens.crachabola, (variaveis.posx2 - imagens.largural + 63, auxy2))
+        janela.blit(imagens.crachabola, (objetos.posx2 - imagens.largural + 63, auxy2))
         time.sleep(0.015)
         pygame.display.update()
     
     for n in range(vezes):
-        auxy3 = variaveis.posx2 - imagens.largural + 63 #posx2 - largural + 37
+        auxy3 = objetos.posx2 - imagens.largural + 63 #posx2 - largural + 37
         for k in range(13):
             janela.blit(fundo, (0, 0))
             janela.blit(imagens.molde3, (0, 384))
-            janela.blit(escolhido.imagemc, (variaveis.posx1 - 80, variaveis.posy1 - 80))
-            janela.blit(imagens.barra, (variaveis.posx2, variaveis.posy1 + 32))     #barra1
-            janela.blit(imagens.barra, (variaveis.posx1 - 48, variaveis.posy2 - 64))          #barra 2
-            janela.blit(auxhp1, (variaveis.posx2 + 132, variaveis.posy1 + 53 + 32))
-            janela.blit(auxhp2, (variaveis.posx1 + 84, variaveis.posy2 - 11))
-            janela.blit(auxxp1, (variaveis.posx2 + 30, variaveis.posy1 + 116))
+            janela.blit(escolhido.imagemc, (objetos.posx1 - 80, objetos.posy1 - 80))
+            janela.blit(imagens.barra, (objetos.posx2, objetos.posy1 + 32))     #barra1
+            janela.blit(imagens.barra, (objetos.posx1 - 48, objetos.posy2 - 64))          #barra 2
+            janela.blit(auxhp1, (objetos.posx2 + 132, objetos.posy1 + 53 + 32))
+            janela.blit(auxhp2, (objetos.posx1 + 84, objetos.posy2 - 11))
+            janela.blit(auxxp1, (objetos.posx2 + 30, objetos.posy1 + 116))
             nomecin1(janela, palavra(escolhido.nome), escolhido.nome)
             nomecin2(janela, palavra(sel.nome), sel.nome)        
             nivelcin1(janela, palavra(f'{escolhido.nivel}'))
             nivelcin2(janela, palavra(f'{sel.nivel}'))
             auxy -= 12
             auxy3 -= 2
-            janela.blit(imagens.crachabola, (auxy3, variaveis.posy2 - imagens.altural + 124))
+            janela.blit(imagens.crachabola, (auxy3, objetos.posy2 - imagens.altural + 124))
             time.sleep(0.02)
             pygame.display.update()
-        auxy3 = variaveis.posx2 - imagens.largural + 37 #posx2 - largural + 63
+        auxy3 = objetos.posx2 - imagens.largural + 37 #posx2 - largural + 63
         for k in range(13):
             janela.blit(fundo, (0, 0))
             janela.blit(imagens.molde3, (0, 384))
-            janela.blit(escolhido.imagemc, (variaveis.posx1 - 80, variaveis.posy1 - 80))
-            janela.blit(imagens.barra, (variaveis.posx2, variaveis.posy1 + 32))     #barra1
-            janela.blit(imagens.barra, (variaveis.posx1 - 48, variaveis.posy2 - 64))          #barra 2
-            janela.blit(auxhp1, (variaveis.posx2 + 132, variaveis.posy1 + 53 + 32))
-            janela.blit(auxhp2, (variaveis.posx1 + 84, variaveis.posy2 - 11))
-            janela.blit(auxxp1, (variaveis.posx2 + 30, variaveis.posy1 + 116))
+            janela.blit(escolhido.imagemc, (objetos.posx1 - 80, objetos.posy1 - 80))
+            janela.blit(imagens.barra, (objetos.posx2, objetos.posy1 + 32))     #barra1
+            janela.blit(imagens.barra, (objetos.posx1 - 48, objetos.posy2 - 64))          #barra 2
+            janela.blit(auxhp1, (objetos.posx2 + 132, objetos.posy1 + 53 + 32))
+            janela.blit(auxhp2, (objetos.posx1 + 84, objetos.posy2 - 11))
+            janela.blit(auxxp1, (objetos.posx2 + 30, objetos.posy1 + 116))
             nomecin1(janela, palavra(escolhido.nome), escolhido.nome)
             nomecin2(janela, palavra(sel.nome), sel.nome)
             nivelcin1(janela, palavra(f'{escolhido.nivel}'))
             nivelcin2(janela, palavra(f'{sel.nivel}'))
             auxy -= 12
             auxy3 += 2
-            janela.blit(imagens.crachabola, (auxy3, variaveis.posy2 - imagens.altural + 124))
+            janela.blit(imagens.crachabola, (auxy3, objetos.posy2 - imagens.altural + 124))
             time.sleep(0.02)
             pygame.display.update()
-        auxy3 = variaveis.posx2 - imagens.largural + 63 #posx2 - largural + 89
+        auxy3 = objetos.posx2 - imagens.largural + 63 #posx2 - largural + 89
         time.sleep(0.1)
         for k in range(13):
             janela.blit(fundo, (0, 0))
             janela.blit(imagens.molde3, (0, 384))
-            janela.blit(escolhido.imagemc, (variaveis.posx1 - 80, variaveis.posy1 - 80))
-            janela.blit(imagens.barra, (variaveis.posx2, variaveis.posy1 + 32))     #barra1
-            janela.blit(imagens.barra, (variaveis.posx1 - 48, variaveis.posy2 - 64))          #barra 2
-            janela.blit(auxhp1, (variaveis.posx2 + 132, variaveis.posy1 + 53 + 32))
-            janela.blit(auxhp2, (variaveis.posx1 + 84, variaveis.posy2 - 11))
-            janela.blit(auxxp1, (variaveis.posx2 + 30, variaveis.posy1 + 116))
+            janela.blit(escolhido.imagemc, (objetos.posx1 - 80, objetos.posy1 - 80))
+            janela.blit(imagens.barra, (objetos.posx2, objetos.posy1 + 32))     #barra1
+            janela.blit(imagens.barra, (objetos.posx1 - 48, objetos.posy2 - 64))          #barra 2
+            janela.blit(auxhp1, (objetos.posx2 + 132, objetos.posy1 + 53 + 32))
+            janela.blit(auxhp2, (objetos.posx1 + 84, objetos.posy2 - 11))
+            janela.blit(auxxp1, (objetos.posx2 + 30, objetos.posy1 + 116))
             nomecin1(janela, palavra(escolhido.nome), escolhido.nome)
             nomecin2(janela, palavra(sel.nome), sel.nome)            
             nivelcin1(janela, palavra(f'{escolhido.nivel}'))
             nivelcin2(janela, palavra(f'{sel.nivel}'))
             auxy -= 12
             auxy3 += 2
-            janela.blit(imagens.crachabola, (auxy3, variaveis.posy2 - imagens.altural + 124))
+            janela.blit(imagens.crachabola, (auxy3, objetos.posy2 - imagens.altural + 124))
             time.sleep(0.02)
             pygame.display.update()
-        auxy3 = variaveis.posx2 - imagens.largural + 89
+        auxy3 = objetos.posx2 - imagens.largural + 89
         for k in range(13):
             janela.blit(fundo, (0, 0))
             janela.blit(imagens.molde3, (0, 384))
-            janela.blit(escolhido.imagemc, (variaveis.posx1 - 80, variaveis.posy1 - 80))
-            janela.blit(imagens.barra, (variaveis.posx2, variaveis.posy1 + 32))     #barra1
-            janela.blit(imagens.barra, (variaveis.posx1 - 48, variaveis.posy2 - 64))          #barra 2
+            janela.blit(escolhido.imagemc, (objetos.posx1 - 80, objetos.posy1 - 80))
+            janela.blit(imagens.barra, (objetos.posx2, objetos.posy1 + 32))     #barra1
+            janela.blit(imagens.barra, (objetos.posx1 - 48, objetos.posy2 - 64))          #barra 2
             aux = 0
-            janela.blit(auxhp1, (variaveis.posx2 + 132, variaveis.posy1 + 53 + 32))
-            janela.blit(auxhp2, (variaveis.posx1 + 84, variaveis.posy2 - 11))
-            janela.blit(auxxp1, (variaveis.posx2 + 30, variaveis.posy1 + 116))
+            janela.blit(auxhp1, (objetos.posx2 + 132, objetos.posy1 + 53 + 32))
+            janela.blit(auxhp2, (objetos.posx1 + 84, objetos.posy2 - 11))
+            janela.blit(auxxp1, (objetos.posx2 + 30, objetos.posy1 + 116))
             nomecin1(janela, palavra(escolhido.nome), escolhido.nome)
             nomecin2(janela, palavra(sel.nome), sel.nome)
             nivelcin1(janela, palavra(f'{escolhido.nivel}'))
             nivelcin2(janela, palavra(f'{sel.nivel}'))
             auxy -= 12
             auxy3 -= 2
-            janela.blit(imagens.crachabola, (auxy3, variaveis.posy2 - imagens.altural + 124))
+            janela.blit(imagens.crachabola, (auxy3, objetos.posy2 - imagens.altural + 124))
             time.sleep(0.02)
             pygame.display.update()
         time.sleep(0.5)
 
 def animacao_escapou(janela, fundo, sel, escolhido, auxhp1, auxhp2, aux1, aux2, aux1x, auxxp1):
     aux2c = 6
-    auxL = variaveis.posx2 + 57.2 #posx2 - largural - 32
-    auxA = variaveis.posy2 + 99.4 #posy2 - altural - 32
+    auxL = objetos.posx2 + 57.2 #posx2 - largural - 32
+    auxA = objetos.posy2 + 99.4 #posy2 - altural - 32
     while aux2c < imagens.padraoA * 1.5:
         janela.blit(fundo, (0, 0))
         janela.blit(imagens.molde3, (0, 384))
-        janela.blit(escolhido.imagemc, (variaveis.posx1 - 80, variaveis.posy1 - 80))
-        janela.blit(imagens.barra, (variaveis.posx2, variaveis.posy1 + 32))     #barra1
-        janela.blit(imagens.barra, (variaveis.posx1 - 48, variaveis.posy2 - 64))          #barra 2
-        janela.blit(auxhp1, (variaveis.posx2 + 132, variaveis.posy1 + 53 + 32))
-        janela.blit(auxhp2, (variaveis.posx1 + 84, variaveis.posy2 - 11))
-        janela.blit(auxxp1, (variaveis.posx2 + 30, variaveis.posy1 + 116))
+        janela.blit(escolhido.imagemc, (objetos.posx1 - 80, objetos.posy1 - 80))
+        janela.blit(imagens.barra, (objetos.posx2, objetos.posy1 + 32))     #barra1
+        janela.blit(imagens.barra, (objetos.posx1 - 48, objetos.posy2 - 64))          #barra 2
+        janela.blit(auxhp1, (objetos.posx2 + 132, objetos.posy1 + 53 + 32))
+        janela.blit(auxhp2, (objetos.posx1 + 84, objetos.posy2 - 11))
+        janela.blit(auxxp1, (objetos.posx2 + 30, objetos.posy1 + 116))
         nomecin1(janela, palavra(escolhido.nome), escolhido.nome)
         nomecin2(janela, palavra(sel.nome), sel.nome)
         nivelcin1(janela, palavra(f'{escolhido.nivel}'))
@@ -1197,7 +1196,7 @@ def animacao_xp(janela, fundo, escolhido, inimigo, auxhp1, aux1, aux1x, auxxp1, 
         savexp -= 0.25
         savex1 = int(270 * (savexp2 / (savenivel * 10))//1)
         savexp1 = pygame.transform.scale(imagens.auxxp, (savex1, 10))
-        janela.blit(savexp1, (variaveis.posx2 + 30, variaveis.posy1 + 116))
+        janela.blit(savexp1, (objetos.posx2 + 30, objetos.posy1 + 116))
         pygame.display.update()
         if savexp2 >= savenivel * 10:
             savexp2 = 0
@@ -1205,7 +1204,7 @@ def animacao_xp(janela, fundo, escolhido, inimigo, auxhp1, aux1, aux1x, auxxp1, 
             niveis -= 1
             savex1 = int(270 * (savexp2 / (savenivel * 10))//1)
             savexp1 = pygame.transform.scale(imagens.auxxp, (savex1, 10))
-            janela.blit(imagens.barra, (variaveis.posx2, variaveis.posy1 + 32))     #barra1
+            janela.blit(imagens.barra, (objetos.posx2, objetos.posy1 + 32))     #barra1
             escolhidoaux.nivel += 1
             escolhidoaux.xp = 0
             terminal(janela, escolhidoaux, fundo, inimigo, auxhp1, aux1, 0, 0, False, True, False, aux1x, savexp1)
@@ -1256,14 +1255,14 @@ def batalha_treinador(self, mochila, treinador, fundo, janela, equipe1, equipe2,
             terminal(janela, escolhido, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
             rodarpalavra(palavra(f'{treinador.nome} escolheu {escolhido2.nome}'), batalha, janela)
             time.sleep(1)
-            comeco1(janela, fundo, selvagem, variaveis.posx2, variaveis.posy2, escolhido2, aviso, aviso2, trainer, escolhido, escolhido2, auxhp1, auxhp2, aux1, aux2, aux1x, auxxp1)
+            comeco1(janela, fundo, selvagem, objetos.posx2, objetos.posy2, escolhido2, aviso, aviso2, trainer, escolhido, escolhido2, auxhp1, auxhp2, aux1, aux2, aux1x, auxxp1)
             time.sleep(0.5)
             if (not aviso):
                 rodarpalavra(palavra(f'Va {escolhido.nome}'), batalha, janela)
             time.sleep(0.5)
             aviso = True
             if (not aviso2):
-                comeco2(janela, fundo, selvagem, trainer, variaveis.posx1, variaveis.posy1, variaveis.posx2, variaveis.posy2, sel, escolhendo, escolhido, escolhido2, segundo, auxhp1, auxhp2, aux1, aux2, auxhpc, auxc, morto)
+                comeco2(janela, fundo, selvagem, trainer, objetos.posx1, objetos.posy1, objetos.posx2, objetos.posy2, sel, escolhendo, escolhido, escolhido2, segundo, auxhp1, auxhp2, aux1, aux2, auxhpc, auxc, morto)
             time.sleep(0.5)
             aviso2 = False
         if (not escolhendo) and (not bolsa):
@@ -1360,13 +1359,13 @@ def batalha_treinador(self, mochila, treinador, fundo, janela, equipe1, equipe2,
                     seta(mov1, mov2, janela, imagens.setinha, ataques, escolhendo, bolsa, balao)
                     golpes(escolhido, janela)
 
-                janela.blit(escolhido.imagemc, (variaveis.posx1 - 80, variaveis.posy1 - 80))
-                janela.blit(escolhido2.imagemf, (variaveis.posx2 - imagens.largural - 32, variaveis.posy2 - imagens.altural - 32))
-                janela.blit(imagens.barra, (variaveis.posx2, variaveis.posy1 + 32))     #barra1
-                janela.blit(imagens.barra, (variaveis.posx1 - 48, variaveis.posy2 - 64))          #barra 2
-                janela.blit(auxhp1, (variaveis.posx2 + 132, variaveis.posy1 + 53 + 32))
-                janela.blit(auxhp2, (variaveis.posx1 + 84, variaveis.posy2 - 11))
-                janela.blit(auxxp1, (variaveis.posx2 + 30, variaveis.posy1 + 116))
+                janela.blit(escolhido.imagemc, (objetos.posx1 - 80, objetos.posy1 - 80))
+                janela.blit(escolhido2.imagemf, (objetos.posx2 - imagens.largural - 32, objetos.posy2 - imagens.altural - 32))
+                janela.blit(imagens.barra, (objetos.posx2, objetos.posy1 + 32))     #barra1
+                janela.blit(imagens.barra, (objetos.posx1 - 48, objetos.posy2 - 64))          #barra 2
+                janela.blit(auxhp1, (objetos.posx2 + 132, objetos.posy1 + 53 + 32))
+                janela.blit(auxhp2, (objetos.posx1 + 84, objetos.posy2 - 11))
+                janela.blit(auxxp1, (objetos.posx2 + 30, objetos.posy1 + 116))
                 nomecin1(janela, palavra(escolhido.nome), escolhido.nome)
                 nomecin2(janela, palavra(escolhido2.nome), escolhido.nome)
                 nivelcin1(janela, palavra(f'{escolhido.nivel}'))
@@ -1377,7 +1376,7 @@ def batalha_treinador(self, mochila, treinador, fundo, janela, equipe1, equipe2,
                     rodarpalavra(palavra(f'{escolhido2.nome} desmaiou'), batalha, janela)
                     time.sleep(1)
                     escolhido2.hp_base = 0
-                    fainted2(janela, fundo, escolhido, escolhido2, variaveis.posx2 - imagens.largural - 32, variaveis.posy2 - imagens.altural - 32, imagens.altural * 1.5, selvagem, trainer, auxhp1, aux1, aux1x, auxxp1)
+                    fainted2(janela, fundo, escolhido, escolhido2, objetos.posx2 - imagens.largural - 32, objetos.posy2 - imagens.altural - 32, imagens.altural * 1.5, selvagem, trainer, auxhp1, aux1, aux1x, auxxp1)
                     time.sleep(1)
                     equipe2.derrotados += 1
                     equipe2.vivos -= 1
@@ -1458,19 +1457,19 @@ def batalha_treinador(self, mochila, treinador, fundo, janela, equipe1, equipe2,
                 verturno = True
                 janela.blit(fundo, (0, 0))
                 janela.blit(imagens.molde3, (0, 384))
-                janela.blit(escolhido.imagemc, (variaveis.posx1 - 80, variaveis.posy1 - 80))
-                janela.blit(escolhido2.imagemf, (variaveis.posx2 - imagens.largural - 32, variaveis.posy2 - imagens.altural - 32))
-                janela.blit(imagens.barra, (variaveis.posx2, variaveis.posy1 + 32))     #barra 1
-                janela.blit(imagens.barra, (variaveis.posx1 - 48, variaveis.posy2 - 64))          #barra 2
+                janela.blit(escolhido.imagemc, (objetos.posx1 - 80, objetos.posy1 - 80))
+                janela.blit(escolhido2.imagemf, (objetos.posx2 - imagens.largural - 32, objetos.posy2 - imagens.altural - 32))
+                janela.blit(imagens.barra, (objetos.posx2, objetos.posy1 + 32))     #barra 1
+                janela.blit(imagens.barra, (objetos.posx1 - 48, objetos.posy2 - 64))          #barra 2
                 nomecin1(janela, palavra(escolhido.nome), escolhido.nome)
                 nomecin2(janela, palavra(escolhido2.nome), escolhido2.nome)
                 nivelcin1(janela, palavra(f'{escolhido.nivel}'))
                 nivelcin2(janela, palavra(f'{escolhido2.nivel}'))
-                janela.blit(auxhp1, (variaveis.posx2 + 132, variaveis.posy1 + 53 + 32))
+                janela.blit(auxhp1, (objetos.posx2 + 132, objetos.posy1 + 53 + 32))
                 aux2 = int(150 * (escolhido2.hp / escolhido2.hp_max)//1)
                 auxhp2 = pygame.transform.scale(imagens.auxhp, (aux2, 10))
-                janela.blit(auxhp2, (variaveis.posx1 + 84, variaveis.posy2 - 11))
-                janela.blit(auxxp1, (variaveis.posx2 + 30, variaveis.posy1 + 116))
+                janela.blit(auxhp2, (objetos.posx1 + 84, objetos.posy2 - 11))
+                janela.blit(auxxp1, (objetos.posx2 + 30, objetos.posy1 + 116))
                 time.sleep(1)
                 if escolhido.hp <= 0:
                     terminal(janela, escolhido, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
@@ -1478,7 +1477,7 @@ def batalha_treinador(self, mochila, treinador, fundo, janela, equipe1, equipe2,
                     time.sleep(1.5)
                     terminal(janela, escolhido, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
                     time.sleep(1)
-                    fainted1(janela, fundo, escolhido, escolhido2, variaveis.posx1 - 48, variaveis.posy1 - 48, imagens.altural * 1.3, selvagem, trainer, auxhp2, aux2)
+                    fainted1(janela, fundo, escolhido, escolhido2, objetos.posx1 - 48, objetos.posy1 - 48, imagens.altural * 1.3, selvagem, trainer, auxhp2, aux2)
                     time.sleep(1)
                     equipe1.derrotados += 1
                     equipe1.vivos -= 1
@@ -1516,14 +1515,14 @@ def batalha_treinador(self, mochila, treinador, fundo, janela, equipe1, equipe2,
                 for n in range(len(equipe1.lista)):
                     janela.blit(equipe1.lista[n].mini, (64 + n * 128 * 1.5, 400))
             if (not morto):
-                janela.blit(escolhido.imagemc, (variaveis.posx1 - 80, variaveis.posy1 - 80))
-            janela.blit(escolhido2.imagemf, (variaveis.posx2 - imagens.largural - 32, variaveis.posy2 - imagens.altural - 32))
-            janela.blit(imagens.barra, (variaveis.posx2, variaveis.posy1 + 32))     #barra1
-            janela.blit(imagens.barra, (variaveis.posx1 - 48, variaveis.posy2 - 64))          #barra 2
+                janela.blit(escolhido.imagemc, (objetos.posx1 - 80, objetos.posy1 - 80))
+            janela.blit(escolhido2.imagemf, (objetos.posx2 - imagens.largural - 32, objetos.posy2 - imagens.altural - 32))
+            janela.blit(imagens.barra, (objetos.posx2, objetos.posy1 + 32))     #barra1
+            janela.blit(imagens.barra, (objetos.posx1 - 48, objetos.posy2 - 64))          #barra 2
             if (not morto):
-                janela.blit(auxhp1, (variaveis.posx2 + 132, variaveis.posy1 + 53 + 32))
-                janela.blit(auxxp1, (variaveis.posx2 + 30, variaveis.posy1 + 116))
-            janela.blit(auxhp2, (variaveis.posx1 + 84, variaveis.posy2 - 11))
+                janela.blit(auxhp1, (objetos.posx2 + 132, objetos.posy1 + 53 + 32))
+                janela.blit(auxxp1, (objetos.posx2 + 30, objetos.posy1 + 116))
+            janela.blit(auxhp2, (objetos.posx1 + 84, objetos.posy2 - 11))
             nomecin1(janela, palavra(escolhido.nome), escolhido.nome)
             nomecin2(janela, palavra(escolhido2.nome), escolhido2.nome)
             nivelcin1(janela, palavra(f'{escolhido.nivel}'))
@@ -1559,7 +1558,7 @@ def batalha_treinador(self, mochila, treinador, fundo, janela, equipe1, equipe2,
                     auxxp1 = pygame.transform.scale(imagens.auxxp, (aux1x, 10))
                     rodarpalavra(palavra(f'Va {escolhido.nome}'), batalha, janela)
                     time.sleep(1.5)
-                    comeco2(janela, fundo, selvagem, trainer, variaveis.posx1, variaveis.posy1, variaveis.posx2, variaveis.posy2, sel, escolhendo, escolhido, escolhido2,  segundo, auxhp1, auxhp2, aux1, aux2, auxhpc, auxc, morto)
+                    comeco2(janela, fundo, selvagem, trainer, objetos.posx1, objetos.posy1, objetos.posx2, objetos.posy2, sel, escolhendo, escolhido, escolhido2,  segundo, auxhp1, auxhp2, aux1, aux2, auxhpc, auxc, morto)
                     escolhendo = False
                     terminal(janela, escolhido, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
                     morto = False
@@ -1581,13 +1580,13 @@ def batalha_treinador(self, mochila, treinador, fundo, janela, equipe1, equipe2,
                     mov1 += 1
             janela.blit(fundo, (0, 0))
             janela.blit(imagens.molde3, (0, 384))
-            janela.blit(escolhido.imagemc, (variaveis.posx1 - 80, variaveis.posy1 - 80))
-            janela.blit(escolhido2.imagemf, (variaveis.posx2 - imagens.largural - 32, variaveis.posy2 - imagens.altural - 32))
-            janela.blit(imagens.barra, (variaveis.posx2, variaveis.posy1 + 32))     #barra1
-            janela.blit(imagens.barra, (variaveis.posx1 - 48, variaveis.posy2 - 64))          #barra 2
-            janela.blit(auxhp1, (variaveis.posx2 + 132, variaveis.posy1 + 53 + 32))
-            janela.blit(auxhp2, (variaveis.posx1 + 84, variaveis.posy2 - 11))
-            janela.blit(auxxp1, (variaveis.posx2 + 30, variaveis.posy1 + 116))
+            janela.blit(escolhido.imagemc, (objetos.posx1 - 80, objetos.posy1 - 80))
+            janela.blit(escolhido2.imagemf, (objetos.posx2 - imagens.largural - 32, objetos.posy2 - imagens.altural - 32))
+            janela.blit(imagens.barra, (objetos.posx2, objetos.posy1 + 32))     #barra1
+            janela.blit(imagens.barra, (objetos.posx1 - 48, objetos.posy2 - 64))          #barra 2
+            janela.blit(auxhp1, (objetos.posx2 + 132, objetos.posy1 + 53 + 32))
+            janela.blit(auxhp2, (objetos.posx1 + 84, objetos.posy2 - 11))
+            janela.blit(auxxp1, (objetos.posx2 + 30, objetos.posy1 + 116))
             nomecin1(janela, palavra(escolhido.nome), escolhido.nome)
             nomecin2(janela, palavra(escolhido2.nome), escolhido2.nome)
             nivelcin1(janela, palavra(f'{escolhido.nivel}'))
@@ -1975,21 +1974,21 @@ def falarcomioda(self, posx, posy):
 def inicio(mov1a, ataques, escolhendo, bolsa, balao, janela, aviso, player1, player, batalha, cenario1, marca, tecla, escolhaioda):
     escolha = ''
     ficar = True
-    if (not aviso) and falarcomioda(player1, variaveis.posx, variaveis.posy):
-        aviso, ficar = escolhaioda1(janela, variaveis.posx, variaveis.posy, batalha, variaveis.gramasatual, variaveis.gramasxatual, variaveis.gramasyatual, variaveis.listatual, variaveis.posobjatual, imagens.player, imagens.balaofala)
-    if aviso and variaveis.posy == variaveis.alturap:
+    if (not aviso) and falarcomioda(player1, objetos.posx, objetos.posy):
+        aviso, ficar = escolhaioda1(janela, objetos.posx, objetos.posy, batalha, objetos.gramasatual, objetos.gramasxatual, objetos.gramasyatual, objetos.listatual, objetos.posobjatual, imagens.player, imagens.balaofala)
+    if aviso and objetos.posy == objetos.alturap:
         marcacao = False
         if (not balao):
-            if variaveis.posx == 576:
-                cin1(batalha, janela, variaveis.posx, variaveis.posy, variaveis.gramasatual, variaveis.gramasxatual, variaveis.gramasyatual, variaveis.listatual, variaveis.posobjatual, player, imagens.balaofala)
+            if objetos.posx == 576:
+                cin1(batalha, janela, objetos.posx, objetos.posy, objetos.gramasatual, objetos.gramasxatual, objetos.gramasyatual, objetos.listatual, objetos.posobjatual, player, imagens.balaofala)
                 mov1a = 1
                 marcacao = True
-            elif variaveis.posx == 704:
-                cin2(batalha, janela, variaveis.posx, variaveis.posy, variaveis.gramasatual, variaveis.gramasxatual, variaveis.gramasyatual, variaveis.listatual, variaveis.posobjatual, player, imagens.balaofala)
+            elif objetos.posx == 704:
+                cin2(batalha, janela, objetos.posx, objetos.posy, objetos.gramasatual, objetos.gramasxatual, objetos.gramasyatual, objetos.listatual, objetos.posobjatual, player, imagens.balaofala)
                 mov1a = 1
                 marcacao = True
-            elif variaveis.posx == 832:
-                cin3(batalha, janela, variaveis.posx, variaveis.posy, variaveis.gramasatual, variaveis.gramasxatual, variaveis.gramasyatual, variaveis.listatual, variaveis.posobjatual, player, imagens.balaofala)
+            elif objetos.posx == 832:
+                cin3(batalha, janela, objetos.posx, objetos.posy, objetos.gramasatual, objetos.gramasxatual, objetos.gramasyatual, objetos.listatual, objetos.posobjatual, player, imagens.balaofala)
                 mov1a = 1
                 marcacao = True
         if balao:
@@ -2007,23 +2006,23 @@ def inicio(mov1a, ataques, escolhendo, bolsa, balao, janela, aviso, player1, pla
                 if tecla[pygame.K_SPACE]:
                     escolhaioda = True
                     balao = False
-                    if variaveis.posx == 576:
+                    if objetos.posx == 576:
                         escolha = cimons.lupi
-                        variaveis.lista4 = (imagens.ioda, imagens.mesa, imagens.crachabol, imagens.crachabol, imagens.player)
-                        variaveis.posobj4 = ((448, 0), (576, 0), (715, 20), (843, 20))
-                        variaveis.listaobj4 = (objetos.ioda4, objetos.mesa4, objetos.crachabol2_4, objetos.crachabol3_4)
-                    elif variaveis.posx == 704:
+                        objetos.lista4 = (imagens.ioda, imagens.mesa, imagens.crachabol, imagens.crachabol, imagens.player)
+                        objetos.posobj4 = ((448, 0), (576, 0), (715, 20), (843, 20))
+                        objetos.listaobj4 = (objetos.ioda4, objetos.mesa4, objetos.Cinmon_inicial_2, objetos.Cinmon_inicial_3)
+                    elif objetos.posx == 704:
                         escolha = cimons.rath
-                        variaveis.lista4 = (imagens.ioda, imagens.mesa, imagens.crachabol, imagens.crachabol, imagens.player)
-                        variaveis.posobj4 = ((448, 0), (576, 0), (587, 20),(843, 20))
-                        variaveis.listaobj4 = (objetos.ioda4, objetos.mesa4, objetos.crachabol1_4, objetos.crachabol3_4)
-                    elif variaveis.posx == 832:
+                        objetos.lista4 = (imagens.ioda, imagens.mesa, imagens.crachabol, imagens.crachabol, imagens.player)
+                        objetos.posobj4 = ((448, 0), (576, 0), (587, 20),(843, 20))
+                        objetos.listaobj4 = (objetos.ioda4, objetos.mesa4, objetos.Cinmon_inicial_1, objetos.Cinmon_inicial_3)
+                    elif objetos.posx == 832:
                         escolha = cimons.goku
-                        variaveis.lista4 = (imagens.ioda, imagens.mesa, imagens.crachabol, imagens.crachabol, imagens.player)
-                        variaveis.posobj4 = ((448, 0), (576, 0), (587, 20),(715, 20))
-                        variaveis.listaobj4 = (objetos.ioda4, objetos.mesa4, objetos.crachabol1_4, objetos.crachabol2_4)
-                    variaveis.listatual = variaveis.lista4
-                    variaveis.posobjatual = variaveis.posobj4
+                        objetos.lista4 = (imagens.ioda, imagens.mesa, imagens.crachabol, imagens.crachabol, imagens.player)
+                        objetos.posobj4 = ((448, 0), (576, 0), (587, 20),(715, 20))
+                        objetos.listaobj4 = (objetos.ioda4, objetos.mesa4, objetos.Cinmon_inicial_1, objetos.Cinmon_inicial_2)
+                    objetos.listatual = objetos.lista4
+                    objetos.posobjatual = objetos.posobj4
             elif mov1a == 2:
                 if tecla[pygame.K_SPACE]:
                     balao = False
@@ -2280,7 +2279,7 @@ def nomecin1(janela, lista, nome):
     for e, n in enumerate(lista):
         if n != ' ':
             n = pygame.transform.scale(n, (imagens.largural / 2, imagens.altural / 2))
-            janela.blit(n, (variaveis.posx2 + variaveis.xb + aux/1.5 + 8, variaveis.posy1 + variaveis.yb/2 + 8 ))
+            janela.blit(n, (objetos.posx2 + objetos.xb + aux/1.5 + 8, objetos.posy1 + objetos.yb/2 + 8 ))
             aux += imagens.largural + 1
         else:
             aux += imagens.largural + 2
@@ -2290,7 +2289,7 @@ def nomecin2(janela, lista, nome):
     for e, n in enumerate(lista):
         if n != ' ':
             n = pygame.transform.scale(n, (imagens.largural / 2, imagens.altural / 2))
-            janela.blit(n, (variaveis.posx1 - 40 + variaveis.xb + aux/1.5, variaveis.posy2 - 48 ))
+            janela.blit(n, (objetos.posx1 - 40 + objetos.xb + aux/1.5, objetos.posy2 - 48 ))
             aux += imagens.largural + 1
         else:
             aux += imagens.largural + 2
@@ -2299,14 +2298,14 @@ def nivelcin1(janela, lista):
     aux = 0
     for n in lista:
         n = pygame.transform.scale(n, (imagens.largural / 2, imagens.altural / 2))
-        janela.blit(n, (variaveis.posx2 + variaveis.xb * 30 + aux/1.5 + 8, variaveis.posy1 + variaveis.yb/2 + 12 ))
+        janela.blit(n, (objetos.posx2 + objetos.xb * 30 + aux/1.5 + 8, objetos.posy1 + objetos.yb/2 + 12 ))
         aux += imagens.largural + 1
 
 def nivelcin2(janela, lista):
     aux = 0
     for n in lista:
         n = pygame.transform.scale(n, (imagens.largural / 2, imagens.altural / 2))
-        janela.blit(n, (variaveis.posx1 - 40 + variaveis.xb * 30 + aux/1.5, variaveis.posy2 - 44))
+        janela.blit(n, (objetos.posx1 - 40 + objetos.xb * 30 + aux/1.5, objetos.posy2 - 44))
         aux += imagens.largural + 1
 
 
@@ -2314,30 +2313,30 @@ def terminal(janela, escolhido, fundo, sel, auxhp1, aux1, auxhp2, aux2, capturad
     janela.blit(fundo, (0, 0))
     janela.blit(imagens.molde3, (0, 384))
     if aviso:
-        janela.blit(escolhido.imagemc, (variaveis.posx1 - 80, variaveis.posy1 - 80))
+        janela.blit(escolhido.imagemc, (objetos.posx1 - 80, objetos.posy1 - 80))
         if sel.hp_base > 0:
             if (not capturado):
                 if (not aviso2):
-                    janela.blit(sel.imagemf, (variaveis.posx2 - imagens.largural - 32, variaveis.posy2 - imagens.altural - 32))
+                    janela.blit(sel.imagemf, (objetos.posx2 - imagens.largural - 32, objetos.posy2 - imagens.altural - 32))
             else:
-                janela.blit(imagens.crachabola, (variaveis.posx2 - imagens.largural + 63, variaveis.posy2 - imagens.altural + 124))
-        janela.blit(imagens.barra, (variaveis.posx2, variaveis.posy1 + 32))     #barra1
-        janela.blit(imagens.barra, (variaveis.posx1 - 48, variaveis.posy2 - 64))          #barra 2
+                janela.blit(imagens.crachabola, (objetos.posx2 - imagens.largural + 63, objetos.posy2 - imagens.altural + 124))
+        janela.blit(imagens.barra, (objetos.posx2, objetos.posy1 + 32))     #barra1
+        janela.blit(imagens.barra, (objetos.posx1 - 48, objetos.posy2 - 64))          #barra 2
         nomecin1(janela, palavra(escolhido.nome), escolhido.nome)
         nomecin2(janela, palavra(sel.nome), sel.nome)
         nivelcin1(janela, palavra(f'{escolhido.nivel}'))
         nivelcin2(janela, palavra(f'{sel.nivel}'))
         if escolhido.hp > 0:
-            janela.blit(auxhp1, (variaveis.posx2 + 132, variaveis.posy1 + 53 + 32))
+            janela.blit(auxhp1, (objetos.posx2 + 132, objetos.posy1 + 53 + 32))
         if sel.hp > 0:
-            janela.blit(auxhp2, (variaveis.posx1 + 84, variaveis.posy2 - 11))
-        janela.blit(auxxp1, (variaveis.posx2 + 30, variaveis.posy1 + 116))
+            janela.blit(auxhp2, (objetos.posx1 + 84, objetos.posy2 - 11))
+        janela.blit(auxxp1, (objetos.posx2 + 30, objetos.posy1 + 116))
         
 
 
 def comeco1(janela, fundo, selvagem, posx2, posy2, sel, aviso, aviso2, trainer, escolhido, escolhido2, auxhp1, auxhp2, aux1, aux2, aux1x, auxxp1):
     if selvagem:
-        aux2 = variaveis.largura + variaveis.padraoL * 1.5
+        aux2 = objetos.largura + objetos.padraoL * 1.5
         while aux2 >= posx2:
             janela.blit(fundo, (0, 0))
             janela.blit(imagens.molde3, (0, 384))
@@ -2358,12 +2357,12 @@ def comeco1(janela, fundo, selvagem, posx2, posy2, sel, aviso, aviso2, trainer, 
             janela.blit(fundo, (0, 0))
             janela.blit(imagens.molde3, (0, 384))
             if aviso2:
-                janela.blit(escolhido.imagemc, (variaveis.posx1 - 80, variaveis.posy1 - 80))
-                janela.blit(imagens.barra, (posx2, variaveis.posy1 + 32))     #barra 1
-                janela.blit(imagens.barra, (variaveis.posx1 - 48, posy2 - 64))
-                janela.blit(auxhp1, (posx2 + 132, variaveis.posy1 + 53 + 32))
-                janela.blit(auxhp2, (variaveis.posx1 + 84, posy2 - 11))
-                janela.blit(auxxp1, (variaveis.posx2 + 30, variaveis.posy1 + 116))
+                janela.blit(escolhido.imagemc, (objetos.posx1 - 80, objetos.posy1 - 80))
+                janela.blit(imagens.barra, (posx2, objetos.posy1 + 32))     #barra 1
+                janela.blit(imagens.barra, (objetos.posx1 - 48, posy2 - 64))
+                janela.blit(auxhp1, (posx2 + 132, objetos.posy1 + 53 + 32))
+                janela.blit(auxhp2, (objetos.posx1 + 84, posy2 - 11))
+                janela.blit(auxxp1, (objetos.posx2 + 30, objetos.posy1 + 116))
                 nomecin1(janela, palavra(escolhido.nome), escolhido.nome)
                 nomecin2(janela, palavra(escolhido2.nome), escolhido2.nome)
                 nivelcin1(janela, palavra(f'{escolhido.nivel}'))
@@ -2377,18 +2376,18 @@ def comeco1(janela, fundo, selvagem, posx2, posy2, sel, aviso, aviso2, trainer, 
             pygame.display.update()
 
         aux2c = 6
-        auxL = variaveis.posx2 + 57.2 #posx2 - largural - 32
-        auxA = variaveis.posy2 + 99.4 #posy2 - altural - 32
+        auxL = objetos.posx2 + 57.2 #posx2 - largural - 32
+        auxA = objetos.posy2 + 99.4 #posy2 - altural - 32
         while aux2c < imagens.padraoA * 1.5:
             janela.blit(fundo, (0, 0))
             janela.blit(imagens.molde3, (0, 384))
             if aviso2:
-                janela.blit(escolhido.imagemc, (variaveis.posx1 - 80, variaveis.posy1 - 80))
-                janela.blit(imagens.barra, (variaveis.posx2, variaveis.posy1 + 32))     #barra1
-                janela.blit(imagens.barra, (variaveis.posx1 - 48, variaveis.posy2 - 64))          #barra 2
-                janela.blit(auxhp1, (variaveis.posx2 + 132, variaveis.posy1 + 53 + 32))
-                janela.blit(auxhp2, (variaveis.posx1 + 84, variaveis.posy2 - 11))
-                janela.blit(auxxp1, (variaveis.posx2 + 30, variaveis.posy1 + 116))
+                janela.blit(escolhido.imagemc, (objetos.posx1 - 80, objetos.posy1 - 80))
+                janela.blit(imagens.barra, (objetos.posx2, objetos.posy1 + 32))     #barra1
+                janela.blit(imagens.barra, (objetos.posx1 - 48, objetos.posy2 - 64))          #barra 2
+                janela.blit(auxhp1, (objetos.posx2 + 132, objetos.posy1 + 53 + 32))
+                janela.blit(auxhp2, (objetos.posx1 + 84, objetos.posy2 - 11))
+                janela.blit(auxxp1, (objetos.posx2 + 30, objetos.posy1 + 116))
                 nomecin1(janela, palavra(escolhido.nome), escolhido.nome)
                 nomecin2(janela, palavra(escolhido2.nome), escolhido2.nome)
                 nivelcin1(janela, palavra(f'{escolhido.nivel}'))
@@ -2406,10 +2405,10 @@ def comeco1(janela, fundo, selvagem, posx2, posy2, sel, aviso, aviso2, trainer, 
 
 def comeco2(janela, fundo, selvagem, trainer, posx1, posy1, posx2, posy2, sel, escolhendo, escolhido, escolhido2, segundo, auxhp1, auxhp2, aux1, aux2, auxhpc, auxc, morto):
     auxz = 64
-    auxLz = variaveis.posx1 - 48 + (variaveis.padraoL * 0.6) - (variaveis.largurap//3) + 20
-    auxAz = variaveis.posy1 + (variaveis.padraoL * 0.6) - (variaveis.alturap//3) + 8
+    auxLz = objetos.posx1 - 48 + (objetos.padraoL * 0.6) - (objetos.largurap//3) + 20
+    auxAz = objetos.posy1 + (objetos.padraoL * 0.6) - (objetos.alturap//3) + 8
     if escolhendo and (not morto):
-        auxy = variaveis.padraoA * 1.5
+        auxy = objetos.padraoA * 1.5
         auxL = posx1 - 80 #
         auxA = posy1 - 80 #
         while auxy > 0:
@@ -2432,9 +2431,9 @@ def comeco2(janela, fundo, selvagem, trainer, posx1, posy1, posx2, posy2, sel, e
                     nomecin2(janela, palavra(escolhido2.nome), escolhido2.nome)
                     nivelcin2(janela, palavra(f'{escolhido2.nivel}'))
             if selvagem:
-                janela.blit(sel.imagemf, (variaveis.posx2 - imagens.largural - 32, variaveis.posy2 - imagens.altural - 32))
+                janela.blit(sel.imagemf, (objetos.posx2 - imagens.largural - 32, objetos.posy2 - imagens.altural - 32))
             elif trainer:
-                janela.blit(escolhido2.imagemf, (variaveis.posx2 - imagens.largural - 32, variaveis.posy2 - imagens.altural - 32))
+                janela.blit(escolhido2.imagemf, (objetos.posx2 - imagens.largural - 32, objetos.posy2 - imagens.altural - 32))
             auxy -= 8
             auxL += 5.3
             if abs(auxL - 271) < 1:
@@ -2458,9 +2457,9 @@ def comeco2(janela, fundo, selvagem, trainer, posx1, posy1, posx2, posy2, sel, e
         janela.blit(fundo, (0, 0))
         janela.blit(imagens.molde3, (0, 384))
         if selvagem:
-                janela.blit(sel.imagemf, (variaveis.posx2 - imagens.largural - 32, variaveis.posy2 - imagens.altural - 32))
+                janela.blit(sel.imagemf, (objetos.posx2 - imagens.largural - 32, objetos.posy2 - imagens.altural - 32))
         elif trainer:
-                janela.blit(escolhido2.imagemf, (variaveis.posx2 - imagens.largural - 32, variaveis.posy2 - imagens.altural - 32))
+                janela.blit(escolhido2.imagemf, (objetos.posx2 - imagens.largural - 32, objetos.posy2 - imagens.altural - 32))
         if escolhendo:
             janela.blit(imagens.barra, (posx2, posy1 + 32))     #barra 1
             janela.blit(imagens.barra, (posx1 - 48, posy2 - 64))
@@ -2491,7 +2490,7 @@ def comeco2(janela, fundo, selvagem, trainer, posx1, posy1, posx2, posy2, sel, e
     auxy = 0
     auxL = 271 #posx1 - 80
     auxA = 355 #posy1 - 80
-    while auxy < variaveis.padraoA * 1.5:
+    while auxy < objetos.padraoA * 1.5:
         janela.blit(fundo, (0, 0))
         janela.blit(imagens.molde3, (0, 384))
         if escolhendo:
@@ -2511,16 +2510,16 @@ def comeco2(janela, fundo, selvagem, trainer, posx1, posy1, posx2, posy2, sel, e
                 nomecin2(janela, palavra(escolhido2.nome), escolhido2.nome)
                 nivelcin2(janela, palavra(f'{escolhido2.nivel}'))
         if selvagem:
-                janela.blit(sel.imagemf, (variaveis.posx2 - imagens.largural - 32, variaveis.posy2 - imagens.altural - 32))
+                janela.blit(sel.imagemf, (objetos.posx2 - imagens.largural - 32, objetos.posy2 - imagens.altural - 32))
         elif trainer:
-                janela.blit(escolhido2.imagemf, (variaveis.posx2 - imagens.largural - 32, variaveis.posy2 - imagens.altural - 32))
+                janela.blit(escolhido2.imagemf, (objetos.posx2 - imagens.largural - 32, objetos.posy2 - imagens.altural - 32))
         auxy += 8
         auxL -= 5.3
-        if abs(auxL - (variaveis.posx1 - 80)) < 1:
-            auxL = variaveis.posx1 - 80
+        if abs(auxL - (objetos.posx1 - 80)) < 1:
+            auxL = objetos.posx1 - 80
         auxA -= 7.03
-        if abs(auxA - (variaveis.posy1 - 80)) < 1:
-            auxA = variaveis.posy1 - 80
+        if abs(auxA - (objetos.posy1 - 80)) < 1:
+            auxA = objetos.posy1 - 80
         save = pygame.transform.scale(escolhido.imagemc, (auxy, auxy))
         janela.blit(save, (auxL, auxA))
         pygame.display.update()
@@ -2530,36 +2529,36 @@ def comeco2(janela, fundo, selvagem, trainer, posx1, posy1, posx2, posy2, sel, e
     
 def fainted2(janela, fundo, escolhido, inimigo, posx, posy, tamanho, selvagem, trainer, auxhp1, aux1, aux1x, auxxp1):
     aux = posy
-    while aux <= variaveis.altura + tamanho:
+    while aux <= objetos.altura + tamanho:
         aux += 32
         janela.blit(fundo, (0, 0))
-        janela.blit(escolhido.imagemc, (variaveis.posx1 - 80, variaveis.posy1 - 80))
+        janela.blit(escolhido.imagemc, (objetos.posx1 - 80, objetos.posy1 - 80))
         janela.blit(inimigo.imagemf, (posx, aux))
-        janela.blit(imagens.barra, (variaveis.posx2, variaveis.posy1 + 32))     #barra1
-        janela.blit(imagens.barra, (variaveis.posx1 - 48, variaveis.posy2 - 64))          #barra 2
+        janela.blit(imagens.barra, (objetos.posx2, objetos.posy1 + 32))     #barra1
+        janela.blit(imagens.barra, (objetos.posx1 - 48, objetos.posy2 - 64))          #barra 2
         nomecin1(janela, palavra(escolhido.nome), escolhido.nome)
         nomecin2(janela, palavra(inimigo.nome), inimigo.nome)
         nivelcin1(janela, palavra(f'{escolhido.nivel}'))
         nivelcin2(janela, palavra(f'{inimigo.nivel}'))
-        janela.blit(auxhp1, (variaveis.posx2 + 132, variaveis.posy1 + 53 + 32))
-        janela.blit(auxxp1, (variaveis.posx2 + 30, variaveis.posy1 + 116))
+        janela.blit(auxhp1, (objetos.posx2 + 132, objetos.posy1 + 53 + 32))
+        janela.blit(auxxp1, (objetos.posx2 + 30, objetos.posy1 + 116))
         janela.blit(imagens.molde3, (0, 384))
         pygame.display.update()
 
 def fainted1(janela, fundo, escolhido, inimigo, posx, posy, tamanho, selvagem, trainer, auxhp2, aux2):
     aux = posy
-    while aux <= variaveis.altura + tamanho:
+    while aux <= objetos.altura + tamanho:
         aux += 32
         janela.blit(fundo, (0, 0))
-        janela.blit(inimigo.imagemf, (variaveis.posx2 - imagens.largural - 32, variaveis.posy2 - imagens.altural - 32))
-        janela.blit(escolhido.imagemc, (variaveis.posx1 - 80, aux - 80))     
-        janela.blit(imagens.barra, (variaveis.posx2, variaveis.posy1 + 32))     #barra1
-        janela.blit(imagens.barra, (variaveis.posx1 - 48, variaveis.posy2 - 64))          #barra 2
+        janela.blit(inimigo.imagemf, (objetos.posx2 - imagens.largural - 32, objetos.posy2 - imagens.altural - 32))
+        janela.blit(escolhido.imagemc, (objetos.posx1 - 80, aux - 80))     
+        janela.blit(imagens.barra, (objetos.posx2, objetos.posy1 + 32))     #barra1
+        janela.blit(imagens.barra, (objetos.posx1 - 48, objetos.posy2 - 64))          #barra 2
         nomecin1(janela, palavra(escolhido.nome), escolhido.nome)
         nivelcin1(janela, palavra(f'{escolhido.nivel}'))
         nomecin2(janela, palavra(inimigo.nome), inimigo.nome)
         nivelcin2(janela, palavra(f'{inimigo.nivel}'))
-        janela.blit(auxhp2, (variaveis.posx1 + 84, variaveis.posy2 - 11))
+        janela.blit(auxhp2, (objetos.posx1 + 84, objetos.posy2 - 11))
         janela.blit(imagens.molde3, (0, 384))
         pygame.display.update()
 
@@ -2640,20 +2639,20 @@ def ircenario1(self, posobj1, posobjatual, fundo, gramasxatual, gramasyatual, gr
     if cenario2:
         self.visual = imagens.frente
         fundo = imagens.cenario1
-        return fundo, posobjatual, listatual, gramasatual, gramasxatual, gramasyatual, gramas4_atual, listaobjatual, variaveis.posx, 256
+        return fundo, posobjatual, listatual, gramasatual, gramasxatual, gramasyatual, gramas4_atual, listaobjatual, objetos.posx, 256
     elif cenario3:
         self.visual = imagens.esquerda
         fundo = imagens.cenario1
-        return fundo, posobjatual, listatual, gramasatual, gramasxatual, gramasyatual, gramas4_atual, listaobjatual, variaveis.largura - variaveis.largurap, posy
+        return fundo, posobjatual, listatual, gramasatual, gramasxatual, gramasyatual, gramas4_atual, listaobjatual, objetos.largura - objetos.largurap, posy
 
 def ircenario2(self, posx, posy, posobjatual, posobj2, listatual, lista2, listaobjatual, listaobj2, fundo):
     posobjatual = posobj2
     listatual = lista2
     listaobjatual = listaobj2
-    variaveis.gramasatual = ()
-    variaveis.gramasxatual = ()
-    variaveis.gramasyatual = ()
-    variaveis.gramas4_atual = []
+    objetos.gramasatual = ()
+    objetos.gramasxatual = ()
+    objetos.gramasyatual = ()
+    objetos.gramas4_atual = []
     self.visual = imagens.atras
     fundo = imagens.cenario2
     self.posicao = (posx, 448)
@@ -2663,10 +2662,10 @@ def ircenario3(self, posx, posy, posobjatual, posobj3, listatual, lista3, listao
     posobjatual = posobj3
     listatual = lista3
     listaobjatual = listaobj3
-    variaveis.gramasatual = ()
-    variaveis.gramasxatual = ()
-    variaveis.gramasyatual = ()
-    variaveis.gramas4_atual = []
+    objetos.gramasatual = ()
+    objetos.gramasxatual = ()
+    objetos.gramasyatual = ()
+    objetos.gramas4_atual = []
     if fundo == imagens.cenario1:
         self.visual = imagens.direita
         fundo = imagens.cenario3
@@ -2687,10 +2686,10 @@ def ircenario4(self, posx, posy, posobjatual, posobj4, listatual, lista4, listao
     posobjatual = posobj4
     listatual = lista4
     listaobjatual = listaobj4
-    variaveis.gramasatual = ()
-    variaveis.gramasxatual = ()
-    variaveis.gramasyatual = ()
-    variaveis.gramas4_atual = []
+    objetos.gramasatual = ()
+    objetos.gramasxatual = ()
+    objetos.gramasyatual = ()
+    objetos.gramas4_atual = []
     self.visual = imagens.atras
     fundo = imagens.cenario4
     self.posicao = (posx, 0)
@@ -2700,19 +2699,19 @@ def ircenario5(self, posobj5, posobjatual, fundo, posy, listatual, listaobjatual
     posobjatual = posobj5
     listatual = lista5
     listaobjatual = listaobj5
-    variaveis.gramasatual = variaveis.gramas5
-    variaveis.gramasxatual = variaveis.gramasx5
-    variaveis.gramasyatual = variaveis.gramasy5
-    variaveis.gramas4_atual = []
-    for n in range(len(variaveis.gramasx5)):
-        variaveis.gramas4_atual.append(variaveis.gramasatual[n].get_rect())
-        variaveis.gramas4_atual[n].x = variaveis.gramasx5[n]
-        variaveis.gramas4_atual[n].y = variaveis.gramasy5[n]
+    objetos.gramasatual = objetos.gramas5
+    objetos.gramasxatual = objetos.gramasx5
+    objetos.gramasyatual = objetos.gramasy5
+    objetos.gramas4_atual = []
+    for n in range(len(objetos.gramasx5)):
+        objetos.gramas4_atual.append(objetos.gramasatual[n].get_rect())
+        objetos.gramas4_atual[n].x = objetos.gramasx5[n]
+        objetos.gramas4_atual[n].y = objetos.gramasy5[n]
     if fundo == imagens.cenario3:
         self.visual = imagens.atras
         fundo = imagens.cenario5
-        self.posicao = (variaveis.posx, 448)
-        return posobjatual, listatual, listaobjatual, fundo, variaveis.posx, 448
+        self.posicao = (objetos.posx, 448)
+        return posobjatual, listatual, listaobjatual, fundo, objetos.posx, 448
     elif fundo == imagens.cenario6:
         self.visual = imagens.esquerda
         fundo = imagens.cenario5
@@ -2741,18 +2740,18 @@ def ircenario9(self, posobj, posobjatual, fundo, posy, listatual, listaobjatual,
     posobjatual = posobj
     listatual = lista
     listaobjatual = listaobj
-    variaveis.gramasatual = variaveis.gramas9
-    variaveis.gramasxatual = variaveis.gramasx9
-    variaveis.gramasyatual = variaveis.gramasy9
-    variaveis.gramas4_atual = []
-    for n in range(len(variaveis.gramasx9)):
-        variaveis.gramas4_atual.append(variaveis.gramasatual[n].get_rect())
-        variaveis.gramas4_atual[n].x = variaveis.gramasx9[n]
-        variaveis.gramas4_atual[n].y = variaveis.gramasy9[n]
+    objetos.gramasatual = objetos.gramas9
+    objetos.gramasxatual = objetos.gramasx9
+    objetos.gramasyatual = objetos.gramasy9
+    objetos.gramas4_atual = []
+    for n in range(len(objetos.gramasx9)):
+        objetos.gramas4_atual.append(objetos.gramasatual[n].get_rect())
+        objetos.gramas4_atual[n].x = objetos.gramasx9[n]
+        objetos.gramas4_atual[n].y = objetos.gramasy9[n]
     self.visual = imagens.atras
     fundo = imagens.cenario9
-    self.posicao = (variaveis.posx, imagens.altura - imagens.alturap)
-    return posobjatual, listatual, listaobjatual, fundo, variaveis.posx, imagens.altura - imagens.alturap
+    self.posicao = (objetos.posx, imagens.altura - imagens.alturap)
+    return posobjatual, listatual, listaobjatual, fundo, objetos.posx, imagens.altura - imagens.alturap
 
 
 def ircentrocin(self, posx, posy, posobjatual, posobj7, listatual, lista7, listaobjatual, listaobj7, fundo):
@@ -2761,11 +2760,11 @@ def ircentrocin(self, posx, posy, posobjatual, posobj7, listatual, lista7, lista
     listaobjatual = listaobj7
     self.visual = imagens.atras
     fundo = imagens.centrocin
-    variaveis.gramasatual = ()
-    variaveis.gramasxatual = ()
-    variaveis.gramasyatual = ()
-    variaveis.gramas4_atual = []
-    return posobjatual, listatual, listaobjatual, fundo, 448, variaveis.altura - variaveis.alturap
+    objetos.gramasatual = ()
+    objetos.gramasxatual = ()
+    objetos.gramasyatual = ()
+    objetos.gramas4_atual = []
+    return posobjatual, listatual, listaobjatual, fundo, 448, objetos.altura - objetos.alturap
 
 def irloja(self, posx, posy, posobjatual, posobj8, listatual, lista8, listaobjatual, listaobj8, fundo):
     posobjatual = posobj8
@@ -2773,11 +2772,11 @@ def irloja(self, posx, posy, posobjatual, posobj8, listatual, lista8, listaobjat
     listaobjatual = listaobj8
     self.visual = imagens.atras
     fundo = imagens.centrocin
-    variaveis.gramasatual = ()
-    variaveis.gramasxatual = ()
-    variaveis.gramasyatual = ()
-    variaveis.gramas4_atual = []
-    return posobjatual, listatual, listaobjatual, fundo, 448, variaveis.altura - variaveis.alturap
+    objetos.gramasatual = ()
+    objetos.gramasxatual = ()
+    objetos.gramasyatual = ()
+    objetos.gramas4_atual = []
+    return posobjatual, listatual, listaobjatual, fundo, 448, objetos.altura - objetos.alturap
 
 
 def verificar4_3(posx, posy, direcao):
@@ -2804,7 +2803,7 @@ def verificar3_1(posx, posy, direcao):
 def verificar1_3(posx, posy, direcao):
     if posy == 256:
         return False    
-    if posx == variaveis.largura - variaveis.largurap and direcao:
+    if posx == objetos.largura - objetos.largurap and direcao:
         return True
     else:
         return False

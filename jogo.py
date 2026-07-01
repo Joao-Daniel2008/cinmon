@@ -36,7 +36,7 @@ ARQUIVO_SAVE = os.path.join(pasta_do_jogo, "savegame.json")
 
 
 
-player = funcoes_Classes.Player(variaveis.posx, variaveis.posy, 64, imagens.player, imagens.frente, objetos.player4)
+player = funcoes_Classes.Player(objetos.posx, objetos.posy, 64, imagens.player, imagens.frente, objetos.player4)
 
 estado = {
     'posicaox': 576,
@@ -45,7 +45,7 @@ estado = {
     'equipe': '',
     'mochila': '',
     'treinadores_derrotados': [],
-    'posobj': variaveis.posobjatual,
+    'posobj': objetos.posobjatual,
     'escolhaioda': False,
     'gramas': 0,
     'gramasx': (),
@@ -137,42 +137,42 @@ def cenario(posobj):
     cenario9 = False
     centrocin = False
     loja = False
-    if posobj == variaveis.posobj1:
+    if posobj == objetos.posobj1:
         cenario1 = True
-        variaveis.listatual = variaveis.lista1
-        variaveis.listaobjatual = variaveis.listaobj1
-    elif posobj == variaveis.posobj2:
+        objetos.listatual = objetos.lista1
+        objetos.listaobjatual = objetos.listaobj1
+    elif posobj == objetos.posobj2:
         cenario2 = True
-        variaveis.listatual = variaveis.lista2
-        variaveis.listaobjatual = variaveis.listaobj2
-    elif posobj == variaveis.posobj3:
+        objetos.listatual = objetos.lista2
+        objetos.listaobjatual = objetos.listaobj2
+    elif posobj == objetos.posobj3:
         cenario3 = True
-        variaveis.listatual = variaveis.lista3
-        variaveis.listaobjatual = variaveis.listaobj3
-    elif posobj == variaveis.posobj4 or posobj == ((448, 0), (576, 0), (715, 20), (843, 20)) or posobj == ((448, 0), (576, 0), (587, 20),(843, 20)) or posobj == ((448, 0), (576, 0), (587, 20),(715, 20)):
+        objetos.listatual = objetos.lista3
+        objetos.listaobjatual = objetos.listaobj3
+    elif posobj == objetos.posobj4 or posobj == ((448, 0), (576, 0), (715, 20), (843, 20)) or posobj == ((448, 0), (576, 0), (587, 20),(843, 20)) or posobj == ((448, 0), (576, 0), (587, 20),(715, 20)):
         cenario4 = True
-        variaveis.listatual = variaveis.lista4
-        variaveis.listaobjatual = variaveis.listaobj4
-    elif posobj == variaveis.posobj5:
+        objetos.listatual = objetos.lista4
+        objetos.listaobjatual = objetos.listaobj4
+    elif posobj == objetos.posobj5:
         cenario5 = True
-        variaveis.listatual = variaveis.lista5
-        variaveis.listaobjatual = variaveis.listaobj5
-    elif posobj == variaveis.posobj6:
+        objetos.listatual = objetos.lista5
+        objetos.listaobjatual = objetos.listaobj5
+    elif posobj == objetos.posobj6:
         cenario6 = True
-        variaveis.listatual = variaveis.lista6
-        variaveis.listaobjatual = variaveis.listaobj6
-    elif posobj == variaveis.posobj7:
+        objetos.listatual = objetos.lista6
+        objetos.listaobjatual = objetos.listaobj6
+    elif posobj == objetos.posobj7:
         centrocin = True
-        variaveis.listatual = variaveis.lista7
-        variaveis.listaobjatual = variaveis.listaobj7
-    elif posobj == variaveis.posobj8:
+        objetos.listatual = objetos.lista7
+        objetos.listaobjatual = objetos.listaobj7
+    elif posobj == objetos.posobj8:
         loja = True
-        variaveis.listatual = variaveis.lista8
-        variaveis.listaobjatual = variaveis.listaobj8
-    elif posobj == variaveis.posobj9:
+        objetos.listatual = objetos.lista8
+        objetos.listaobjatual = objetos.listaobj8
+    elif posobj == objetos.posobj9:
         cenario9 = True
-        variaveis.listatual = variaveis.lista9
-        variaveis.listaobjatual = variaveis.listaobj9
+        objetos.listatual = objetos.lista9
+        objetos.listaobjatual = objetos.listaobj9
     return cenario1, cenario2, cenario3, cenario4, cenario5, cenario6, centrocin, loja, cenario9
 
 def gerenciando_servidor(servidor):
@@ -374,18 +374,18 @@ while rodando:
             for n in range(len(estado['posobj'])):
                 estado['posobj'][n] = tuple(estado['posobj'][n])
             
-            variaveis.gramasatual = tuple(imagens.grama for _ in range(estado['gramas']))
-            variaveis.gramasxatual = tuple(estado['gramasx'])
-            variaveis.gramasyatual = tuple(estado['gramasy'])
-            variaveis.gramas4_atual = []
-            for n in range(len(variaveis.gramasxatual)):
-                variaveis.gramas4_atual.append(variaveis.gramasatual[n].get_rect())
-                variaveis.gramas4_atual[n].x = variaveis.gramasxatual[n]
-                variaveis.gramas4_atual[n].y = variaveis.gramasyatual[n]
+            objetos.gramasatual = tuple(imagens.grama for _ in range(estado['gramas']))
+            objetos.gramasxatual = tuple(estado['gramasx'])
+            objetos.gramasyatual = tuple(estado['gramasy'])
+            objetos.gramas4_atual = []
+            for n in range(len(objetos.gramasxatual)):
+                objetos.gramas4_atual.append(objetos.gramasatual[n].get_rect())
+                objetos.gramas4_atual[n].x = objetos.gramasxatual[n]
+                objetos.gramas4_atual[n].y = objetos.gramasyatual[n]
 
-            variaveis.posobjatual = tuple(estado['posobj'])
-            variaveis.posx = estado['posicaox']
-            variaveis.posy = estado['posicaoy']
+            objetos.posobjatual = tuple(estado['posobj'])
+            objetos.posx = estado['posicaox']
+            objetos.posy = estado['posicaoy']
             player.rect.x = estado['posicaox']
             player.rect.y = estado['posicaoy']
             player.rect.x = estado['posicaox']
@@ -396,7 +396,7 @@ while rodando:
             equipe3.curar()
             equipe4.curar()
             
-            cenario1, cenario2, cenario3, cenario4, cenario5, cenario6, centrocin, loja, cenario9 = cenario(variaveis.posobjatual)
+            cenario1, cenario2, cenario3, cenario4, cenario5, cenario6, centrocin, loja, cenario9 = cenario(objetos.posobjatual)
         except:
             print('ERRO ERRO')
 
@@ -462,7 +462,7 @@ while rodando:
                     andada += 1 
                 else: 
                     andada = 0
-                variaveis.posx, tentou = player.direita(variaveis.posx, variaveis.posy, janela, fundo, andada)
+                objetos.posx, tentou = player.direita(objetos.posx, objetos.posy, janela, fundo, andada)
                 if (not tentou):
                     di = False
                 #sleep(0.1)
@@ -471,7 +471,7 @@ while rodando:
                     andada += 1 
                 else: 
                     andada = 0
-                variaveis.posx, tentou = player.esquerda(variaveis.posx, variaveis.posy, janela, fundo, andada)
+                objetos.posx, tentou = player.esquerda(objetos.posx, objetos.posy, janela, fundo, andada)
                 if (not tentou):
                     es = False
                 #sleep(0.1)
@@ -480,7 +480,7 @@ while rodando:
                     andada += 1 
                 else: 
                     andada = 0
-                variaveis.posy, tentou = player.cima(variaveis.posx, variaveis.posy, janela, fundo, andada)
+                objetos.posy, tentou = player.cima(objetos.posx, objetos.posy, janela, fundo, andada)
                 if (not tentou):
                     ci = False
                 #sleep(0.1)
@@ -489,7 +489,7 @@ while rodando:
                     andada += 1 
                 else: 
                     andada = 0
-                variaveis.posy, tentou = player.baixo(variaveis.posx, variaveis.posy, janela, fundo, andada)
+                objetos.posy, tentou = player.baixo(objetos.posx, objetos.posy, janela, fundo, andada)
                 if (not tentou):
                     ba = False
                 #sleep(0.1)
@@ -497,13 +497,13 @@ while rodando:
         if tentou:
             if cenario4:
                 if escolhaioda:
-                    mudar = funcoes_Classes.verificar4_3(variaveis.posx, variaveis.posy, ba)
+                    mudar = funcoes_Classes.verificar4_3(objetos.posx, objetos.posy, ba)
                     if mudar:
-                        variaveis.posobjatual, variaveis.listatual, variaveis.listaobjatual, fundo, variaveis.posx, variaveis.posy = funcoes_Classes.ircenario3(player, variaveis.posx, variaveis.posy, variaveis.posobjatual, variaveis.posobj3, variaveis.listatual, variaveis.lista3, variaveis.listaobjatual, variaveis.listaobj3, fundo)
+                        objetos.posobjatual, objetos.listatual, objetos.listaobjatual, fundo, objetos.posx, objetos.posy = funcoes_Classes.ircenario3(player, objetos.posx, objetos.posy, objetos.posobjatual, objetos.posobj3, objetos.listatual, objetos.lista3, objetos.listaobjatual, objetos.listaobj3, fundo)
                         cenario4 = False
                         cenario3 = True
 
-                elif variaveis.posx == 704 and variaveis.posy == 448:
+                elif objetos.posx == 704 and objetos.posy == 448:
                     funcoes_Classes.limpar(janela, imagens.balaofala)
                     funcoes_Classes.rodarpalavra(funcoes_Classes.palavra('ainda nao'), batalha, janela)
                     sleep(1)
@@ -511,25 +511,25 @@ while rodando:
                 tentou = False
             
             elif cenario3:
-                mudar = funcoes_Classes.verificar3_4(player, objetos.porta2_4, variaveis.posx, variaveis.posy, ci)
+                mudar = funcoes_Classes.verificar3_4(player, objetos.porta2_4, objetos.posx, objetos.posy, ci)
                 if mudar:
-                    variaveis.posobjatual, variaveis.listatual, variaveis.listaobjatual, fundo, variaveis.posx, variaveis.posy = funcoes_Classes.ircenario4(player, variaveis.posx, variaveis.posy, variaveis.posobjatual, variaveis.posobj4, variaveis.listatual, variaveis.lista4, variaveis.listaobjatual, variaveis.listaobj4, fundo)
+                    objetos.posobjatual, objetos.listatual, objetos.listaobjatual, fundo, objetos.posx, objetos.posy = funcoes_Classes.ircenario4(player, objetos.posx, objetos.posy, objetos.posobjatual, objetos.posobj4, objetos.listatual, objetos.lista4, objetos.listaobjatual, objetos.listaobj4, fundo)
                     cenario3 = False
                     cenario4 = True
                     ci = False
                     tentou = False
 
-                mudar = funcoes_Classes.verificar3_1(variaveis.posx, variaveis.posy, es)
+                mudar = funcoes_Classes.verificar3_1(objetos.posx, objetos.posy, es)
                 if mudar:
-                    fundo, variaveis.posobjatual, variaveis.listatual, variaveis.gramasatual, variaveis.gramasxatual, variaveis.gramasyatual, variaveis.gramas4_atual, variaveis.listaobjatual, variaveis.posx, variaveis.posy = funcoes_Classes.ircenario1(player, variaveis.posobj1, variaveis.posobjatual, fundo, variaveis.gramasxatual, variaveis.gramasyatual, variaveis.gramas4_atual, variaveis.gramas1, variaveis.gramasx1, variaveis.gramasy1, variaveis.posy, variaveis.listatual, variaveis.listaobjatual, variaveis.lista1, variaveis.listaobj1, variaveis.gramasatual, cenario2, cenario3)
+                    fundo, objetos.posobjatual, objetos.listatual, objetos.gramasatual, objetos.gramasxatual, objetos.gramasyatual, objetos.gramas4_atual, objetos.listaobjatual, objetos.posx, objetos.posy = funcoes_Classes.ircenario1(player, objetos.posobj1, objetos.posobjatual, fundo, objetos.gramasxatual, objetos.gramasyatual, objetos.gramas4_atual, objetos.gramas1, objetos.gramasx1, objetos.gramasy1, objetos.posy, objetos.listatual, objetos.listaobjatual, objetos.lista1, objetos.listaobj1, objetos.gramasatual, cenario2, cenario3)
                     cenario3 = False
                     cenario1 = True
                     es = False
                     tentou = False
 
-                mudar = funcoes_Classes.verificar3_5(variaveis.posx, variaveis.posy, ci)
+                mudar = funcoes_Classes.verificar3_5(objetos.posx, objetos.posy, ci)
                 if mudar:
-                    variaveis.posobjatual, variaveis.listatual, variaveis.listaobjatual, fundo, variaveis.posx, variaveis.posy = funcoes_Classes.ircenario5(player, variaveis.posobj5, variaveis.posobjatual, fundo, variaveis.posy, variaveis.listatual, variaveis.listaobjatual, variaveis.lista5, variaveis.listaobj5, cenario3, cenario6)
+                    objetos.posobjatual, objetos.listatual, objetos.listaobjatual, fundo, objetos.posx, objetos.posy = funcoes_Classes.ircenario5(player, objetos.posobj5, objetos.posobjatual, fundo, objetos.posy, objetos.listatual, objetos.listaobjatual, objetos.lista5, objetos.listaobj5, cenario3, cenario6)
                     cenario3 = False
                     cenario5 = True
                     ci = False
@@ -537,9 +537,9 @@ while rodando:
 
 
             elif cenario1:
-                mudar = funcoes_Classes.verificar1_3(variaveis.posx, variaveis.posy, di)
+                mudar = funcoes_Classes.verificar1_3(objetos.posx, objetos.posy, di)
                 if mudar:
-                    variaveis.posobjatual, variaveis.listatual, variaveis.listaobjatual, fundo, variaveis.posx, variaveis.posy = funcoes_Classes.ircenario3(player, variaveis.posx, variaveis.posy, variaveis.posobjatual, variaveis.posobj3, variaveis.listatual, variaveis.lista3, variaveis.listaobjatual, variaveis.listaobj3, fundo)
+                    objetos.posobjatual, objetos.listatual, objetos.listaobjatual, fundo, objetos.posx, objetos.posy = funcoes_Classes.ircenario3(player, objetos.posx, objetos.posy, objetos.posobjatual, objetos.posobj3, objetos.listatual, objetos.lista3, objetos.listaobjatual, objetos.listaobj3, fundo)
                     cenario1 = False
                     cenario3 = True
                     di = False
@@ -547,7 +547,7 @@ while rodando:
 
                 mudar = funcoes_Classes.verificar1_2(player, objetos.porta4)
                 if mudar:
-                    variaveis.posobjatual, variaveis.listatual, variaveis.listaobjatual, fundo, variaveis.posx, variaveis.posy = funcoes_Classes.ircenario2(player, variaveis.posx, variaveis.posy, variaveis.posobjatual, variaveis.posobj2, variaveis.listatual, variaveis.lista2, variaveis.listaobjatual, variaveis.listaobj2, fundo)
+                    objetos.posobjatual, objetos.listatual, objetos.listaobjatual, fundo, objetos.posx, objetos.posy = funcoes_Classes.ircenario2(player, objetos.posx, objetos.posy, objetos.posobjatual, objetos.posobj2, objetos.listatual, objetos.lista2, objetos.listaobjatual, objetos.listaobj2, fundo)
                     cenario1 = False
                     cenario2 = True
                     ci = False
@@ -555,9 +555,9 @@ while rodando:
 
 
             elif cenario2:
-                mudar = funcoes_Classes.verificar2_1(variaveis.posx, variaveis.posy, ba)
+                mudar = funcoes_Classes.verificar2_1(objetos.posx, objetos.posy, ba)
                 if mudar:
-                    fundo, variaveis.posobjatual, variaveis.listatual, variaveis.gramasatual, variaveis.gramasxatual, variaveis.gramasyatual, variaveis.gramas4_atual, variaveis.listaobjatual, variaveis.posx, variaveis.posy = funcoes_Classes.ircenario1(player, variaveis.posobj1, variaveis.posobjatual, fundo, variaveis.gramasxatual, variaveis.gramasyatual, variaveis.gramas4_atual, variaveis.gramas1, variaveis.gramasx1, variaveis.gramasy1, variaveis.posy, variaveis.listatual, variaveis.listaobjatual, variaveis.lista1, variaveis.listaobj1, variaveis.gramasatual, cenario2, cenario3)
+                    fundo, objetos.posobjatual, objetos.listatual, objetos.gramasatual, objetos.gramasxatual, objetos.gramasyatual, objetos.gramas4_atual, objetos.listaobjatual, objetos.posx, objetos.posy = funcoes_Classes.ircenario1(player, objetos.posobj1, objetos.posobjatual, fundo, objetos.gramasxatual, objetos.gramasyatual, objetos.gramas4_atual, objetos.gramas1, objetos.gramasx1, objetos.gramasy1, objetos.posy, objetos.listatual, objetos.listaobjatual, objetos.lista1, objetos.listaobj1, objetos.gramasatual, cenario2, cenario3)
                     cenario2 = False
                     cenario1 = True
                     ba = False
@@ -565,17 +565,17 @@ while rodando:
 
             
             elif cenario5:
-                mudar = funcoes_Classes.verificar5_3(variaveis.posx, variaveis.posy, ba)
+                mudar = funcoes_Classes.verificar5_3(objetos.posx, objetos.posy, ba)
                 if mudar:
-                    variaveis.posobjatual, variaveis.listatual, variaveis.listaobjatual, fundo, variaveis.posx, variaveis.posy = funcoes_Classes.ircenario3(player, variaveis.posx, variaveis.posy, variaveis.posobjatual, variaveis.posobj3, variaveis.listatual, variaveis.lista3, variaveis.listaobjatual, variaveis.listaobj3, fundo)
+                    objetos.posobjatual, objetos.listatual, objetos.listaobjatual, fundo, objetos.posx, objetos.posy = funcoes_Classes.ircenario3(player, objetos.posx, objetos.posy, objetos.posobjatual, objetos.posobj3, objetos.listatual, objetos.lista3, objetos.listaobjatual, objetos.listaobj3, fundo)
                     cenario5 = False
                     cenario3 = True
                     ba = False
                     tentou = False
 
-                mudar = funcoes_Classes.verificar5_6(variaveis.posx, variaveis.posy, di)
+                mudar = funcoes_Classes.verificar5_6(objetos.posx, objetos.posy, di)
                 if mudar:
-                    variaveis.posobjatual, variaveis.listatual, variaveis.listaobjatual, fundo, variaveis.posx, variaveis.posy = funcoes_Classes.ircenario6(player, variaveis.posx, variaveis.posy, variaveis.posobjatual, variaveis.posobj6, variaveis.listatual, variaveis.lista6, variaveis.listaobjatual, variaveis.listaobj6, fundo, cenario5, centrocin, loja)
+                    objetos.posobjatual, objetos.listatual, objetos.listaobjatual, fundo, objetos.posx, objetos.posy = funcoes_Classes.ircenario6(player, objetos.posx, objetos.posy, objetos.posobjatual, objetos.posobj6, objetos.listatual, objetos.lista6, objetos.listaobjatual, objetos.listaobj6, fundo, cenario5, centrocin, loja)
                     cenario5 = False
                     cenario6 = True
                     di = False
@@ -583,27 +583,27 @@ while rodando:
 
             
             elif cenario6:
-                mudar = funcoes_Classes.verificar6_5(variaveis.posx, variaveis.posy, es)
+                mudar = funcoes_Classes.verificar6_5(objetos.posx, objetos.posy, es)
                 if mudar:
-                    variaveis.posobjatual, variaveis.listatual, variaveis.listaobjatual, fundo, variaveis.posx, variaveis.posy = funcoes_Classes.ircenario5(player, variaveis.posobj5, variaveis.posobjatual, fundo, variaveis.posy, variaveis.listatual, variaveis.listaobjatual, variaveis.lista5, variaveis.listaobj5, cenario3, cenario6)
+                    objetos.posobjatual, objetos.listatual, objetos.listaobjatual, fundo, objetos.posx, objetos.posy = funcoes_Classes.ircenario5(player, objetos.posobj5, objetos.posobjatual, fundo, objetos.posy, objetos.listatual, objetos.listaobjatual, objetos.lista5, objetos.listaobj5, cenario3, cenario6)
                     cenario6 = False
                     cenario5 = True
                     es = False
                     tentou = False
 
                 else:
-                    mudar = funcoes_Classes.verificar6_centrocin(player, objetos.porta3_4, variaveis.posx, variaveis.posy, ci)
+                    mudar = funcoes_Classes.verificar6_centrocin(player, objetos.porta3_4, objetos.posx, objetos.posy, ci)
                     if mudar:
-                        variaveis.posobjatual, variaveis.listatual, variaveis.listaobjatual, fundo, variaveis.posx, variaveis.posy = funcoes_Classes.ircentrocin(player, variaveis.posx, variaveis.posy, variaveis.posobjatual, variaveis.posobj7, variaveis.listatual, variaveis.lista7, variaveis.listaobjatual, variaveis.listaobj7, fundo)
+                        objetos.posobjatual, objetos.listatual, objetos.listaobjatual, fundo, objetos.posx, objetos.posy = funcoes_Classes.ircentrocin(player, objetos.posx, objetos.posy, objetos.posobjatual, objetos.posobj7, objetos.listatual, objetos.lista7, objetos.listaobjatual, objetos.listaobj7, fundo)
                         cenario6 = False
                         centrocin = True
                         ci = False
                         tentou = False
 
                     else:
-                        mudar = funcoes_Classes.verificar6_loja(player, objetos.porta4_4, variaveis.posx, variaveis.posy, ci)
+                        mudar = funcoes_Classes.verificar6_loja(player, objetos.porta4_4, objetos.posx, objetos.posy, ci)
                         if mudar:
-                            variaveis.posobjatual, variaveis.listatual, variaveis.listaobjatual, fundo, variaveis.posx, variaveis.posy = funcoes_Classes.irloja(player, variaveis.posx, variaveis.posy, variaveis.posobjatual, variaveis.posobj8, variaveis.listatual, variaveis.lista8, variaveis.listaobjatual, variaveis.listaobj8, fundo)
+                            objetos.posobjatual, objetos.listatual, objetos.listaobjatual, fundo, objetos.posx, objetos.posy = funcoes_Classes.irloja(player, objetos.posx, objetos.posy, objetos.posobjatual, objetos.posobj8, objetos.listatual, objetos.lista8, objetos.listaobjatual, objetos.listaobj8, fundo)
                             cenario6 = False
                             loja = True
                             ci = False
@@ -611,9 +611,9 @@ while rodando:
 
 
                         else:
-                            mudar = funcoes_Classes.verificar6_9(variaveis.posx, variaveis.posy, ci)
+                            mudar = funcoes_Classes.verificar6_9(objetos.posx, objetos.posy, ci)
                             if mudar:
-                                variaveis.posobjatual, variaveis.listatual, variaveis.listaobjatual, fundo, variaveis.posx, variaveis.posy = funcoes_Classes.ircenario9(player, variaveis.posobj9, variaveis.posobjatual, fundo, variaveis.posy, variaveis.listatual, variaveis.listaobjatual, variaveis.lista9, variaveis.listaobj9)
+                                objetos.posobjatual, objetos.listatual, objetos.listaobjatual, fundo, objetos.posx, objetos.posy = funcoes_Classes.ircenario9(player, objetos.posobj9, objetos.posobjatual, fundo, objetos.posy, objetos.listatual, objetos.listaobjatual, objetos.lista9, objetos.listaobj9)
                                 cenario6 = False
                                 cenario9 = True
                                 ci = False
@@ -621,9 +621,9 @@ while rodando:
 
 
             elif cenario9:
-                mudar = funcoes_Classes.verificar9_6(variaveis.posx, variaveis.posy, ba)
+                mudar = funcoes_Classes.verificar9_6(objetos.posx, objetos.posy, ba)
                 if mudar:
-                    variaveis.posobjatual, variaveis.listatual, variaveis.listaobjatual, fundo, variaveis.posx, variaveis.posy = funcoes_Classes.ircenario6(player, variaveis.posx, variaveis.posy, variaveis.posobjatual, variaveis.posobj6, variaveis.listatual, variaveis.lista6, variaveis.listaobjatual, variaveis.listaobj6, fundo, cenario5, centrocin, loja)
+                    objetos.posobjatual, objetos.listatual, objetos.listaobjatual, fundo, objetos.posx, objetos.posy = funcoes_Classes.ircenario6(player, objetos.posx, objetos.posy, objetos.posobjatual, objetos.posobj6, objetos.listatual, objetos.lista6, objetos.listaobjatual, objetos.listaobj6, fundo, cenario5, centrocin, loja)
                     cenario9 = False
                     cenario6 = True
                     ba = False
@@ -632,9 +632,9 @@ while rodando:
 
             
             elif centrocin:
-                mudar = funcoes_Classes.verificarcentrocin_6(variaveis.posx, variaveis.posy, ba)
+                mudar = funcoes_Classes.verificarcentrocin_6(objetos.posx, objetos.posy, ba)
                 if mudar:
-                    variaveis.posobjatual, variaveis.listatual, variaveis.listaobjatual, fundo, variaveis.posx, variaveis.posy = funcoes_Classes.ircenario6(player, variaveis.posx, variaveis.posy, variaveis.posobjatual, variaveis.posobj6, variaveis.listatual, variaveis.lista6, variaveis.listaobjatual, variaveis.listaobj6, fundo, cenario5, centrocin, loja)
+                    objetos.posobjatual, objetos.listatual, objetos.listaobjatual, fundo, objetos.posx, objetos.posy = funcoes_Classes.ircenario6(player, objetos.posx, objetos.posy, objetos.posobjatual, objetos.posobj6, objetos.listatual, objetos.lista6, objetos.listaobjatual, objetos.listaobj6, fundo, cenario5, centrocin, loja)
                     centrocin = False
                     cenario6 = True
                     ba = False
@@ -642,19 +642,19 @@ while rodando:
 
                 
             elif loja:
-                mudar = funcoes_Classes.verificarcentrocin_6(variaveis.posx, variaveis.posy, ba)
+                mudar = funcoes_Classes.verificarcentrocin_6(objetos.posx, objetos.posy, ba)
                 if mudar:
-                    variaveis.posobjatual, variaveis.listatual, variaveis.listaobjatual, fundo, variaveis.posx, variaveis.posy = funcoes_Classes.ircenario6(player, variaveis.posx, variaveis.posy, variaveis.posobjatual, variaveis.posobj6, variaveis.listatual, variaveis.lista6, variaveis.listaobjatual, variaveis.listaobj6, fundo, cenario5, centrocin, loja)
+                    objetos.posobjatual, objetos.listatual, objetos.listaobjatual, fundo, objetos.posx, objetos.posy = funcoes_Classes.ircenario6(player, objetos.posx, objetos.posy, objetos.posobjatual, objetos.posobj6, objetos.listatual, objetos.lista6, objetos.listaobjatual, objetos.listaobj6, fundo, cenario5, centrocin, loja)
                     loja = False
                     cenario6 = True
                     ba = False
                     tentou = False
 
-            estado['posobj'] = variaveis.posobjatual
-            estado['gramas'] = len(variaveis.gramasatual)
-            estado['gramasx'] = variaveis.gramasxatual          
-            estado['gramasy'] = variaveis.gramasyatual
-            estado['gramas4'] = len(variaveis.gramas4_atual)
+            estado['posobj'] = objetos.posobjatual
+            estado['gramas'] = len(objetos.gramasatual)
+            estado['gramasx'] = objetos.gramasxatual          
+            estado['gramasy'] = objetos.gramasyatual
+            estado['gramas4'] = len(objetos.gramas4_atual)
                 
 #menu
         if escolhaioda:
@@ -675,19 +675,19 @@ while rodando:
                     mochila = funcoes_Classes.mochila([imagens.crachabola, imagens.potion], [2,3], 0)
                     estado['mochila'] = [['crachabola', 2], ['potion', 3], 0]
                     estado['escolhaioda'] = True
-                    estado['posobj'] = variaveis.posobj4
+                    estado['posobj'] = objetos.posobj4
 
 
 #centrocin
-            elif centrocin and variaveis.posx == 448 and variaveis.posy == 192 and (tecla[pygame.K_SPACE]) and player.visual == imagens.atras:
-                funcoes_Classes.curarfala(janela, player, batalha, variaveis.posx, variaveis.posy)
+            elif centrocin and objetos.posx == 448 and objetos.posy == 192 and (tecla[pygame.K_SPACE]) and player.visual == imagens.atras:
+                funcoes_Classes.curarfala(janela, player, batalha, objetos.posx, objetos.posy)
                 equipe.curar()
                 estado['equipe'] = [(equipe.lista[n].nome, sum(k  * 10 for k in range(1, equipe.lista[n].nivel)) + equipe.lista[n].xp, equipe.lista[n].hp) for n in range(len(equipe.lista))]
 
 
 
     #loja
-            elif (loja and variaveis.posx == 448 and variaveis.posy == 192 and (tecla[pygame.K_SPACE]) and player.visual == imagens.atras) or balao:
+            elif (loja and objetos.posx == 448 and objetos.posy == 192 and (tecla[pygame.K_SPACE]) and player.visual == imagens.atras) or balao:
                 if (not balao):
                     voltesempre = True
                     funcoes_Classes.lojafala(janela, batalha)
@@ -703,7 +703,7 @@ while rodando:
 
 
 #treinadores
-        treinador, trainer = funcoes_Classes.encontrar_treinador(variaveis.posx, variaveis.posy, listaT, fundo)
+        treinador, trainer = funcoes_Classes.encontrar_treinador(objetos.posx, objetos.posy, listaT, fundo)
 
         if trainer:
             if treinador == 'treinador1':
@@ -767,23 +767,23 @@ while rodando:
                     itenschao.tempo_por_cenario[nome_cenario_atual] = time_module.time()
 
         if (not balao) and (not balao2):
-            player.rect.x = variaveis.posx
-            player.rect.y = variaveis.posy
-            estado['posicaox'] = variaveis.posx
-            estado['posicaoy'] = variaveis.posy
-            estado['posicao'] = (variaveis.posx, variaveis.posy)
+            player.rect.x = objetos.posx
+            player.rect.y = objetos.posy
+            estado['posicaox'] = objetos.posx
+            estado['posicaoy'] = objetos.posy
+            estado['posicao'] = (objetos.posx, objetos.posy)
             estado['escolhaioda'] = escolhaioda
 
             janela.blit(fundo, (0, 0))
-            for n in range(len(variaveis.posobjatual)):
-                janela.blit(variaveis.listatual[n], (variaveis.posobjatual[n][0], variaveis.posobjatual[n][1]))
+            for n in range(len(objetos.posobjatual)):
+                janela.blit(objetos.listatual[n], (objetos.posobjatual[n][0], objetos.posobjatual[n][1]))
 
-            janela.blit(player.visual, (variaveis.posx, variaveis.posy))
+            janela.blit(player.visual, (objetos.posx, objetos.posy))
 
             if cenario1 or cenario5 or cenario9:
-                for n in range(len(variaveis.gramasatual)):
-                    janela.blit(variaveis.gramasatual[n], (variaveis.gramasxatual[n], variaveis.gramasyatual[n]))
-                if player.colisaog(variaveis.gramas4_atual) and marca:
+                for n in range(len(objetos.gramasatual)):
+                    janela.blit(objetos.gramasatual[n], (objetos.gramasxatual[n], objetos.gramasyatual[n]))
+                if player.colisaog(objetos.gramas4_atual) and marca:
                     batalha, selvagem = funcoes_Classes.encontrarcin()
                     marca = False
                     if batalha:
@@ -792,7 +792,7 @@ while rodando:
 
             
             if mochila != '' and escolhaioda and nome_cenario_atual is not None:
-                player_rect_atual = pygame.Rect(variaveis.posx, variaveis.posy, 64, 64)
+                player_rect_atual = pygame.Rect(objetos.posx, objetos.posy, 64, 64)
                 for item in itens_cenario:
                     item.desenhar(janela)
                 itenschao.atualizar_itens(itens_cenario, player_rect_atual, mochila, imagens)
@@ -865,18 +865,18 @@ while rodando:
             cenario9 = False
             loja = False
             centrocin = True
-            variaveis.posobjatual, variaveis.listatual, variaveis.listaobjatual, fundo, variaveis.posy, variaveis.posx = funcoes_Classes.ircentrocin(player, variaveis.posx, variaveis.posy, variaveis.posobjatual, variaveis.posobj7, variaveis.listatual, variaveis.lista7, variaveis.listaobjatual, variaveis.listaobj7, fundo)
-            variaveis.posx = 448
-            variaveis.posy = 192
+            objetos.posobjatual, objetos.listatual, objetos.listaobjatual, fundo, objetos.posy, objetos.posx = funcoes_Classes.ircentrocin(player, objetos.posx, objetos.posy, objetos.posobjatual, objetos.posobj7, objetos.listatual, objetos.lista7, objetos.listaobjatual, objetos.listaobj7, fundo)
+            objetos.posx = 448
+            objetos.posy = 192
             janela.blit(fundo, (0, 0))
-            for n in range(len(variaveis.listatual)):
-                if variaveis.listatual[n] == imagens.player:
-                    janela.blit(player.visual, (variaveis.posx, variaveis.posy))
+            for n in range(len(objetos.listatual)):
+                if objetos.listatual[n] == imagens.player:
+                    janela.blit(player.visual, (objetos.posx, objetos.posy))
                 else:
-                    janela.blit(variaveis.listatual[n], (variaveis.posobjatual[n][0], variaveis.posobjatual[n][1]))
-            funcoes_Classes.curarfala(janela, player, batalha, variaveis.posx, variaveis.posy)
+                    janela.blit(objetos.listatual[n], (objetos.posobjatual[n][0], objetos.posobjatual[n][1]))
+            funcoes_Classes.curarfala(janela, player, batalha, objetos.posx, objetos.posy)
             equipe.curar()
-            estado['posobj'] = variaveis.posobjatual
+            estado['posobj'] = objetos.posobjatual
         if (not batalha):
             musicaP = True
             musicaB = False
@@ -1018,14 +1018,14 @@ while rodando:
                 funcoes_Classes.terminal(janela, escolhido, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
                 funcoes_Classes.rodarpalavra(funcoes_Classes.palavra(f'seu adversario escolheu {escolhido2.nome}'), True, janela)
                 sleep(1)
-                funcoes_Classes.comeco1(janela, fundo, False, variaveis.posx2, variaveis.posy2, escolhido2, aviso, aviso2, True, escolhido, escolhido2, auxhp1, auxhp2, aux1, aux2, aux1x, auxxp1)
+                funcoes_Classes.comeco1(janela, fundo, False, objetos.posx2, objetos.posy2, escolhido2, aviso, aviso2, True, escolhido, escolhido2, auxhp1, auxhp2, aux1, aux2, aux1x, auxxp1)
                 sleep(0.5)
                 if (not aviso):
                     funcoes_Classes.rodarpalavra(funcoes_Classes.palavra(f'Va {escolhido.nome}'), True, janela)
                 sleep(0.5)
                 aviso = True
                 if (not aviso2):
-                    funcoes_Classes.comeco2(janela, fundo, False, True, variaveis.posx1, variaveis.posy1, variaveis.posx2, variaveis.posy2, sel, escolhendo, escolhido, escolhido2, segundo, auxhp1, auxhp2, aux1, aux2, auxhpc, auxc, morto)
+                    funcoes_Classes.comeco2(janela, fundo, False, True, objetos.posx1, objetos.posy1, objetos.posx2, objetos.posy2, sel, escolhendo, escolhido, escolhido2, segundo, auxhp1, auxhp2, aux1, aux2, auxhpc, auxc, morto)
                 sleep(0.5)
                 aviso2 = False
             if (not escolhendo) and (not bolsa):
@@ -1132,13 +1132,13 @@ while rodando:
                         funcoes_Classes.seta(mov1, mov2, janela, imagens.setinha, ataques, escolhendo, bolsa, balao)
                         funcoes_Classes.golpes(escolhido, janela)
 
-                    janela.blit(escolhido.imagemc, (variaveis.posx1 - 80, variaveis.posy1 - 80))
-                    janela.blit(escolhido2.imagemf, (variaveis.posx2 - imagens.largural - 32, variaveis.posy2 - imagens.altural - 32))
-                    janela.blit(imagens.barra, (variaveis.posx2, variaveis.posy1 + 32))     #barra1
-                    janela.blit(imagens.barra, (variaveis.posx1 - 48, variaveis.posy2 - 64))          #barra 2
-                    janela.blit(auxhp1, (variaveis.posx2 + 132, variaveis.posy1 + 53 + 32))
-                    janela.blit(auxhp2, (variaveis.posx1 + 84, variaveis.posy2 - 11))
-                    janela.blit(auxxp1, (variaveis.posx2 + 30, variaveis.posy1 + 116))
+                    janela.blit(escolhido.imagemc, (objetos.posx1 - 80, objetos.posy1 - 80))
+                    janela.blit(escolhido2.imagemf, (objetos.posx2 - imagens.largural - 32, objetos.posy2 - imagens.altural - 32))
+                    janela.blit(imagens.barra, (objetos.posx2, objetos.posy1 + 32))     #barra1
+                    janela.blit(imagens.barra, (objetos.posx1 - 48, objetos.posy2 - 64))          #barra 2
+                    janela.blit(auxhp1, (objetos.posx2 + 132, objetos.posy1 + 53 + 32))
+                    janela.blit(auxhp2, (objetos.posx1 + 84, objetos.posy2 - 11))
+                    janela.blit(auxxp1, (objetos.posx2 + 30, objetos.posy1 + 116))
                     funcoes_Classes.nomecin1(janela, funcoes_Classes.palavra(escolhido.nome), escolhido.nome)
                     funcoes_Classes.nomecin2(janela, funcoes_Classes.palavra(escolhido2.nome), escolhido.nome)
                     funcoes_Classes.nivelcin1(janela, funcoes_Classes.palavra(f'{escolhido.nivel}'))
@@ -1149,7 +1149,7 @@ while rodando:
                         funcoes_Classes.rodarpalavra(funcoes_Classes.palavra(f'{escolhido2.nome} desmaiou'), True, janela)
                         sleep(1)
                         escolhido2.hp_base = 0
-                        funcoes_Classes.fainted2(janela, fundo, escolhido, escolhido2, variaveis.posx2 - imagens.largural - 32, variaveis.posy2 - imagens.altural - 32, imagens.altural * 1.5, False, True, auxhp1, aux1, aux1x, auxxp1)
+                        funcoes_Classes.fainted2(janela, fundo, escolhido, escolhido2, objetos.posx2 - imagens.largural - 32, objetos.posy2 - imagens.altural - 32, imagens.altural * 1.5, False, True, auxhp1, aux1, aux1x, auxxp1)
                         if pacote['status'] == 'perdeu':
                             funcoes_Classes.terminal(janela, escolhido, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
                             funcoes_Classes.rodarpalavra(funcoes_Classes.palavra(f'Parabens voce venceu'), True, janela)
@@ -1215,19 +1215,19 @@ while rodando:
                     sleep(0.5)             
                     janela.blit(fundo, (0, 0))
                     janela.blit(imagens.molde3, (0, 384))
-                    janela.blit(escolhido.imagemc, (variaveis.posx1 - 80, variaveis.posy1 - 80))
-                    janela.blit(escolhido2.imagemf, (variaveis.posx2 - imagens.largural - 32, variaveis.posy2 - imagens.altural - 32))
-                    janela.blit(imagens.barra, (variaveis.posx2, variaveis.posy1 + 32))     #barra 1
-                    janela.blit(imagens.barra, (variaveis.posx1 - 48, variaveis.posy2 - 64))          #barra 2
+                    janela.blit(escolhido.imagemc, (objetos.posx1 - 80, objetos.posy1 - 80))
+                    janela.blit(escolhido2.imagemf, (objetos.posx2 - imagens.largural - 32, objetos.posy2 - imagens.altural - 32))
+                    janela.blit(imagens.barra, (objetos.posx2, objetos.posy1 + 32))     #barra 1
+                    janela.blit(imagens.barra, (objetos.posx1 - 48, objetos.posy2 - 64))          #barra 2
                     funcoes_Classes.nomecin1(janela, funcoes_Classes.palavra(escolhido.nome), escolhido.nome)
                     funcoes_Classes.nomecin2(janela, funcoes_Classes.palavra(escolhido2.nome), escolhido2.nome)
                     funcoes_Classes.nivelcin1(janela, funcoes_Classes.palavra(f'{escolhido.nivel}'))
                     funcoes_Classes.nivelcin2(janela, funcoes_Classes.palavra(f'{escolhido2.nivel}'))
-                    janela.blit(auxhp1, (variaveis.posx2 + 132, variaveis.posy1 + 53 + 32))
+                    janela.blit(auxhp1, (objetos.posx2 + 132, objetos.posy1 + 53 + 32))
                     aux2 = int(150 * (escolhido2.hp / escolhido2.hp_max)//1)
                     auxhp2 = pygame.transform.scale(imagens.auxhp, (aux2, 10))
-                    janela.blit(auxhp2, (variaveis.posx1 + 84, variaveis.posy2 - 11))
-                    janela.blit(auxxp1, (variaveis.posx2 + 30, variaveis.posy1 + 116))
+                    janela.blit(auxhp2, (objetos.posx1 + 84, objetos.posy2 - 11))
+                    janela.blit(auxxp1, (objetos.posx2 + 30, objetos.posy1 + 116))
                     sleep(0.5)
                     if escolhido.hp <= 0:
                         funcoes_Classes.terminal(janela, escolhido, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
@@ -1235,7 +1235,7 @@ while rodando:
                         sleep(1.5)
                         funcoes_Classes.terminal(janela, escolhido, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
                         sleep(1)
-                        funcoes_Classes.fainted1(janela, fundo, escolhido, escolhido2, variaveis.posx1 - 48, variaveis.posy1 - 48, imagens.altural * 1.3, False, True, auxhp2, aux2)
+                        funcoes_Classes.fainted1(janela, fundo, escolhido, escolhido2, objetos.posx1 - 48, objetos.posy1 - 48, imagens.altural * 1.3, False, True, auxhp2, aux2)
                         sleep(1)
                         equipe.derrotados += 1
                         equipe.vivos -= 1
@@ -1300,14 +1300,14 @@ while rodando:
                         janela.blit(n.mini, (64 + aux * 128 * 1.5, 400))
                         aux += 1
                 if (not morto):
-                    janela.blit(escolhido.imagemc, (variaveis.posx1 - 80, variaveis.posy1 - 80))
-                janela.blit(escolhido2.imagemf, (variaveis.posx2 - imagens.largural - 32, variaveis.posy2 - imagens.altural - 32))
-                janela.blit(imagens.barra, (variaveis.posx2, variaveis.posy1 + 32))     #barra1
-                janela.blit(imagens.barra, (variaveis.posx1 - 48, variaveis.posy2 - 64))          #barra 2
+                    janela.blit(escolhido.imagemc, (objetos.posx1 - 80, objetos.posy1 - 80))
+                janela.blit(escolhido2.imagemf, (objetos.posx2 - imagens.largural - 32, objetos.posy2 - imagens.altural - 32))
+                janela.blit(imagens.barra, (objetos.posx2, objetos.posy1 + 32))     #barra1
+                janela.blit(imagens.barra, (objetos.posx1 - 48, objetos.posy2 - 64))          #barra 2
                 if (not morto):
-                    janela.blit(auxhp1, (variaveis.posx2 + 132, variaveis.posy1 + 53 + 32))
-                    janela.blit(auxxp1, (variaveis.posx2 + 30, variaveis.posy1 + 116))
-                janela.blit(auxhp2, (variaveis.posx1 + 84, variaveis.posy2 - 11))
+                    janela.blit(auxhp1, (objetos.posx2 + 132, objetos.posy1 + 53 + 32))
+                    janela.blit(auxxp1, (objetos.posx2 + 30, objetos.posy1 + 116))
+                janela.blit(auxhp2, (objetos.posx1 + 84, objetos.posy2 - 11))
                 funcoes_Classes.nomecin1(janela, funcoes_Classes.palavra(escolhido.nome), escolhido.nome)
                 funcoes_Classes.nomecin2(janela, funcoes_Classes.palavra(escolhido2.nome), escolhido2.nome)
                 funcoes_Classes.nivelcin1(janela, funcoes_Classes.palavra(f'{escolhido.nivel}'))
@@ -1351,7 +1351,7 @@ while rodando:
                             funcoes_Classes.terminal(janela, segundo, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
                         funcoes_Classes.rodarpalavra(funcoes_Classes.palavra(f'Va {escolhido.nome}'), True, janela)
                         sleep(1.5)
-                        funcoes_Classes.comeco2(janela, fundo, False, True, variaveis.posx1, variaveis.posy1, variaveis.posx2, variaveis.posy2, sel, escolhendo, escolhido, escolhido2,  segundo, auxhp1, auxhp2, aux1, aux2, auxhpc, auxc, morto)
+                        funcoes_Classes.comeco2(janela, fundo, False, True, objetos.posx1, objetos.posy1, objetos.posx2, objetos.posy2, sel, escolhendo, escolhido, escolhido2,  segundo, auxhp1, auxhp2, aux1, aux2, auxhpc, auxc, morto)
                         aux1 = int(150 * (escolhido.hp / escolhido.hp_max)//1)
                         auxhp1 = pygame.transform.scale(imagens.auxhp, (aux1, 10))
                         aux1x = int(270 * (escolhido.xp / (escolhido.nivel * 10))//1)
@@ -1369,6 +1369,6 @@ while rodando:
         
 
 
-    print(variaveis.posy)
+    print(objetos.posy)
     pygame.display.update()
     sleep(0.1)
