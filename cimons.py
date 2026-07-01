@@ -34,10 +34,11 @@ estrelas = funcoes_Classes.ataques('estrelas', 'psiquico', 'dano', 3, 3, 10, 10)
 furia = funcoes_Classes.ataques('furia', 'dragao', 'dano', 4, 4, 5, 5)
 dracmeteor = funcoes_Classes.ataques('dracmeteor', 'dragao', 'dano', 5, 5, 20, 20)
 enfurecer = funcoes_Classes.ataques('enfurecer', 'dragao', 'selfatk', 0, 0, 15, 15)
+obliterar = funcoes_Classes.ataques('obliterar', 'dragao', 'dano', 7, 7, 1, 1)
 
 ataques = [bater, kamehameha, explosao, rasengan, morder, escuridao,
             investida, voadora, ventania, brasas, laser, estrelas, 
-            furia, dracmeteor, enfurecer]
+            furia, dracmeteor, enfurecer, obliterar]
 
 #selfatk
 aura = funcoes_Classes.ataques('aura', 'aura', 'selfatk', 0, 0, 15, 15)
@@ -55,6 +56,6 @@ mclovin = funcoes_Classes.Cimons('mc lovin', 'psiquico', imagens['mc lovin']['im
 homelander = funcoes_Classes.Cimons('homelander', 'voador', imagens['homelander']['imagemc'], imagens['homelander']['imagemf'], imagens['homelander']['mini'], 13, 13, 13, 1, 0, {'ataque1':laser, 'ataque2':estrelas}, [0, 0, aura, 0, 0, ventania], [], 1.2)
 narutobeast = funcoes_Classes.Cimons('naruto beast', 'lutador', imagens['naruto beast']['imagemc'], imagens['naruto beast']['imagemf'], imagens['naruto beast']['mini'], 15, 15, 15, 1, 0, {'ataque1':investida, 'ataque2':rasengan, 'ataque3':chackra, 'ataque4':furia}, [], [], 1.25)
 naruto = funcoes_Classes.Cimons('naruto', 'lutador', imagens['naruto']['imagemc'], imagens['naruto']['imagemf'], imagens['naruto']['mini'], 12, 12, 12, 1, 0, {'ataque1':investida, 'ataque2':rasengan}, [0, 0, chackra, 0, 0, furia], [narutobeast, 7], 1.15)
+shiny_mega_rayquaza = funcoes_Classes.Cimons('shiny_mega_rayquaza', 'voador', imagens['shiny_mega_rayquaza']['imagemc'], imagens['shiny_mega_rayquaza']['imagemf'], imagens['shiny_mega_rayquaza']['mini'], 14, 14, 14, 1, 0, {'ataque1':obliterar, 'ataque2':morder, 'ataque3':furia,'ataque4':enfurecer},[], [], 1.25)
 
-
-cimons = [lupi, rayquaza, gokussj, goku, rath, mewtwo, mclovin, homelander, narutobeast, naruto]
+cimons = [lupi, rayquaza, gokussj, goku, rath, mewtwo, mclovin, homelander, narutobeast, naruto, shiny_mega_rayquaza]

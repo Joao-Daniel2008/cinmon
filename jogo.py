@@ -237,14 +237,26 @@ for n in range(len(equipe3.lista)):
     equipe3.lista[n].subir_nivel()
 equipe3.curar()
 
-treinador4 = funcoes_Classes.treinador('jose')
-equipe4 = funcoes_Classes.equipe(3, 3, 0, [cimons.lupi.clonar(), cimons.rath.clonar(), cimons.rayquaza.clonar()])
+treinador4 = funcoes_Classes.treinador('marcelo')
+equipe4 = funcoes_Classes.equipe(1, 1, 0, [cimons.shiny_mega_rayquaza.clonar()])
 for n in range(len(equipe4.lista)):
     equipe4.lista[n].xp += 100
-    if equipe4.lista[n].nome == 'rayquaza':
-        equipe4.lista[n].xp += 50 
     equipe4.lista[n].subir_nivel()
 equipe4.curar()
+
+treinador5 = funcoes_Classes.treinador('andre')
+equipe5 = funcoes_Classes.equipe(1, 1, 0, [cimons.goku.clonar()])
+for n in range(len(equipe5.lista)):
+    equipe5.lista[n].xp += 70
+    equipe5.lista[n].subir_nivel()
+equipe5.curar()
+
+treinador6 = funcoes_Classes.treinador('joloca')
+equipe6 = funcoes_Classes.equipe(2, 2, 0, [cimons.rayquaza.clonar(),cimons.naruto.clonar()])
+for n in range(len(equipe6.lista)):
+    equipe6.lista[n].xp += 100
+    equipe6.lista[n].subir_nivel()
+equipe6.curar()
 
 #treinador = treinador2
 #equipe_2 = equipe2
@@ -722,6 +734,14 @@ while rodando:
                 indice = 'treinador4'
                 treinador = treinador4
                 equipe_2 = equipe4
+            elif treinador == 'treinador5':
+                indice = 'treinador5'
+                treinador = treinador5
+                equipe_2 = equipe5
+            elif treinador == 'treinador6':
+                indice = 'treinador6'
+                treinador = treinador6
+                equipe_2 = equipe6
             if equipe_2.timevivo() and indice not in estado['treinadores_derrotados']:
                 batalha = True
                 musicaB = True

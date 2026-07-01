@@ -1705,8 +1705,14 @@ def avisoCombate(janela, treinador):
     elif treinador.nome == 'daniel':
         rodarpalavra(palavra('voce nao tem aura mano'), batalha, janela)
         time.sleep(1)
-    elif treinador.nome == 'jose':
-        rodarpalavra(palavra('cabra da peste'), batalha, janela)
+    elif treinador.nome == 'marcelo':
+        rodarpalavra(palavra('shiny mega rayquaza use obliterar'), batalha, janela)
+        time.sleep(1)
+    elif treinador.nome == 'andre':
+        rodarpalavra(palavra('hmmmm'), batalha, janela)
+        time.sleep(1)
+    elif treinador.nome == 'joloca':
+        rodarpalavra(palavra('to confuso'), batalha, janela)
         time.sleep(1)
 
 def menu(janela, equipe, balao, mov1a, escolhendo, bolsa, tecla, marca):
