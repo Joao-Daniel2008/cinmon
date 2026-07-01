@@ -177,6 +177,11 @@ def cenario(posobj):
         cenario10 = True
         variaveis.listatual = variaveis.lista10
         variaveis.listaobjatual = variaveis.listaobj10
+    elif posobj == variaveis.posobj11:
+        cenario11 = True
+        variaveis.listatual = variaveis.lista11
+        variaveis.listaobjatual = variaveis.listaobj11
+    return cenario1, cenario2, cenario3, cenario4, cenario5, cenario6, centrocin, loja, cenario9, cenario10, cenario11
 
 def gerenciando_servidor(servidor):
     global fila_receber
