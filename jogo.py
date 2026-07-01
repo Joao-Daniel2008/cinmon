@@ -231,39 +231,39 @@ equipe2.curar()
 treinador3 = funcoes_Classes.treinador('daniel')
 equipe3 = funcoes_Classes.equipe(3, 3, 0, [cimons.lupi.clonar(), cimons.mclovin.clonar(), cimons.mewtwo.clonar()])
 for n in range(len(equipe3.lista)):
-    equipe3.lista[n].xp += 55
+    equipe3.lista[n].xp += 90
     if equipe3.lista[n].nome == 'lupi':
-        equipe3.lista[n].xp += 80
+        equipe3.lista[n].xp += 100
     equipe3.lista[n].subir_nivel()
 equipe3.curar()
 
 treinador4 = funcoes_Classes.treinador('marcelo')
 equipe4 = funcoes_Classes.equipe(1, 1, 0, [cimons.shiny_mega_rayquaza.clonar()])
 for n in range(len(equipe4.lista)):
-    equipe4.lista[n].xp += 100
+    equipe4.lista[n].xp += 150
     equipe4.lista[n].subir_nivel()
 equipe4.curar()
 
 treinador5 = funcoes_Classes.treinador('andre')
 equipe5 = funcoes_Classes.equipe(1, 1, 0, [cimons.gengar.clonar(),cimons.mewtwo.clonar()])
 for n in range(len(equipe5.lista)):
-    equipe5.lista[n].xp += 80
+    equipe5.lista[n].xp += 95
     equipe5.lista[n].subir_nivel()
 equipe5.curar()
 
 treinador6 = funcoes_Classes.treinador('joloca')
 equipe6 = funcoes_Classes.equipe(2, 2, 0, [cimons.gokussj.clonar(),cimons.narutobeast.clonar()])
 for n in range(len(equipe6.lista)):
-    equipe6.lista[n].xp += 75
+    equipe6.lista[n].xp += 95
     equipe6.lista[n].subir_nivel()
 equipe6.curar()
 
 treinador7 = funcoes_Classes.treinador('arthur duque')
 equipe7 = funcoes_Classes.equipe(1, 1, 0, [cimons.homelander.clonar(), cimons.arceus.clonar()])
 for n in range(len(equipe7.lista)):
-    equipe7.lista[n].xp += 90
+    equipe7.lista[n].xp += 100
     if equipe7.lista[n].nome == 'arceus':
-        equipe7.lista[n].xp += 140
+        equipe7.lista[n].xp += 180
     equipe7.lista[n].subir_nivel()
 equipe7.curar()
 
