@@ -341,7 +341,11 @@ imagenst = {
     'treinador1': pygame.image.load(caminho_treinador1),
     'treinador2': pygame.image.load(caminho_treinador2),
     'treinador3': pygame.image.load(caminho_treinador2),
-    'treinador4': pygame.image.load(caminho_treinador2)
+    'treinador4': pygame.image.load(caminho_treinador2),
+    'treinador5': pygame.image.load(caminho_treinador2),
+    'treinador6': pygame.image.load(caminho_treinador2),
+    'treinador7': pygame.image.load(caminho_treinador2)
+
 }
 for n in imagenst:
     imagenst[n] = pygame.transform.scale(imagenst[n], (largurap, alturap))
@@ -357,6 +361,9 @@ caminho_goku = BASE_DIR / "assets" / "imagens" / "batalha" / "goku.png"
 caminho_homelander = BASE_DIR / "assets" / "imagens" / "batalha" / "homelander.png"
 caminho_naruto = BASE_DIR / "assets" / "imagens" / "batalha" / "naruto.png"
 caminho_narutobeast = BASE_DIR / "assets" / "imagens" / "batalha" / "naruto beast.png"
+caminho_megarayquaza = BASE_DIR / "assets" / "imagens" / "batalha" / "megarayquazashiny.png"
+caminho_arceus = BASE_DIR / "assets" / "imagens" / "batalha" / "arceus.png"
+caminho_gengar = BASE_DIR / "assets" / "imagens" / "batalha" / "gengar.png"
 
 caminho_lupi2 = BASE_DIR / "assets" / "imagens" / "batalha" / "lupi2.png"
 caminho_mewtwo2 = BASE_DIR / "assets" / "imagens" / "batalha" / "mewtwo2.png"
@@ -368,6 +375,9 @@ caminho_goku2 = BASE_DIR / "assets" / "imagens" / "batalha" / "goku2.png"
 caminho_homelander2 = BASE_DIR / "assets" / "imagens" / "batalha" / "homelander2.png"
 caminho_naruto2 = BASE_DIR / "assets" / "imagens" / "batalha" / "naruto2.png"
 caminho_narutobeast2 = BASE_DIR / "assets" / "imagens" / "batalha" / "naruto beast2.png"
+caminho_megarayquaza2 = BASE_DIR / "assets" / "imagens" / "batalha" / "megarayquazashiny2.png"
+caminho_arceus2 = BASE_DIR / "assets" / "imagens" / "batalha" / "arceus2.png"
+caminho_gengar2 = BASE_DIR / "assets" / "imagens" / "batalha" / "gengar2.png"
 
 caminho_lupim = BASE_DIR / "assets" / "imagens" / "minis" / "mini lupi.png"
 caminho_mewtwom = BASE_DIR / "assets" / "imagens" / "minis" / "mini mewtwo.png"
@@ -379,7 +389,9 @@ caminho_gokum = BASE_DIR / "assets" / "imagens" / "minis" / "mini goku.png"
 caminho_homelanderm = BASE_DIR / "assets" / "imagens" / "minis" / "mini homelander.png"
 caminho_narutom = BASE_DIR / "assets" / "imagens" / "minis" / "mini naruto.png"
 caminho_narutobeastm = BASE_DIR / "assets" / "imagens" / "minis" / "mini naruto beast.png"
-
+caminho_megarayquazam = BASE_DIR / "assets" / "imagens" / "minis" / "mini megarayquaza.png"
+caminho_arceusm = BASE_DIR / "assets" / "imagens" / "minis" / "mini_arceuss.png"
+caminho_gengarm = BASE_DIR / "assets" / "imagens" / "minis" / "mini gengar.png"
 
 imagens_cinmons = {
     'lupi': {
@@ -387,6 +399,16 @@ imagens_cinmons = {
         'imagemc': pygame.image.load(caminho_lupi),
         'mini': pygame.transform.scale(pygame.image.load(caminho_lupim), (20, 20))
     }, 
+    'shiny_mega_rayquaza' : {
+        'imagemf': pygame.image.load(caminho_megarayquaza),
+        'imagemc': pygame.image.load(caminho_megarayquaza2),
+        'mini': pygame.image.load(caminho_megarayquazam)
+    },
+    'gengar': {
+        'imagemf': pygame.image.load(caminho_gengar2),
+        'imagemc': pygame.image.load(caminho_gengar),
+        'mini': pygame.image.load(caminho_gengarm)
+    },
     'mewtwo': {
         'mini': pygame.image.load(caminho_mewtwom),
         'imagemc': pygame.image.load(caminho_mewtwo),
@@ -407,6 +429,11 @@ imagens_cinmons = {
         'imagemc': pygame.image.load(caminho_rayquaza),
         'imagemf': pygame.image.load(caminho_rayquaza2),
         'mini' : pygame.image.load(caminho_rayquazam)
+    },
+    'arceus':{
+        'imagemc': pygame.image.load(caminho_arceus),
+        'imagemf': pygame.image.load(caminho_arceus2),
+        'mini': pygame.image.load(caminho_arceusm)
     },
     'goku':{
         'imagemc': pygame.image.load(caminho_goku),
@@ -433,6 +460,7 @@ imagens_cinmons = {
         'imagemf': pygame.image.load(caminho_narutobeast2),
         'mini': pygame.image.load(caminho_narutobeastm)
     }
+    
 }
 
 for n in imagens_cinmons:
@@ -448,8 +476,12 @@ imagensc = {
 
 for n in imagens_cinmons:
     if n != 'teo':    #################
-        imagens_cinmons[n]['imagemf'] = pygame.transform.scale(imagens_cinmons[n]['imagemf'], (padraoL * 1.5, padraoA * 1.5))
-        imagens_cinmons[n]['imagemc'] = pygame.transform.scale(imagens_cinmons[n]['imagemc'], (padraoL * 1.5, padraoA * 1.5))
+        if n == 'gengar':
+            imagens_cinmons[n]['imagemf'] = pygame.transform.scale(imagens_cinmons[n]['imagemf'], (padraoL * 1.25, padraoA * 1.25))
+            imagens_cinmons[n]['imagemc'] = pygame.transform.scale(imagens_cinmons[n]['imagemc'], (padraoL * 1.25, padraoA * 1.25))
+        else:
+            imagens_cinmons[n]['imagemf'] = pygame.transform.scale(imagens_cinmons[n]['imagemf'], (padraoL * 1.5, padraoA * 1.5))
+            imagens_cinmons[n]['imagemc'] = pygame.transform.scale(imagens_cinmons[n]['imagemc'], (padraoL * 1.5, padraoA * 1.5))
 
 
 #numeros

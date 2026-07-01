@@ -17,10 +17,29 @@ som_nivel.set_volume(0.8)
 class Player:
     def __init__(self, posx, posy, velocidade, imagem, visual, rect):
         self.posicao = (posx, posy)
-        self.velocidade = velocidade
+        
+       
+        self.velocidade_normal = velocidade 
+        
+        self.velocidade_montaria = velocidade * 2 
+        
+        
+        self.velocidade = velocidade 
+        
+        self.esta_montado = False
         self.imagem = imagem
         self.visual = visual
         self.rect = rect
+
+    
+    def alternar_montaria(self):
+        self.esta_montado = not self.esta_montado
+        if self.esta_montado:
+            self.velocidade = self.velocidade_montaria
+            print("correndo! Velocidade agora é:", self.velocidade)
+        else:
+            self.velocidade = self.velocidade_normal
+            print("andando. Velocidade agora é:", self.velocidade)
 
     def movimento(self, posx, posy, di, es, ci, ba, janela, fundo, andada):
         for n in range(1, 5):
@@ -1686,8 +1705,22 @@ def avisoCombate(janela, treinador):
     elif treinador.nome == 'daniel':
         rodarpalavra(palavra('voce nao tem aura mano'), batalha, janela)
         time.sleep(1)
-    elif treinador.nome == 'jose':
-        rodarpalavra(palavra('cabra da peste'), batalha, janela)
+    elif treinador.nome == 'marcelo':
+        rodarpalavra(palavra('shiny mega rayquaza'), batalha, janela)
+        time.sleep(0.4)
+        limpar(janela, imagens.balaofala)
+        rodarpalavra(palavra('com 6 ivs perfeitos'), batalha, janela)
+        time.sleep(0.4)
+        limpar(janela, imagens.balaofala)
+        rodarpalavra(palavra('use obliteraaaaar'), batalha, janela)
+        time.sleep(1)
+    elif treinador.nome == 'andre':
+        rodarpalavra(palavra('hmmmm'), batalha, janela)
+        time.sleep(1)
+    elif treinador.nome == 'joloca':
+        rodarpalavra(palavra('voce vai ficar confuso'), batalha, janela)
+        time.sleep(0.4)
+        rodarpalavra(palavra('melhor treinar mais'), batalha, janela)
         time.sleep(1)
 
 def menu(janela, equipe, balao, mov1a, escolhendo, bolsa, tecla, marca):
@@ -2052,13 +2085,13 @@ def escolhaioda1(janela, posx, posy, batalha, gramasatual, gramasxatual, gramasy
     rodarpalavra(palavra('esse e o laboratorio cin'), batalha, janela)
     time.sleep(1)
     limpar(janela, balaofala)
-    rodarpalavra(palavra('onde a jornada dos cins comeca'), batalha, janela)
+    rodarpalavra(palavra('onde sua jornada no cin comeca'), batalha, janela)
     time.sleep(1)
     limpar(janela, balaofala)
-    rodarpalavra(palavra('o que'), batalha, janela)
+    rodarpalavra(palavra('aqui vai minha pergunta '), batalha, janela)
     time.sleep(1)
     limpar(janela, balaofala)
-    rodarpalavra(palavra('quer ser um cin'), batalha, janela)
+    rodarpalavra(palavra('quer ser um treinador do cin'), batalha, janela)
     time.sleep(1)
     ficar = True
     mov1a = 1
@@ -2133,8 +2166,11 @@ def curarfala(janela, player, batalha, posx, posy):
     rodarpalavra(palavra('so um instante'), batalha, janela)
     time.sleep(2)
     limpar(janela, imagens.balaofala)
-    rodarpalavra(palavra('pronto seus cinmons estao ok'), batalha, janela)
-    time.sleep(1)
+    rodarpalavra(palavra('hp cheio'), batalha, janela)
+    time.sleep(0.5)
+    limpar(janela, imagens.balaofala)
+    rodarpalavra(palavra('seu cinmons estao ok'), batalha, janela)
+    time.sleep(0.5)
 
 #loja
 def lojafala(janela, batalha):
