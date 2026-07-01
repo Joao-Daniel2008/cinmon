@@ -41,7 +41,7 @@ obliterar = funcoes_Classes.ataques('obliterar', 'dragao', 'dano', 5, 5, 5, 5)
 
 ataques = [bater, kamehameha, explosao, rasengan, morder, escuridao,
             investida, voadora, ventania, brasas, laser, estrelas, 
-            furia, dracmeteor, enfurecer, obliterar, juizo_final, bola sombria]
+            furia, dracmeteor, enfurecer, obliterar, juizo_final, bola_sombria]
 #selfatk
 aura = funcoes_Classes.ataques('aura', 'aura', 'selfatk', 0, 0, 15, 15)
 carregar = funcoes_Classes.ataques('carregar', 'normal', 'selfatk', 0, 0, 10, 10)
