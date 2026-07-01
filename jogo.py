@@ -1031,6 +1031,8 @@ while rodando:
         aviso_troca = False
         mov1 = 1
         mov2 = 1
+        sup = 0
+        sup2 = 0
         fundo = imagens.fundo
         funcoes_Classes.musicaBatalha()
         pacote = {'evento': 'MENU_BATALHA'}
@@ -1113,7 +1115,7 @@ while rodando:
                                 atk = escolhido.ataques['ataque4']
                                 des = 4
                             if (escolhido.ataques[f'ataque{des}'].pp > 0 or minha_vez) and pacote['evento'] != 'TROCA' and pacote['evento'] != 'TROCA_DUPLA':
-                                meu_pacote = {'evento': 'ESCOLHA_GOLPE', 'golpe': atk.nome}
+                                meu_pacote = {'evento': 'ESCOLHA_GOLPE', 'golpe': atk.nome, "sup": sup}
                                 if (not minha_vez):
                                     servidor.sendall(json.dumps(meu_pacote).encode('utf-8'))
                                     funcoes_Classes.terminal(janela, escolhido, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
@@ -1238,7 +1240,7 @@ while rodando:
                     funcoes_Classes.terminal(janela, escolhido, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
                     funcoes_Classes.rodarpalavra(funcoes_Classes.palavra(fataque), True, janela)
                     sleep(0.2)
-                    if pacote['golpe_tomado'] != 'dano':
+                    if pacote["novo_hp1"] < pacote["hp_anterior1"]:
                         escolhido.hp = pacote['novo_hp1']
                         funcoes_Classes.terminal(janela, escolhido, fundo, escolhido2, auxhp1, aux1, auxhp2, aux2, capturado, aviso, aviso2, aux1x, auxxp1)
                         funcoes_Classes.animacao_ataque(janela, fundo, escolhido, escolhido2, auxhp1, auxhp2, auxxp1, False, pacote['golpe_tomado'], pacote['hp_anterior1'], escolhido2.hp, escolhido.hp, escolhido2.hp)
@@ -1310,6 +1312,7 @@ while rodando:
                             morto = True
                             escolhendo = True
                 elif pacote['evento'] == "TROCA" or pacote['evento'] == 'TROCA_DUPLA':
+                    sup2 = 0
                     for cimon in cimons.cimons:
                         if cimon.nome == pacote['nome']:
                             cin2 = cimon.clonar()

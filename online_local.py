@@ -6,7 +6,7 @@ from time import sleep
 
 
 def resolver_turno(idplayer, conexao):
-    global cimons1, escolhas_turno, primeira, jogou, status1, status2, condicao_turno, hpAnterior1, hpAnterior2
+    global cimons1, escolhas_turno, primeira, jogou, status1, status2, condicao_turno, sups
 
     if idplayer != 1:
         with condicao_turno:
@@ -43,10 +43,10 @@ def resolver_turno(idplayer, conexao):
 
 
     if (not primeira):
-        cimons1[2]['hp'] -= int(((int(golpe_p1.dano * golpe_p1.efetivo(cimon2)//1)) * cimon1.status)//1)
+        cimons1[2]['hp'] -= int(((int(golpe_p1.dano * golpe_p1.efetivo(cimon2)//1)) + int((sups[1] * 0.5 * cimon1.nivel)//1) * cimon1.status)) if golpe_p1.dano > 0 else 0
         
         if cimons1[2]['hp'] > 0:
-            cimons1[1]['hp'] -= int(((int(golpe_p2.dano * golpe_p2.efetivo(cimon1)//1)) * cimon2.status)//1)
+            cimons1[1]['hp'] -= int(((int(golpe_p2.dano * golpe_p2.efetivo(cimon1)//1)) + int((sups[2] * 0.5 * cimon2.nivel)//1) * cimon2.status)//1) if golpe_p2.dano > 0 else 0
         
         if cimons1[1]['hp'] <= 0:
             cimons1[1]['qtd'] -= 1
@@ -127,7 +127,7 @@ def resolver_turno(idplayer, conexao):
     
 
 def minha_troca_seu_ataque(idplayer, conexao):
-    global escolhas_turno, cimons1, primeira, jogou, status1, status2, condicao_turno, hpAnterior1, hpAnterior2
+    global escolhas_turno, cimons1, primeira, jogou, status1, status2, condicao_turno, sups
 
     if idplayer != 1:
         with condicao_turno:
@@ -165,7 +165,7 @@ def minha_troca_seu_ataque(idplayer, conexao):
     
 
     if idplayer == 1 and (not primeira):
-        cimons1[1]['hp'] -= int(((int(golpe_p2.dano * golpe_p2.efetivo(cimon1)//1)) * cimon2.status)//1)
+        cimons1[1]['hp'] -= int(((int(golpe_p2.dano * golpe_p2.efetivo(cimon1)//1)) + int((sups[2] * 0.5 * cimon2.nivel)//1) * cimon2.status)//1) if golpe_p2.dano > 0 else 0
         
         if cimons1[1]['hp'] <= 0:
             cimons1[1]['qtd'] -= 1
@@ -185,7 +185,7 @@ def minha_troca_seu_ataque(idplayer, conexao):
             status2 = 'batalha'
 
     elif idplayer == 2 and (not primeira):
-        cimons1[2]['hp'] -= int(((int(golpe_p1.dano * golpe_p1.efetivo(cimon2)//1)) * cimon1.status)//1)
+        cimons1[2]['hp'] -= int(((int(golpe_p1.dano * golpe_p1.efetivo(cimon2)//1)) + int((sups[1] * 0.5 * cimon1.nivel)//1) * cimon1.status)) if golpe_p1.dano > 0 else 0
         
         if cimons1[1]['hp'] <= 0:
             cimons1[1]['qtd'] -= 1
@@ -271,7 +271,7 @@ def minha_troca_seu_ataque(idplayer, conexao):
             escolhas_turno.clear()
 
 def meu_ataque_sua_troca(idplayer, conexao):
-    global escolhas_turno, cimons1, primeira, jogou, status1, status2, condicao_turno, hpAnterior1, hpAnterior2
+    global escolhas_turno, cimons1, primeira, jogou, status1, status2, condicao_turno, sups
 
     if idplayer != 1:
         with condicao_turno:
@@ -310,7 +310,8 @@ def meu_ataque_sua_troca(idplayer, conexao):
     
 
     if idplayer == 1 and (not primeira):
-        cimons1[2]['hp'] -= int(((int(golpe_p1.dano * golpe_p1.efetivo(cimon2)//1)) * cimon1.status)//1)
+        cimons1[2]['hp'] -= int(((int(golpe_p1.dano * golpe_p1.efetivo(cimon2)//1)) + int((sups[1] * 0.5 * cimon1.nivel)//1) * cimon1.status)) if golpe_p1.dano > 0 else 0
+        
     
         if cimons1[1]['hp'] <= 0:
             cimons1[1]['qtd'] -= 1
@@ -331,7 +332,7 @@ def meu_ataque_sua_troca(idplayer, conexao):
             status2 = 'batalha'
 
     elif idplayer == 2 and (not primeira):
-        cimons1[1]['hp'] -= int(((int(golpe_p2.dano * golpe_p2.efetivo(cimon1)//1)) * cimon2.status)//1)
+        cimons1[1]['hp'] -= int(((int(golpe_p2.dano * golpe_p2.efetivo(cimon1)//1)) + int((sups[2] * 0.5 * cimon2.nivel)//1) * cimon2.status)//1) if golpe_p2.dano > 0 else 0
         
         if cimons1[1]['hp'] <= 0:
             cimons1[1]['qtd'] -= 1
@@ -451,13 +452,13 @@ def troca_dupla(idplayer, conexao):
 
 
 def gerenciar_clientes(conexao, endereco, idplayer):
-    global cimons, escolhas_turno, outra_decisao, cimons1, condicao_turno, comeco1, comeco2, vivo, status1, status2, jogadores, primeira
+    global cimons, escolhas_turno, outra_decisao, cimons1, condicao_turno, comeco1, comeco2, vivo, status1, status2, jogadores, primeira, sups
 
 
     print(f'NOVA CONEXAO: {endereco}')
 
     while True:
-        try:
+        #try:
             dados = conexao.recv(2048).decode('utf-8')
 
             if not dados:
@@ -514,6 +515,7 @@ def gerenciar_clientes(conexao, endereco, idplayer):
             elif decisao['evento'] == 'ESCOLHA_GOLPE':
                 with condicao_turno:
                     escolhas_turno[idplayer] = decisao['golpe']
+                    sups[idplayer] = decisao["sup"]
                     condicao_turno.wait_for(lambda: len(escolhas_turno) == 2)
                     condicao_turno.notify_all()
                 decisao2 = outra_decisao[1] if idplayer == 2 else outra_decisao[2]
@@ -521,7 +523,7 @@ def gerenciar_clientes(conexao, endereco, idplayer):
                     resolver_turno(idplayer, conexao)
                 elif decisao2 == 'TROCA':
                     meu_ataque_sua_troca(idplayer, conexao)
-                
+'''           
         except:
             print(f'ERROOOOO')
             conexao.close()
@@ -535,6 +537,7 @@ def gerenciar_clientes(conexao, endereco, idplayer):
             status2 = ''
             jogadores = 1
             break
+'''
 
 
 
@@ -565,6 +568,7 @@ jogadores = 1
 condicao_turno = threading.Condition()
 vivo = False
 escolhas_turno = {}
+sups = {}
 cimons1 = {1: {}, 2: {}}
 jogou = 0
 outra_decisao = {1: '', 2: ''}
