@@ -1,0 +1,42 @@
+{
+    "posicaox": 192,
+    "posicaoy": 384,
+    "posicao": [
+        192,
+        384
+    ],
+    "equipe": [
+        [
+            "lupi",
+            0,
+            11
+        ]
+    ],
+    "mochila": [
+        [
+            "crachabola",
+            4
+        ],
+        [
+            "potion",
+            3
+        ],
+        0
+    ],
+    "treinadores_derrotados": [],
+    "posobj": [
+        [
+            256,
+            64
+        ],
+        [
+            256,
+            64
+        ]
+    ],
+    "escolhaioda": true,
+    "gramas": 0,
+    "gramasx": [],
+    "gramasy": [],
+    "gramas4": 0
+}

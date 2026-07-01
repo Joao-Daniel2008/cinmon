@@ -169,6 +169,10 @@ caminho_cenario9 = BASE_DIR / "assets" / "imagens" / "cenarios" / "cenario.png"
 cenario9 = pygame.image.load(caminho_cenario9)
 cenario9 = pygame.transform.scale(cenario9, (largura, altura))
 
+caminho_cenario10 = BASE_DIR / "assets" / "imagens" / "cenarios" / "cenario.png"
+cenario10 = pygame.image.load(caminho_cenario10)
+cenario10 = pygame.transform.scale(cenario10, (largura, altura))
+
 caminho_centrocin = BASE_DIR / "assets" / "imagens" / "cenarios" / "centrocin.png"
 centrocin = pygame.image.load(caminho_centrocin)
 centrocin = pygame.transform.scale(centrocin, (largura, altura))
@@ -277,6 +281,11 @@ centrocin1 = pygame.transform.scale(centrocin1, (320, 256))
 caminho_jailson = BASE_DIR / "assets" / "imagens" / "objetos7" / "jailson.png"
 jailson = pygame.image.load(caminho_jailson)
 jailson = pygame.transform.scale(jailson, (alturap, largurap))
+
+#objetos 10
+caminho_ginasio = BASE_DIR / "assets" / "imagens" / "objetos10" / "casa.png"
+ginasio = pygame.image.load(caminho_ginasio)
+ginasio = pygame.transform.scale(ginasio, (512, 320))
 
 #variações do player
 caminho_frente = BASE_DIR / "assets" / "imagens" / "player_frente.png"
