@@ -220,36 +220,57 @@ def iniciar_servidor(HOST):
 
 
 treinador1 = funcoes_Classes.treinador('ewerton')
-equipe1 = funcoes_Classes.equipe(2, 2, 0, [cimons.rayquaza.clonar(), cimons.lupi.clonar()])
-equipe1.lista[0].xp = 10
-equipe1.lista[1].xp = 10
-equipe1.lista[0].subir_nivel()
-equipe1.lista[1].subir_nivel()
+equipe1 = funcoes_Classes.equipe(2, 2, 0, [cimons.gengar.clonar(), cimons.lupi.clonar()])
+for n in range(len(equipe1.lista)):
+    equipe1.lista[n].xp += 25
+    equipe1.lista[n].subir_nivel()
 equipe1.curar()
 
 treinador2 = funcoes_Classes.treinador('jl')
-equipe2 = funcoes_Classes.equipe(1, 1, 0, [cimons.goku.clonar()])
-equipe2.lista[0].xp = 30
-equipe2.lista[0].subir_nivel()
+equipe2 = funcoes_Classes.equipe(1, 1, 0, [cimons.goku.clonar(), cimons.rath.clonar()])
+for n in range(len(equipe2.lista)):
+    equipe2.lista[n].xp += 45
+    equipe2.lista[n].subir_nivel()
 equipe2.curar()
 
 treinador3 = funcoes_Classes.treinador('daniel')
 equipe3 = funcoes_Classes.equipe(3, 3, 0, [cimons.lupi.clonar(), cimons.mclovin.clonar(), cimons.mewtwo.clonar()])
 for n in range(len(equipe3.lista)):
-    equipe3.lista[n].xp += 100
-    if equipe3.lista[n].nome == 'mewtwo':
-        equipe3.lista[n].xp += 50 
+    equipe3.lista[n].xp += 90
+    if equipe3.lista[n].nome == 'lupi':
+        equipe3.lista[n].xp += 100
     equipe3.lista[n].subir_nivel()
 equipe3.curar()
 
-treinador4 = funcoes_Classes.treinador('jose')
-equipe4 = funcoes_Classes.equipe(3, 3, 0, [cimons.lupi.clonar(), cimons.rath.clonar(), cimons.rayquaza.clonar()])
+treinador4 = funcoes_Classes.treinador('marcelo')
+equipe4 = funcoes_Classes.equipe(1, 1, 0, [cimons.shiny_mega_rayquaza.clonar()])
 for n in range(len(equipe4.lista)):
-    equipe4.lista[n].xp += 100
-    if equipe4.lista[n].nome == 'rayquaza':
-        equipe4.lista[n].xp += 50 
+    equipe4.lista[n].xp += 150
     equipe4.lista[n].subir_nivel()
 equipe4.curar()
+
+treinador5 = funcoes_Classes.treinador('andre')
+equipe5 = funcoes_Classes.equipe(1, 1, 0, [cimons.gengar.clonar(),cimons.mewtwo.clonar()])
+for n in range(len(equipe5.lista)):
+    equipe5.lista[n].xp += 95
+    equipe5.lista[n].subir_nivel()
+equipe5.curar()
+
+treinador6 = funcoes_Classes.treinador('joloca')
+equipe6 = funcoes_Classes.equipe(2, 2, 0, [cimons.gokussj.clonar(),cimons.narutobeast.clonar()])
+for n in range(len(equipe6.lista)):
+    equipe6.lista[n].xp += 95
+    equipe6.lista[n].subir_nivel()
+equipe6.curar()
+
+treinador7 = funcoes_Classes.treinador('arthur duque')
+equipe7 = funcoes_Classes.equipe(1, 1, 0, [cimons.homelander.clonar(), cimons.arceus.clonar()])
+for n in range(len(equipe7.lista)):
+    equipe7.lista[n].xp += 100
+    if equipe7.lista[n].nome == 'arceus':
+        equipe7.lista[n].xp += 180
+    equipe7.lista[n].subir_nivel()
+equipe7.curar()
 
 #treinador = treinador2
 #equipe_2 = equipe2
@@ -746,6 +767,14 @@ while rodando:
                 indice = 'treinador4'
                 treinador = treinador4
                 equipe_2 = equipe4
+            elif treinador == 'treinador5':
+                indice = 'treinador5'
+                treinador = treinador5
+                equipe_2 = equipe5
+            elif treinador == 'treinador6':
+                indice = 'treinador6'
+                treinador = treinador6
+                equipe_2 = equipe6
             if equipe_2.timevivo() and indice not in estado['treinadores_derrotados']:
                 batalha = True
                 musicaB = True
