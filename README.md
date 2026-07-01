@@ -6,7 +6,7 @@
 
 > Projeto da disciplina Introdução à Programação — CIn/UFPE
 
-CinMón é um jogo de RPG de turno fortemente inspirado na clássica saga Pokémon, mas com uma reviravolta única: ele se passa no universo do CIn (Centro de Informática) da UFPE! Prepare-se para enfrentar os desafios da vida acadêmica, explorar os cenários do centro em pixel art e capturar criaturas selvagens enquanto tenta sobreviver aos treinadores do bloco.
+CinMon é um jogo de RPG de turno fortemente inspirado na clássica saga Pokémon, mas com uma reviravolta única: ele se passa no universo do CIn (Centro de Informática) da UFPE! Prepare-se para enfrentar os desafios da vida acadêmica, explorar os cenários do centro em pixel art e capturar criaturas selvagens enquanto tenta sobreviver aos treinadores do bloco.
 Sua jornada começa no laboratório do Professor Iyoda, onde você escolhe seu primeiro CinMon e recebe suas primeiras Crachabolas. A partir daí, o mundo do CIn é seu: explore as moitas para encontrar criaturas selvagens, evolua seu time, enfrente treinadores em batalhas táticas por turno e visite o Centro Cin para curar seus companheiros ou a Loja para reabastecer seus itens.
 
 
@@ -14,11 +14,13 @@ Sua jornada começa no laboratório do Professor Iyoda, onde você escolhe seu p
 
 Ao explorar os cenários, você encontrará itens espalhados pelo mapa que podem ser coletados apenas passando por cima deles:
 
-- Crachabola: usada durante batalhas para tentar capturar CinMons selvagens e expandir seu time
 
-- Poção: recupera o HP do seu CinMon durante o combate, mantendo-o apto para batalhar
 
-- CinReais: a moeda do jogo, usada para comprar mais itens na loja do Seu Jailson
+| Item | Nome | Descrição |
+| :---: | :--- | :--- |
+| <img src="assets/imagens/mochila/crachabola.png" width="30"/> | **Crachabola** | Usada durante batalhas para tentar capturar CinMons selvagens e expandir seu time. |
+| <img src="assets/imagens/mochila/potion.png" width="40"/> | **Poção** | Recupera o HP do seu CinMon durante o combate, mantendo-o apto para batalhar. |
+| <img src="assets/imagens/moeda_jogo_cinmon.png" width="40"/> | **CinReais** | A moeda do jogo, usada para comprar mais itens na loja do Seu Jailson. |
 
 ---
 
@@ -84,22 +86,24 @@ Você joga na pele de Cin, um calouro do Centro de Informática que, ao invés d
 O jogo foi desenvolvido com a biblioteca Pygame e estruturado de forma modular. A pasta `assets/` contém todos os recursos visuais e sonoros, e os arquivos principais ficam na raiz:
 
 ```
-assets/
-├── imagens/
-│   ├── batalha/        — sprites de batalha, barras de HP/XP, moldes
-│   ├── letras/         — fonte pixel art customizada (a-z, 0-9)
-│   ├── menus/          — telas de menu, botões, balões de fala
-│   └── cenarios/       — fundos dos cenários (cenario1 a cenario9)
-├── musicas/            — trilhas sonoras (menu, batalha, chefes)
-└── sons/               — efeitos sonoros (ataque, nível, coleta de item)
-
-jogo.py             — loop principal, gerenciamento de cenários, eventos e estados
-funcoes_Classes.py  — classes principais e funções de batalha, animações e troca de cenário
-cimons.py           — instâncias de todas as criaturas disponíveis no jogo
-imagens.py          — carregamento centralizado de todos os assets visuais e sonoros
-variaveis.py        — variáveis globais de estado (posições, listas de objetos por cenário)
-objetos.py          — retângulos de colisão dos objetos do mapa
-itenschao.py        — sistema de itens coletáveis no chão (classe ItemChao)
+cinmon/
+│
+├── assets/
+│   ├── imagens/
+│   │   ├── batalha/        — sprites de batalha, barras de HP/XP, moldes
+│   │   ├── letras/         — fonte pixel art customizada (a-z, 0-9)
+│   │   ├── menus/          — telas de menu, botões, balões de fala
+│   │   └── cenarios/       — fundos dos cenários (cenario1 a cenario9)
+│   ├── musicas/            — trilhas sonoras (menu, batalha, chefes)
+│   └── sons/               — efeitos sonoros (ataque, nível, coleta de item)
+│
+├── jogo.py             — loop principal, gerenciamento de cenários, eventos e estados
+├── funcoes_Classes.py  — classes principais e funções de batalha, animações e troca de cenário
+├── cimons.py           — instâncias de todas as criaturas disponíveis no jogo
+├── imagens.py          — carregamento centralizado de todos os assets visuais e sonoros
+├── variaveis.py        — variáveis globais de estado (posições, listas de objetos por cenário)
+├── objetos.py          — retângulos de colisão dos objetos do mapa
+└── itenschao.py        — sistema de itens coletáveis no chão (classe ItemChao)
 ```
 
 **Descrição dos módulos principais:**
@@ -133,19 +137,19 @@ itenschao.py        — sistema de itens coletáveis no chão (classe ItemChao)
 
 - **Programação Orientada a Objetos (POO)**: a estrutura do jogo é baseada em classes como `Player`, `Cimons`, `equipe`, `mochila`, `treinador`, `ataques` e `ItemChao`, definidas em `funcoes_Classes.py` e `itenschao.py`, onde cada uma reúne os dados e comportamentos relacionados a uma entidade específica do jogo.
 
-- **Encapsulamento**: as classes escondem sua lógica interna e expõem apenas o necessário. A classe `Cimons` em `funcoes_Classes.py`, por exemplo, cuida sozinha do crescimento do personagem: ganho de XP, subida de nível e atualização de atributos são feitos internamente pelo método `subir_nivel()`. Da mesma forma, a classe `mochila` controla o saldo e os itens através do método `comprar()`.
+- **Encapsulamento**: as classes escondem sua lógica interna e expõem apenas o necessário. A classe `Cimons` em `funcoes_Classes.py`, por exemplo, cuida sozinha do crescimento do personagem: ganho de XP, subida de nível e atualização de atributos são feitos internamente pelo método `subir_nivel()`.
 
-- **Abstração**: detalhes complexos são ocultados atrás de métodos simples. Em `itenschao.py`, `verificar_coleta()` esconde a lógica de colisão com o player. Em `funcoes_Classes.py`, `colisaon()` da classe `Player` abstrai a verificação com todos os objetos do mapa, ambos retornam apenas `True` ou `False`.
-
-- **Composição**: objetos são construídos a partir de outros objetos. Em `funcoes_Classes.py`, a classe `equipe` agrupa instâncias de `Cimons` em `self.lista` e oferece métodos como `curar()`, `verificar()` e `lancar()` para gerenciá-las em conjunto. A `mochila` segue o mesmo princípio com `listaDeles` e `listaDeQtd`.
-
-- **Reutilização de código**: o método `clonar()` da classe `Cimons` em `funcoes_Classes.py` permite criar cópias completamente independentes de uma criatura. Usado em `cimons.py` e em `jogo.py`, é fundamental para que treinadores diferentes possam ter o mesmo tipo de CinMon sem compartilhar HP, nível ou estado de batalha.
-
-- **Polimorfismo**: o método `efetivo()` da classe `ataques` em `funcoes_Classes.py` produz resultados distintos dependendo de quem recebe o ataque , retorna `2`, `0.5` ou `1` conforme a combinação de tipos. É chamado dentro de `batalha_selvagem()` e `batalha_treinador()` para calcular o dano final.
+- **Composição**: objetos são construídos a partir de outros objetos. Em `funcoes_Classes.py`, a classe `equipe` agrupa instâncias de `Cimons` em `self.lista` e oferece métodos como `curar()`, `verificar()` e `lancar()` para gerenciá-las em conjunto.
 
 - **Listas**: estrutura central do jogo. Em `variaveis.py`, listas armazenam objetos e gramas de cada cenário. Em `funcoes_Classes.py`, `self.lista` da classe `equipe` gerencia o time de CinMons. Em `itenschao.py`, `itens_cenario_global` armazena os itens ativos no mapa, atualizada dinamicamente conforme o jogador coleta.
 
-- **Dicionários**: em `funcoes_Classes.py`, os ataques de cada `Cimons` são mapeados dinamicamente em `self.ataques` (`{'ataque1': ..., 'ataque2': ...}`). Em `jogo.py`, o dicionário `estado` representa o progresso completo do jogo - posição, equipe, inventário e treinadores derrotados - e é convertido em JSON pelo método `salvarJogo()`.
+- **Dicionários**: em `funcoes_Classes.py`, os ataques de cada `Cimons` são mapeados em `self.ataques` (`{'ataque1': ..., 'ataque2': ...}`). Em `jogo.py`, o dicionário `estado` representa o progresso completo do jogo e é convertido em JSON pelo método `salvarJogo()`.
+
+- **Condicionais**: usadas extensivamente para gerenciar os estados do jogo. Em `jogo.py`, blocos `if/elif/else` controlam qual cenário está ativo, se o jogador está em batalha, no menu ou na loja. Em `funcoes_Classes.py`, condicionais determinam o fluxo das batalhas (turno do jogador ou do inimigo, se o CinMon desmaiou, se a captura foi bem-sucedida).
+
+- **Laços de repetição**: o loop principal do jogo em `jogo.py` é um `while rodando` que mantém o jogo em execução. Laços `for` são usados para iterar sobre listas de objetos do cenário, gramas, itens coletáveis e membros da equipe — por exemplo, para desenhar todos os elementos na tela a cada frame.
+
+- **Funções**: o código é organizado em funções que encapsulam comportamentos específicos. Em `funcoes_Classes.py`, funções como `batalha_selvagem()`, `batalha_treinador()`, `ircenario1()` e `rodarpalavra()` isolam responsabilidades e são reutilizadas em diferentes partes do jogo, evitando repetição de código.
 ---
 
 ## 📝 Divisão de Trabalho
@@ -163,7 +167,7 @@ itenschao.py        — sistema de itens coletáveis no chão (classe ItemChao)
 
 **Qual foi o maior erro cometido durante o projeto? Como vocês lidaram com ele?**
 
-Não planejar adequadamente a estrutura do código antes de adicionar novas funcionalidades, o que gerou bugs visuais difíceis de rastrear: como o HUD e os itens coletáveis sumindo durante as animações de movimento do personagem. O problema vinha do fato de o jogo usar `time.sleep()` em vez de um clock de frames, fazendo com que a tela fosse redesenhada várias vezes sem incluir esses elementos. Lidamos revisando e reorganizando o fluxo de renderização conforme os problemas apareciam, centralizando o desenho do HUD e dos itens dentro da própria função de movimento para garantir que aparecessem em todos os frames..
+Não planejar adequadamente a estrutura do código antes de adicionar novas funcionalidades, o que gerou bugs visuais difíceis de rastrear: como o HUD e os itens coletáveis sumindo durante as animações de movimento do personagem. O problema vinha do fato de o jogo usar `time.sleep()` em vez de um clock de frames, fazendo com que a tela fosse redesenhada várias vezes sem incluir esses elementos. Lidamos revisando e reorganizando o fluxo de renderização conforme os problemas apareciam, centralizando o desenho do HUD e dos itens dentro da própria função de movimento para garantir que aparecessem em todos os frames.
 
 **Qual foi o maior desafio enfrentado durante o projeto? Como vocês lidaram com ele?**
 
@@ -183,9 +187,16 @@ A principal lição foi a importância de planejar a arquitetura do código ante
 
 **Instalação:**
 ```bash
+#Clone o repositório
 git clone https://github.com/Joao-Daniel2008/cinmon.git
+
+#Acesse a pasta do projeto
 cd cinmon
+
+# Instale a dependência gráfica
 pip install pygame
+
+# Inicie o jogo
 python jogo.py
 ```
 
