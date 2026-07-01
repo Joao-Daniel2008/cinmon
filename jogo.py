@@ -134,6 +134,7 @@ def cenario(posobj):
     cenario6 = False
     cenario9 = False
     cenario10 = False
+    cenario11 = False
     centrocin = False
     loja = False
     if posobj == variaveis.posobj1:
@@ -176,7 +177,11 @@ def cenario(posobj):
         cenario10 = True
         variaveis.listatual = variaveis.lista10
         variaveis.listaobjatual = variaveis.listaobj10
-    return cenario1, cenario2, cenario3, cenario4, cenario5, cenario6, centrocin, loja, cenario9, cenario10
+    elif posobj == variaveis.posobj11:
+        cenario11 = True
+        variaveis.listatual = variaveis.lista11
+        variaveis.listaobjatual = variaveis.listaobj11
+    return cenario1, cenario2, cenario3, cenario4, cenario5, cenario6, centrocin, loja, cenario9, cenario10, cenario11
 
 def gerenciando_servidor(servidor):
     global fila_receber
@@ -305,6 +310,7 @@ cenario5 = False
 cenario6 = False
 cenario9 = False
 cenario10 = False
+cenario11 = False
 centrocin = False
 loja = False
 
@@ -423,7 +429,7 @@ while rodando:
             equipe3.curar()
             equipe4.curar()
             
-            cenario1, cenario2, cenario3, cenario4, cenario5, cenario6, centrocin, loja, cenario9, cenario10 = cenario(variaveis.posobjatual)
+            cenario1, cenario2, cenario3, cenario4, cenario5, cenario6, centrocin, loja, cenario9, cenario10, cenario11 = cenario(variaveis.posobjatual)
         except:
             print('ERRO ERRO')
 
@@ -457,6 +463,8 @@ while rodando:
             fundo = imagens.centrocin
         elif cenario10:
             fundo = imagens.cenario10
+        elif cenario11:
+            fundo = imagens.cenario11
 
         if (not balao) and (not balao2):
             if tecla[pygame.K_RIGHT]:
@@ -672,6 +680,15 @@ while rodando:
                         variaveis.posobjatual, variaveis.listatual, variaveis.listaobjatual, fundo, variaveis.posx, variaveis.posy = funcoes_Classes.ircenario9(player, variaveis.posobj9, variaveis.posobjatual, fundo, variaveis.posy, variaveis.listatual, variaveis.listaobjatual, variaveis.lista9, variaveis.listaobj9, cenario6, cenario10)
                         cenario10 = False
                         cenario9 = True
+                        ba = False
+                        tentou = False
+            elif cenario11:
+                mudar = funcoes_Classes.verificar11_10(variaveis.posx, variaveis.posy, ci)
+                if mudar:
+                    if mudar:
+                        variaveis.posobjatual, variaveis.listatual, variaveis.listaobjatual, fundo, variaveis.posx, variaveis.posy = funcoes_Classes.ircenario10(player, variaveis.posx, variaveis.posy, variaveis.posobjatual, variaveis.posobj10, variaveis.listatual, variaveis.lista10, variaveis.listaobjatual, variaveis.listaobj10, fundo)
+                        cenario11 = False
+                        cenario10 = True
                         ba = False
                         tentou = False
 
