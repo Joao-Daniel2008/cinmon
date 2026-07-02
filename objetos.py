@@ -56,7 +56,7 @@ ginasio4.x = 256
 ginasio4.y = 64
 
 portagym_4 = imagens.porta.get_rect()
-portagymn_4.x = 448
+portagym_4.x = 448
 portagym_4.y = 384
 
 porta3_4 = imagens.porta.get_rect()
@@ -104,4 +104,3 @@ imagenst['treinador3'].y = 64
 
 imagenst['treinador4'].x = 512
 imagenst['treinador4'].y = 64
-
