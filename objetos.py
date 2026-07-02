@@ -104,4 +104,3 @@ imagenst['treinador3'].y = 64
 
 imagenst['treinador4'].x = 512
 imagenst['treinador4'].y = 64
-
