@@ -39,7 +39,7 @@ dracmeteor = funcoes_Classes.ataques('dracmeteor', 'dragao', 'dano', 5, 5, 20, 2
 obliterar = funcoes_Classes.ataques('obliterar', 'dragao', 'dano', 5, 5, 5, 5)
 
 #selfatk
-aura = funcoes_Classes.ataques('aura', 'aura', 'selfatk', 0, 0, 15, 15)
+aura = funcoes_Classes.ataques('aura', 'normal', 'selfatk', 0, 0, 15, 15)
 carregar = funcoes_Classes.ataques('carregar', 'normal', 'selfatk', 0, 0, 10, 10)
 chackra = funcoes_Classes.ataques('chakra', 'lutador', 'selfatk', 0, 0, 15, 15)
 superbad = funcoes_Classes.ataques('superbad', 'escuridao', 'selfatk', 0, 0, 5, 5)
