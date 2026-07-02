@@ -1015,6 +1015,7 @@ def selvagens_do_cenario(cenario):
         for n in range(4):
             selvagens.append(cimons.lupi)
         selvagens.append(cimons.rath)
+        selvagens.append(cimons.gengar)
         return selvagens
     elif cenario == imagens.cenario5:
         for n in range(2):
