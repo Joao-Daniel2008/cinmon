@@ -1739,6 +1739,7 @@ def avisoCombate(janela, treinador):
     elif treinador.nome == "arthur duque":
         rodarpalavra(palavra("Vai ter que abrir..."), batalha, janela)
         time.sleep(0.4)
+        limpar(janela, imagens.balaofala)
         rodarpalavra(palavra('Mais um ticket.'), batalha, janela)
         time.sleep(1)
 

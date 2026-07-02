@@ -941,10 +941,10 @@ while rodando:
 
     elif batalha:
         saveCenario = fundo
-        if (not ginasio):
-            fundo = imagens.fundo
+        if ginasio:
+            fundo = imagens.fundo2
         else:
-            fundo = imagens.fundo_ginasio
+            fundo = imagens.fundo
         if selvagem:
             batalha, selvagem, aleatorio, aviso, rodando = funcoes_Classes.batalha_selvagem(mochila, player, fundo, janela, equipe, selvagem, batalha, tecla, trainer, aleatorio, balao, saveCenario)
         elif trainer:
@@ -959,6 +959,7 @@ while rodando:
             cenario9 = False
             loja = False
             centrocin = True
+            ginasio = False
             variaveis.posobjatual, variaveis.listatual, variaveis.listaobjatual, fundo, variaveis.posy, variaveis.posx = funcoes_Classes.ircentrocin(player, variaveis.posx, variaveis.posy, variaveis.posobjatual, variaveis.posobj7, variaveis.listatual, variaveis.lista7, variaveis.listaobjatual, variaveis.listaobj7, fundo)
             variaveis.posx = 448
             variaveis.posy = 192
@@ -979,7 +980,7 @@ while rodando:
             qtd_bola = mochila.listaDeQtd[mochila.listaDeles.index(imagens.crachabola)]
             qtd_potion = mochila.listaDeQtd[mochila.listaDeles.index(imagens.potion)]
             estado['mochila'] = [['crachabola', qtd_bola],['potion',qtd_potion], mochila.dinheiro]
-            for n in ([equipe1, equipe2, equipe3, equipe4]):
+            for n in ([equipe1, equipe2, equipe3, equipe4, equipe5, equipe6, equipe7]):
                 if (not n.timevivo()) and treinador not in estado['treinadores_derrotados']:
                     estado['treinadores_derrotados'].append(indice)
     elif server or server_ativo:
