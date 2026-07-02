@@ -1,14 +1,14 @@
 {
-    "posicaox": 192,
-    "posicaoy": 384,
+    "posicaox": 448,
+    "posicaoy": 320,
     "posicao": [
-        192,
-        384
+        448,
+        320
     ],
     "equipe": [
         [
             "lupi",
-            0,
+            520,
             11
         ]
     ],
@@ -26,12 +26,24 @@
     "treinadores_derrotados": [],
     "posobj": [
         [
-            256,
+            384,
             64
         ],
         [
             512,
-            320
+            64
+        ],
+        [
+            448,
+            0
+        ],
+        [
+            576,
+            384
+        ],
+        [
+            320,
+            384
         ]
     ],
     "escolhaioda": true,

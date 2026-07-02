@@ -45,6 +45,7 @@ posobj7 = ((192, 128), (448, 72))
 posobj8 = ((192, 128), (448, 71))
 posobj9 = ((384, 64), (512, 64))
 posobj10 = ((256, 64), (512, 320))
+posobj11 = ((384, 64), (512, 64), (448, 0), (576, 384), (320, 384))
 posobjatual = posobj4
 
 #listas de objetos de cada cenário
@@ -57,8 +58,8 @@ lista6 =(imagens.centrocin1, imagens.porta, imagens.centrocin1, imagens.porta, i
 lista7 = (imagens.porta, imagens.jailson, imagens.player)
 lista8 = (imagens.porta, imagens.jailson, imagens.player)
 lista9 = (imagens.imagenst['treinador1'], imagens.imagenst['treinador1'],imagens.player)
-lista10 = (imagens.ginasio, imagens.portagym_4, imagens.player)
-lista11 = (imagens.ginasioDentro, imagens.imagenst['treinador5'], imagens.imagenst['treinador6'], imagens.imagenst['treinador7'])
+lista10 = (imagens.ginasio, imagens.porta, imagens.player)
+lista11 = (imagens.imagenst['treinador5'], imagens.imagenst['treinador6'], imagens.imagenst['treinador7'], imagens.porta, imagens.porta, imagens.player)
 listatual = lista4
 
 #listas dos rects de cada objeto dos cenários
@@ -72,7 +73,7 @@ listaobj7 = (objetos.mesa2_4, objetos.jailson4, objetos.player4)
 listaobj8 = (objetos.mesa2_4, objetos.jailson4, objetos.player4)
 listaobj9 = (objetos.imagenst['treinador3'], objetos.imagenst['treinador4'], objetos.player4)
 listaobj10 = (objetos.ginasio4, objetos.portagym_4, objetos.player4)
-listaobj11 = (objetos.ginasioDentro4, objetos.imagenst['treinador5'], objetos.imagenst['treinador6'], objetos.imagenst['treinador7'])
+listaobj11 = (objetos.imagenst['treinador5'], objetos.imagenst['treinador6'], objetos.imagenst['treinador7'], objetos.poste1_4, objetos.poste2_4, objetos.player4)
 listaobjatual = listaobj4
 
 padraoL = 160           #dimensão de largura dos cinmon

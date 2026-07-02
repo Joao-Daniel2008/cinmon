@@ -146,6 +146,10 @@ caminho_fundo = BASE_DIR / "assets" / "imagens" / "batalha" /"fundo.png"
 fundo = pygame.image.load(caminho_fundo)
 fundo = pygame.transform.scale(fundo, (largura, altura))
 
+caminho_fundoG = BASE_DIR / "assets" / "imagens" / "batalha" /"fundo_ginasio.png"
+fundo_ginasio = pygame.image.load(caminho_fundoG)
+fundo_ginasio = fundo = pygame.transform.scale(fundo_ginasio, (largura, altura))
+
 #cenarios
 caminho_cenario1 = BASE_DIR / "assets" / "imagens" / "cenarios" / "cenario.png"
 cenario1 = pygame.image.load(caminho_cenario1)
@@ -345,16 +349,16 @@ caminho_player = BASE_DIR / "assets" / "imagens" / "objetos1" / "porta.png"
 player = pygame.image.load(caminho_player)
 player = pygame.transform.scale(player, (largurap, alturap))
 
-caminho_treinador1 = BASE_DIR / "assets" / "imagens" / "treinadores" / "minis" / "treinador1.png"
+caminho_arthur = BASE_DIR / "assets" / "imagens" / "treinadores" / "grandes" / "arthur.png"
 caminho_treinador2 = BASE_DIR / "assets" / "imagens" / "treinadores" / "minis" / "treinador1.png"
 imagenst = {
-    'treinador1': pygame.image.load(caminho_treinador1),
+    'treinador1': pygame.image.load(caminho_treinador2),
     'treinador2': pygame.image.load(caminho_treinador2),
     'treinador3': pygame.image.load(caminho_treinador2),
     'treinador4': pygame.image.load(caminho_treinador2),
     'treinador5': pygame.image.load(caminho_treinador2),
     'treinador6': pygame.image.load(caminho_treinador2),
-    'treinador7': pygame.image.load(caminho_treinador2)
+    'treinador7': pygame.image.load(caminho_arthur)
 
 }
 for n in imagenst:
@@ -486,12 +490,8 @@ imagensc = {
 
 for n in imagens_cinmons:
     if n != 'teo':    #################
-        if n == 'gengar':
-            imagens_cinmons[n]['imagemf'] = pygame.transform.scale(imagens_cinmons[n]['imagemf'], (padraoL * 1.25, padraoA * 1.25))
-            imagens_cinmons[n]['imagemc'] = pygame.transform.scale(imagens_cinmons[n]['imagemc'], (padraoL * 1.25, padraoA * 1.25))
-        else:
-            imagens_cinmons[n]['imagemf'] = pygame.transform.scale(imagens_cinmons[n]['imagemf'], (padraoL * 1.5, padraoA * 1.5))
-            imagens_cinmons[n]['imagemc'] = pygame.transform.scale(imagens_cinmons[n]['imagemc'], (padraoL * 1.5, padraoA * 1.5))
+        imagens_cinmons[n]['imagemf'] = pygame.transform.scale(imagens_cinmons[n]['imagemf'], (padraoL * 1.5, padraoA * 1.5))
+        imagens_cinmons[n]['imagemc'] = pygame.transform.scale(imagens_cinmons[n]['imagemc'], (padraoL * 1.5, padraoA * 1.5))
 
 
 #numeros
