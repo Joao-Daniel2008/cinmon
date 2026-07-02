@@ -178,6 +178,10 @@ def cenario(posobj):
         cenario10 = True
         variaveis.listatual = variaveis.lista10
         variaveis.listaobjatual = variaveis.listaobj10
+    elif posobj == variaveis.posobj11:
+        ginasio = True
+        variaveis.listatual = variaveis.lista11
+        variaveis.listaobjatual = variaveis.listaobj11
     return cenario1, cenario2, cenario3, cenario4, cenario5, cenario6, centrocin, loja, cenario9, cenario10, ginasio
 
 def gerenciando_servidor(servidor):
@@ -238,9 +242,10 @@ equipe2.curar()
 treinador3 = funcoes_Classes.treinador('daniel')
 equipe3 = funcoes_Classes.equipe(3, 3, 0, [cimons.lupi.clonar(), cimons.mclovin.clonar(), cimons.mewtwo.clonar()])
 for n in range(len(equipe3.lista)):
-    equipe3.lista[n].xp += 90
-    if equipe3.lista[n].nome == 'lupi':
-        equipe3.lista[n].xp += 100
+    if equipe3.lista[n].nome == 'mewtwo':
+        equipe3.lista[n].xp += 210
+    else:
+        equipe3.lista[n].xp += 150
     equipe3.lista[n].subir_nivel()
 equipe3.curar()
 
@@ -252,25 +257,29 @@ for n in range(len(equipe4.lista)):
 equipe4.curar()
 
 treinador5 = funcoes_Classes.treinador('andre')
-equipe5 = funcoes_Classes.equipe(1, 1, 0, [cimons.gengar.clonar(),cimons.mewtwo.clonar()])
+equipe5 = funcoes_Classes.equipe(2, 2, 0, [cimons.gengar.clonar(),cimons.mewtwo.clonar()])
 for n in range(len(equipe5.lista)):
-    equipe5.lista[n].xp += 95
+    equipe5.lista[n].xp += 150
     equipe5.lista[n].subir_nivel()
 equipe5.curar()
 
 treinador6 = funcoes_Classes.treinador('joloca')
-equipe6 = funcoes_Classes.equipe(2, 2, 0, [cimons.gokussj.clonar(),cimons.narutobeast.clonar()])
+equipe6 = funcoes_Classes.equipe(2, 2, 0, [cimons.goku.clonar(),cimons.naruto.clonar()])
 for n in range(len(equipe6.lista)):
-    equipe6.lista[n].xp += 95
+    if equipe6.lista[n].nome == "naruto":
+        equipe6.lista[n].xp += 280
+    else:
+        equipe6.lista[n].xp += 210
     equipe6.lista[n].subir_nivel()
 equipe6.curar()
 
 treinador7 = funcoes_Classes.treinador('arthur duque')
-equipe7 = funcoes_Classes.equipe(1, 1, 0, [cimons.homelander.clonar(), cimons.arceus.clonar()])
+equipe7 = funcoes_Classes.equipe(2, 2, 0, [cimons.homelander.clonar(), cimons.arceus.clonar()])
 for n in range(len(equipe7.lista)):
-    equipe7.lista[n].xp += 100
     if equipe7.lista[n].nome == 'arceus':
-        equipe7.lista[n].xp += 180
+        equipe7.lista[n].xp += 280
+    else:
+        equipe7.lista[n].xp += 150
     equipe7.lista[n].subir_nivel()
 equipe7.curar()
 
@@ -278,7 +287,7 @@ equipe7.curar()
 #equipe_2 = equipe2
 #treinador = treinador1
 #equipe_2 = equipe1
-listaT = [imagens.cenario5, imagens.cenario9, imagens.ginasio]       #cenarios onde há treinadores
+listaT = [imagens.cenario5, imagens.cenario9, imagens.ginasioDentro]       #cenarios onde há treinadores
 listaitems1 = [imagens.crachabola, imagens.potion]           #imagens que há na loja
 
 rodando = True
@@ -462,7 +471,7 @@ while rodando:
         elif cenario10:
             fundo = imagens.cenario10
         elif ginasio:
-            fundo = imagens.ginasio
+            fundo = imagens.ginasioDentro
 
         if (not balao) and (not balao2):
             if tecla[pygame.K_RIGHT]:
@@ -665,7 +674,7 @@ while rodando:
                     tentou = False
                 mudar = funcoes_Classes.verificar9_10(variaveis.posx, variaveis.posy, ci)
                 if mudar:
-                    variaveis.posobjatual, variaveis.listatual, variaveis.listaobjatual, fundo, variaveis.posx, variaveis.posy = funcoes_Classes.ircenario10(player, variaveis.posx, variaveis.posy, variaveis.posobjatual, variaveis.posobj10, variaveis.listatual, variaveis.lista10, variaveis.listaobjatual, variaveis.listaobj10, fundo)
+                    variaveis.posobjatual, variaveis.listatual, variaveis.listaobjatual, fundo, variaveis.posx, variaveis.posy = funcoes_Classes.ircenario10(player, variaveis.posx, variaveis.posy, variaveis.posobjatual, variaveis.posobj10, variaveis.listatual, variaveis.lista10, variaveis.listaobjatual, variaveis.listaobj10, fundo, cenario9)
                     cenario9 = False
                     cenario10 = True
                     ci = False
@@ -679,14 +688,21 @@ while rodando:
                     cenario9 = True
                     ba = False
                     tentou = False
-
-            elif ginasio:
                 mudar = funcoes_Classes.verificar10_ginasio(player, objetos.portagym_4, variaveis.posx, variaveis.posy, ci)
                 if mudar:
-                    variaveis.posobjatual, variaveis.listatual, variaveis.listaobjatual, fundo, variaveis.posx, variaveis.posy = funcoes_Classes.ircenario9(player, variaveis.posobj11, variaveis.posobjatual, fundo, variaveis.posy, variaveis.listatual, variaveis.listaobjatual, variaveis.lista11, variaveis.listaobj11)
+                    variaveis.posobjatual, variaveis.listatual, variaveis.listaobjatual, fundo, variaveis.posx, variaveis.posy = funcoes_Classes.irginasio(player, variaveis.posx, variaveis.posy, variaveis.posobjatual, variaveis.posobj11, variaveis.listatual, variaveis.lista11, variaveis.listaobjatual, variaveis.listaobj11, fundo)
                     cenario10 = False
                     ginasio = True
                     ci = False
+                    tentou = False
+
+            elif ginasio:
+                mudar = funcoes_Classes.verificarginasio_10(variaveis.posx, variaveis.posy, ba)
+                if mudar:
+                    variaveis.posobjatual, variaveis.listatual, variaveis.listaobjatual, fundo, variaveis.posx, variaveis.posy = funcoes_Classes.ircenario10(player, variaveis.posx, variaveis.posy, variaveis.posobjatual, variaveis.posobj10, variaveis.listatual, variaveis.lista10, variaveis.listaobjatual, variaveis.listaobj10, fundo, cenario9)
+                    ginasio = False
+                    cenario10 = True
+                    ba = False
                     tentou = False
                     
 
@@ -793,6 +809,10 @@ while rodando:
                 indice = 'treinador6'
                 treinador = treinador6
                 equipe_2 = equipe6
+            elif treinador == "treinador7":
+                indice = "treinador7"
+                treinador = treinador7
+                equipe_2 = equipe7
             if equipe_2.timevivo() and indice not in estado['treinadores_derrotados']:
                 batalha = True
                 musicaB = True
@@ -921,7 +941,10 @@ while rodando:
 
     elif batalha:
         saveCenario = fundo
-        fundo = imagens.fundo
+        if (not ginasio):
+            fundo = imagens.fundo
+        else:
+            fundo = imagens.fundo_ginasio
         if selvagem:
             batalha, selvagem, aleatorio, aviso, rodando = funcoes_Classes.batalha_selvagem(mochila, player, fundo, janela, equipe, selvagem, batalha, tecla, trainer, aleatorio, balao, saveCenario)
         elif trainer:
@@ -1440,8 +1463,5 @@ while rodando:
             pygame.display.update()
 
 
-        
-
-    print(variaveis.posx)
     pygame.display.update()
     sleep(0.1)

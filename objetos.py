@@ -56,10 +56,20 @@ ginasio4.x = 256
 ginasio4.y = 64
 
 portagym_4 = imagens.porta.get_rect()
+portagym_4.x = 512
+portagym_4.y = 320
 
 porta3_4 = imagens.porta.get_rect()
 porta3_4.x = 832
 porta3_4.y = 256
+
+poste1_4 = pygame.transform.scale(imagens.porta, (imagens.largurap * 2, imagens.alturap * 2)).get_rect()
+poste1_4.x = 576
+poste1_4.y = 384
+
+poste2_4 = pygame.transform.scale(imagens.porta, (imagens.largurap * 2, imagens.alturap * 2)).get_rect()
+poste2_4.x = 320
+poste2_4.y = 384
 
 cerca_cen3 = imagens.cerca.get_rect()
 cerca_cen3.x = 0
@@ -89,7 +99,10 @@ imagenst = {
     'treinador1' : imagens.imagenst['treinador1'].get_rect(),
     'treinador2' : imagens.imagenst['treinador2'].get_rect(),
     'treinador3' : imagens.imagenst['treinador3'].get_rect(),
-    'treinador4' : imagens.imagenst['treinador4'].get_rect()
+    'treinador4' : imagens.imagenst['treinador4'].get_rect(),
+    'treinador5' : imagens.imagenst['treinador5'].get_rect(),
+    'treinador6' : imagens.imagenst['treinador6'].get_rect(),
+    'treinador7' : imagens.imagenst['treinador7'].get_rect()
 }
 imagenst['treinador1'].x = 576
 imagenst['treinador1'].y = 192
@@ -103,11 +116,11 @@ imagenst['treinador3'].y = 64
 imagenst['treinador4'].x = 512
 imagenst['treinador4'].y = 64
 
-imagenst['treinador5'].x = 256
+imagenst['treinador5'].x = 384
 imagenst['treinador5'].y = 64
 
-imagenst['treinador6'].x = 384
+imagenst['treinador6'].x = 512
 imagenst['treinador6'].y = 64
 
-imagenst['treinador7'].x = 512
+imagenst['treinador7'].x = 448
 imagenst['treinador7'].y = 0

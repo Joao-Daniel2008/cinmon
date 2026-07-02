@@ -1691,36 +1691,55 @@ def encontrar_treinador(posx, posy, listaT, cenario):
             elif posx == 512 and 64 <= posy <= 128:
                 treinador = 'treinador4'
                 return treinador, True
+        if cenario == imagens.ginasioDentro:
+            if posx == 384 and 128 <= posy <= 256:
+                treinador = "treinador5"
+                return treinador, True
+            elif posx == 512 and 128 <= posy <= 256:
+                treinador = "treinador6"
+                return treinador, True
+            elif posx == 448 and 64 <= posy <= 256:
+                treinador = "treinador7"
+                return treinador, True
+        
     return treinador, False
 
 def avisoCombate(janela, treinador):
     limpar(janela, imagens.balaofala)
     batalha = False
     if treinador.nome == 'ewerton':
-        rodarpalavra(palavra('sinta minha aura'), batalha, janela)
+        rodarpalavra(palavra('que azar.'), batalha, janela)
         time.sleep(1)
+        limpar(janela, imagens.balaofala)
+        rodapalavra(palavra("que aura da poxa."), batalha, janela)
     elif treinador.nome == 'jl':
-        rodarpalavra(palavra('nao grita'), batalha, janela)
+        rodarpalavra(palavra('nao grita.'), batalha, janela)
         time.sleep(1)
     elif treinador.nome == 'daniel':
-        rodarpalavra(palavra('voce nao tem aura mano'), batalha, janela)
+        rodarpalavra(palavra('voce nao tem aura mano.'), batalha, janela)
         time.sleep(1)
     elif treinador.nome == 'marcelo':
-        rodarpalavra(palavra('shiny mega rayquaza'), batalha, janela)
+        rodarpalavra(palavra('shiny mega rayquaza...'), batalha, janela)
         time.sleep(0.4)
         limpar(janela, imagens.balaofala)
-        rodarpalavra(palavra('com 6 ivs perfeitos'), batalha, janela)
+        rodarpalavra(palavra('com 6 ivs perfeitos...'), batalha, janela)
         time.sleep(0.4)
         limpar(janela, imagens.balaofala)
         rodarpalavra(palavra('use obliteraaaaar'), batalha, janela)
         time.sleep(1)
     elif treinador.nome == 'andre':
-        rodarpalavra(palavra('hmmmm'), batalha, janela)
+        rodarpalavra(palavra('hmmmm...'), batalha, janela)
         time.sleep(1)
     elif treinador.nome == 'joloca':
-        rodarpalavra(palavra('voce vai ficar confuso'), batalha, janela)
+        rodarpalavra(palavra('voce vai ficar confuso...'), batalha, janela)
         time.sleep(0.4)
-        rodarpalavra(palavra('melhor treinar mais'), batalha, janela)
+        limpar(janela, imagens.balaofala)
+        rodarpalavra(palavra('treina no fim de semana visse.'), batalha, janela)
+        time.sleep(1)
+    elif treinador.nome == "arthur duque":
+        rodarpalavra(palavra("Vai ter que abrir..."), batalha, janela)
+        time.sleep(0.4)
+        rodarpalavra(palavra('Mais um ticket.'), batalha, janela)
         time.sleep(1)
 
 def menu(janela, equipe, balao, mov1a, escolhendo, bolsa, tecla, marca):
@@ -2804,7 +2823,7 @@ def irginasio(self, posx, posy, posobjatual, posobj, listatual, lista, listaobja
     listatual = lista
     listaobjatual = listaobj
     self.visual = imagens.atras
-    fundo = imagens.centrocin
+    fundo = imagens.ginasioDentro
     variaveis.gramasatual = ()
     variaveis.gramasxatual = ()
     variaveis.gramasyatual = ()
@@ -2835,17 +2854,21 @@ def irloja(self, posx, posy, posobjatual, posobj8, listatual, lista8, listaobjat
     variaveis.gramas4_atual = []
     return posobjatual, listatual, listaobjatual, fundo, 448, variaveis.altura - variaveis.alturap
 
-def ircenario10(self, posx, posy, posobjatual, posobj, listatual, lista, listaobjatual, listaobj, fundo):
+def ircenario10(self, posx, posy, posobjatual, posobj, listatual, lista, listaobjatual, listaobj, fundo, cenario):
     posobjatual = posobj
     listatual = lista
     listaobjatual = listaobj
-    self.visual = imagens.atras
     fundo = imagens.cenario10
     variaveis.gramasatual = ()
     variaveis.gramasxatual = ()
     variaveis.gramasyatual = ()
     variaveis.gramas4_atual = []
-    return posobjatual, listatual, listaobjatual, fundo, variaveis.posx, variaveis.altura - variaveis.alturap
+    if cenario:
+        self.visual = imagens.atras
+        return posobjatual, listatual, listaobjatual, fundo, variaveis.posx, variaveis.altura - variaveis.alturap
+    else:
+        self.visual = imagens.frente
+        return posobjatual, listatual, listaobjatual, fundo, variaveis.posx + imagens.alturap, variaveis.altura - (variaveis.alturap*2)
 
 
 #funcoes de verificar
@@ -2974,4 +2997,10 @@ def verificar10_ginasio(self, objeto, posx, posy, direcao):
         return True
     else:
         self.rect.y = save
+        return False
+
+def verificarginasio_10(posx, posy, direcao):
+    if posy == (imagens.altura - imagens.alturap) and posx == 448 and direcao:
+        return True
+    else:
         return False
