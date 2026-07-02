@@ -146,9 +146,10 @@ caminho_fundo = BASE_DIR / "assets" / "imagens" / "batalha" /"fundo.png"
 fundo = pygame.image.load(caminho_fundo)
 fundo = pygame.transform.scale(fundo, (largura, altura))
 
-caminho_fundoG = BASE_DIR / "assets" / "imagens" / "batalha" /"fundo_ginasio.png"
-fundo_ginasio = pygame.image.load(caminho_fundoG)
-fundo_ginasio = fundo = pygame.transform.scale(fundo_ginasio, (largura, altura))
+caminhofundo2 = caminho_fundo = BASE_DIR / "assets" / "imagens" / "fundo2" /"fundo2.png"
+fundo2 = pygame.image.load(caminhofundo2)
+fundo2 = pygame.transform.scale(fundo2, (largura, altura))
+
 
 #cenarios
 caminho_cenario1 = BASE_DIR / "assets" / "imagens" / "cenarios" / "cenario.png"
