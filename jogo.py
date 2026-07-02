@@ -136,6 +136,7 @@ def cenario(posobj):
     cenario10 = False
     cenario11 = False
     centrocin = False
+    ginasio = False
     loja = False
     if posobj == variaveis.posobj1:
         cenario1 = True
@@ -177,11 +178,7 @@ def cenario(posobj):
         cenario10 = True
         variaveis.listatual = variaveis.lista10
         variaveis.listaobjatual = variaveis.listaobj10
-    elif posobj == variaveis.posobj11:
-        cenario11 = True
-        variaveis.listatual = variaveis.lista11
-        variaveis.listaobjatual = variaveis.listaobj11
-    return cenario1, cenario2, cenario3, cenario4, cenario5, cenario6, centrocin, loja, cenario9, cenario10, cenario11
+    return cenario1, cenario2, cenario3, cenario4, cenario5, cenario6, centrocin, loja, cenario9, cenario10, ginasio
 
 def gerenciando_servidor(servidor):
     global fila_receber
@@ -227,14 +224,14 @@ def iniciar_servidor(HOST):
 treinador1 = funcoes_Classes.treinador('ewerton')
 equipe1 = funcoes_Classes.equipe(2, 2, 0, [cimons.gengar.clonar(), cimons.lupi.clonar()])
 for n in range(len(equipe1.lista)):
-    equipe1.lista[n].xp += 25
+    equipe1.lista[n].xp += 30
     equipe1.lista[n].subir_nivel()
 equipe1.curar()
 
 treinador2 = funcoes_Classes.treinador('jl')
-equipe2 = funcoes_Classes.equipe(1, 1, 0, [cimons.goku.clonar(), cimons.rath.clonar()])
+equipe2 = funcoes_Classes.equipe(1, 1, 0, [cimons.goku.clonar()])
 for n in range(len(equipe2.lista)):
-    equipe2.lista[n].xp += 45
+    equipe2.lista[n].xp += 60
     equipe2.lista[n].subir_nivel()
 equipe2.curar()
 
@@ -281,7 +278,7 @@ equipe7.curar()
 #equipe_2 = equipe2
 #treinador = treinador1
 #equipe_2 = equipe1
-listaT = [imagens.cenario5, imagens.cenario9]       #cenarios onde há treinadores
+listaT = [imagens.cenario5, imagens.cenario9, imagens.ginasio]       #cenarios onde há treinadores
 listaitems1 = [imagens.crachabola, imagens.potion]           #imagens que há na loja
 
 rodando = True
@@ -312,6 +309,7 @@ cenario9 = False
 cenario10 = False
 cenario11 = False
 centrocin = False
+ginasio = False
 loja = False
 
 musicaP = True
@@ -429,7 +427,7 @@ while rodando:
             equipe3.curar()
             equipe4.curar()
             
-            cenario1, cenario2, cenario3, cenario4, cenario5, cenario6, centrocin, loja, cenario9, cenario10, cenario11 = cenario(variaveis.posobjatual)
+            cenario1, cenario2, cenario3, cenario4, cenario5, cenario6, centrocin, loja, cenario9, cenario10, ginasio = cenario(variaveis.posobjatual)
         except:
             print('ERRO ERRO')
 
@@ -463,8 +461,8 @@ while rodando:
             fundo = imagens.centrocin
         elif cenario10:
             fundo = imagens.cenario10
-        elif cenario11:
-            fundo = imagens.cenario11
+        elif ginasio:
+            fundo = imagens.ginasio
 
         if (not balao) and (not balao2):
             if tecla[pygame.K_RIGHT]:
@@ -676,21 +674,24 @@ while rodando:
             elif cenario10:
                 mudar = funcoes_Classes.verificar10_9(variaveis.posx, variaveis.posy, ba)
                 if mudar:
-                    if mudar:
-                        variaveis.posobjatual, variaveis.listatual, variaveis.listaobjatual, fundo, variaveis.posx, variaveis.posy = funcoes_Classes.ircenario9(player, variaveis.posobj9, variaveis.posobjatual, fundo, variaveis.posy, variaveis.listatual, variaveis.listaobjatual, variaveis.lista9, variaveis.listaobj9, cenario6, cenario10)
-                        cenario10 = False
-                        cenario9 = True
-                        ba = False
-                        tentou = False
-            elif cenario11:
-                mudar = funcoes_Classes.verificar11_10(variaveis.posx, variaveis.posy, ci)
+                    variaveis.posobjatual, variaveis.listatual, variaveis.listaobjatual, fundo, variaveis.posx, variaveis.posy = funcoes_Classes.ircenario9(player, variaveis.posobj9, variaveis.posobjatual, fundo, variaveis.posy, variaveis.listatual, variaveis.listaobjatual, variaveis.lista9, variaveis.listaobj9, cenario6, cenario10)
+                    cenario10 = False
+                    cenario9 = True
+                    ba = False
+                    tentou = False
+
+            elif ginasio:
+                mudar = funcoes_Classes.verificar10_ginasio(player, objetos.portagym_4, variaveis.posx, variaveis.posy, ci)
                 if mudar:
-                    if mudar:
-                        variaveis.posobjatual, variaveis.listatual, variaveis.listaobjatual, fundo, variaveis.posx, variaveis.posy = funcoes_Classes.ircenario10(player, variaveis.posx, variaveis.posy, variaveis.posobjatual, variaveis.posobj10, variaveis.listatual, variaveis.lista10, variaveis.listaobjatual, variaveis.listaobj10, fundo)
-                        cenario11 = False
-                        cenario10 = True
-                        ba = False
-                        tentou = False
+                    variaveis.posobjatual, variaveis.listatual, variaveis.listaobjatual, fundo, variaveis.posx, variaveis.posy = funcoes_Classes.ircenario9(player, variaveis.posobj11, variaveis.posobjatual, fundo, variaveis.posy, variaveis.listatual, variaveis.listaobjatual, variaveis.lista11, variaveis.listaobj11)
+                    cenario10 = False
+                    ginasio = True
+                    ci = False
+                    tentou = False
+                    
+
+
+
 
             
             elif centrocin:
@@ -985,7 +986,7 @@ while rodando:
 
             
             janela.blit(imagens.balaofala, (64, 384))
-            frase = funcoes_Classes.palavra(f'HOST {"".join(lista)}')
+            frase = funcoes_Classes.palavra(f'HOST:{"".join(lista)}')
             HOST = ''.join(lista)
             aux = 8
             for letra in frase:
@@ -1440,7 +1441,6 @@ while rodando:
 
 
         
-
 
     print(variaveis.posx)
     pygame.display.update()

@@ -48,7 +48,7 @@ superbad = funcoes_Classes.ataques('superbad', 'escuridao', 'selfatk', 0, 0, 5, 
 ataques = [bater, kamehameha, explosao, rasengan, morder, escuridao,
             investida, voadora, ventania, brasas, laser, estrelas, 
             furia, dracmeteor, enfurecer, aura, carregar, chackra,
-            superbad]
+            superbad, obliterar, bola_sombria, juizo_final]
 
 lupi = funcoes_Classes.Cimons('lupi', 'normal', imagens['lupi']['imagemc'], imagens['lupi']['imagemf'], imagens['lupi']['mini'], 11, 11, 11, 1, 0, {'ataque1':bater, 'ataque2': morder}, [voadora, 0, aura], [], 1)
 rayquaza = funcoes_Classes.Cimons('rayquaza', 'voador', imagens['rayquaza']['imagemc'], imagens['rayquaza']['imagemf'], imagens['rayquaza']['mini'], 14, 14, 14, 1, 0, {'ataque1':morder, 'ataque2':ventania}, [furia, 0, enfurecer], [], 1.25)

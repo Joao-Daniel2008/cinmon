@@ -1956,6 +1956,10 @@ def palavra(palavra):
             lista.append(imagens.nove)
         elif no == '0':
             lista.append(imagens.zero)
+        elif no == ".":
+            lista.append(imagens.ponto)
+        elif no == ":":
+            lista.append(imagens.pontos2)
     return lista
 
 def rodarpalavra(lista, batalha, janela):
@@ -2795,6 +2799,17 @@ def ircenario9(self, posobj, posobjatual, fundo, posy, listatual, listaobjatual,
     self.posicao = (variaveis.posx, variaveis.posy)
     return posobjatual, listatual, listaobjatual, fundo, variaveis.posx, variaveis.posy
 
+def irginasio(self, posx, posy, posobjatual, posobj, listatual, lista, listaobjatual, listaobj, fundo):
+    posobjatual = posobj
+    listatual = lista
+    listaobjatual = listaobj
+    self.visual = imagens.atras
+    fundo = imagens.centrocin
+    variaveis.gramasatual = ()
+    variaveis.gramasxatual = ()
+    variaveis.gramasyatual = ()
+    variaveis.gramas4_atual = []
+    return posobjatual, listatual, listaobjatual, fundo, 448, variaveis.altura - variaveis.alturap
 
 def ircentrocin(self, posx, posy, posobjatual, posobj7, listatual, lista7, listaobjatual, listaobj7, fundo):
     posobjatual = posobj7
@@ -2950,4 +2965,13 @@ def verificar10_9(posx, posy, direcao):
     if posy == imagens.altura - imagens.alturap and direcao:
         return True
     else:
+        return False
+
+def verificar10_ginasio(self, objeto, posx, posy, direcao):
+    save = self.rect.y
+    self.rect.y -= 64
+    if self.rect.colliderect(objeto):
+        return True
+    else:
+        self.rect.y = save
         return False
