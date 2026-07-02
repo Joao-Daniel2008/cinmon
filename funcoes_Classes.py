@@ -1711,7 +1711,7 @@ def avisoCombate(janela, treinador):
         rodarpalavra(palavra('que azar.'), batalha, janela)
         time.sleep(1)
         limpar(janela, imagens.balaofala)
-        rodapalavra(palavra("que aura da poxa."), batalha, janela)
+        rodarpalavra(palavra("que aura da poxa."), batalha, janela)
     elif treinador.nome == 'jl':
         rodarpalavra(palavra('nao grita.'), batalha, janela)
         time.sleep(1)
