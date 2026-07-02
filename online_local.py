@@ -6,7 +6,7 @@ from time import sleep
 
 
 def resolver_turno(idplayer, conexao):
-    global cimons1, escolhas_turno, primeira, jogou, status1, status2, condicao_turno, sups
+    global cimons1, escolhas_turno, primeira, jogou, status1, status2, condicao_turno, sups, hpAnterior1, hpAnterior2
 
     if idplayer != 1:
         with condicao_turno:
@@ -127,7 +127,7 @@ def resolver_turno(idplayer, conexao):
     
 
 def minha_troca_seu_ataque(idplayer, conexao):
-    global escolhas_turno, cimons1, primeira, jogou, status1, status2, condicao_turno, sups
+    global escolhas_turno, cimons1, primeira, jogou, status1, status2, condicao_turno, sups, hpAnterior1, hpAnterior2
 
     if idplayer != 1:
         with condicao_turno:
@@ -271,7 +271,7 @@ def minha_troca_seu_ataque(idplayer, conexao):
             escolhas_turno.clear()
 
 def meu_ataque_sua_troca(idplayer, conexao):
-    global escolhas_turno, cimons1, primeira, jogou, status1, status2, condicao_turno, sups
+    global escolhas_turno, cimons1, primeira, jogou, status1, status2, condicao_turno, sups, hpAnterior1, hpAnterior2
 
     if idplayer != 1:
         with condicao_turno:
