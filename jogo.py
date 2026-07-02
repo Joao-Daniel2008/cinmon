@@ -134,6 +134,7 @@ def cenario(posobj):
     cenario6 = False
     cenario9 = False
     cenario10 = False
+    cenario11 = False
     centrocin = False
     ginasio = False
     loja = False
@@ -306,6 +307,7 @@ cenario5 = False
 cenario6 = False
 cenario9 = False
 cenario10 = False
+cenario11 = False
 centrocin = False
 ginasio = False
 loja = False
