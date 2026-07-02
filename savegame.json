@@ -15,7 +15,7 @@
     "mochila": [
         [
             "crachabola",
-            4
+            2
         ],
         [
             "potion",
@@ -30,8 +30,8 @@
             64
         ],
         [
-            256,
-            64
+            512,
+            320
         ]
     ],
     "escolhaioda": true,

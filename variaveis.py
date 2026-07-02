@@ -44,7 +44,7 @@ posobj6 = ((704, 64), (832, 256), (64, 64), (192, 256))
 posobj7 = ((192, 128), (448, 72))
 posobj8 = ((192, 128), (448, 71))
 posobj9 = ((384, 64), (512, 64))
-posobj10 = ((256, 64), (256, 64))
+posobj10 = ((256, 64), (512, 320))
 posobjatual = posobj4
 
 #listas de objetos de cada cenário
@@ -57,7 +57,7 @@ lista6 =(imagens.centrocin1, imagens.porta, imagens.centrocin1, imagens.porta, i
 lista7 = (imagens.porta, imagens.jailson, imagens.player)
 lista8 = (imagens.porta, imagens.jailson, imagens.player)
 lista9 = (imagens.imagenst['treinador1'], imagens.imagenst['treinador1'],imagens.player)
-lista10 = (imagens.ginasio, imagens.ginasio, imagens.player)
+lista10 = (imagens.ginasio, imagens.porta, imagens.player)
 listatual = lista4
 
 #listas dos rects de cada objeto dos cenários
@@ -70,7 +70,7 @@ listaobj6 = (objetos.centrocin1_4, objetos.porta3_4, objetos.loja1_4, objetos.po
 listaobj7 = (objetos.mesa2_4, objetos.jailson4, objetos.player4)
 listaobj8 = (objetos.mesa2_4, objetos.jailson4, objetos.player4)
 listaobj9 = (objetos.imagenst['treinador3'], objetos.imagenst['treinador4'], objetos.player4)
-listaobj10 = (objetos.ginasio4, objetos.ginasio4, objetos.player4)
+listaobj10 = (objetos.ginasio4, objetos.portagym_4, objetos.player4)
 listaobjatual = listaobj4
 
 padraoL = 160           #dimensão de largura dos cinmon
